@@ -650,6 +650,69 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &431804492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 963996829840646937, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
+    type: 3}
+  m_PrefabInstance: {fileID: 1854828787}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &431804500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431804492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462a9de21a5ee18499cd627428f690d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionLight: {fileID: 643556169}
+--- !u!1 &643556168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 643556170}
+  - component: {fileID: 643556169}
+  m_Layer: 0
+  m_Name: LightManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &643556169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643556168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f22673a950284419190ab5395496bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLightIntensity: 3
+--- !u!4 &643556170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643556168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.319827, y: 1.1109227, z: 6.5556593}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,8 +1119,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882549708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5181115, y: 2.41, z: 3.1}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.5181115, y: 2.41, z: 3.0999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1072,10 +1135,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 882549708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f22673a950284419190ab5395496bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 7573ae17eb366e147b7f78d0851cd234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLightIntensity: 3
+  lightSetting: {fileID: 882549709}
+  option: {fileID: 643556169}
 --- !u!1 &909621428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,12 +2804,12 @@ PrefabInstance:
     - target: {fileID: 1624080178200869323, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 3.5139832
+      value: 3.516884
       objectReference: {fileID: 0}
     - target: {fileID: 1624080178200869323, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 7.2609878
+      value: 7.130448
       objectReference: {fileID: 0}
     - target: {fileID: 2812616353138963971, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
@@ -2755,7 +2819,7 @@ PrefabInstance:
     - target: {fileID: 2812616353138963971, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.514
+      value: 3.5169008
       objectReference: {fileID: 0}
     - target: {fileID: 2812616353138963971, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
@@ -2765,7 +2829,7 @@ PrefabInstance:
     - target: {fileID: 2812616353138963971, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.277
+      value: 7.14646
       objectReference: {fileID: 0}
     - target: {fileID: 2812616353138963971, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
@@ -2806,6 +2870,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: lever
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458987432284110365, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4887392637965544570, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
         type: 3}
