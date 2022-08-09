@@ -5,28 +5,24 @@ using UnityEngine;
 public class optionLight : MonoBehaviour
 {
     // Start is called before the first frame update
-
-    private Light lightSetting;
-    public float currentLightIntensity;
     private float limitIntensity = 15.0f;
+    public float currentLightIntensity;
+    
     void Start()
     {
-        lightSetting = GetComponent<Light>();
+        currentLightIntensity = 3;
     }
 
     
     void Update()
     {
-        lightSetting.intensity = currentLightIntensity;
-        if (lightSetting.intensity > limitIntensity)
+        if (currentLightIntensity > limitIntensity)
         {
-            lightSetting.intensity = limitIntensity;
             currentLightIntensity = limitIntensity;
-        }
-        else if (lightSetting.intensity <= 0.0f)
+        }else if (currentLightIntensity <= 0)
         {
-            lightSetting.intensity = 0.0f;
-            currentLightIntensity = 0.0f;
+            currentLightIntensity = 0;
         }
+
     }
 }
