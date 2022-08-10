@@ -17,7 +17,7 @@ public class LightControlUI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        curLightIntensity = trans.rotation.x / 100;
+        curLightIntensity = trans.rotation.x;
         optionLight.currentLightIntensity += curLightIntensity;
     }
 }

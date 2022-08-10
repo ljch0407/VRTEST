@@ -425,7 +425,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.41275117, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 8.927482, y: 0.56638414, z: 0.053154796}
+  m_ConnectedAnchor: {x: 9.084474, y: 0.35083532, z: 0.16174546}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
@@ -650,25 +650,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &431804492 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 963996829840646937, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
-    type: 3}
-  m_PrefabInstance: {fileID: 1854828787}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &431804500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431804492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 462a9de21a5ee18499cd627428f690d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionLight: {fileID: 643556169}
 --- !u!1 &643556168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1043,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0
+  m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2159,6 +2140,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4622f9223a29d641928cff1fe45714e, type: 3}
+--- !u!1 &1588268832 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7616813464493348612, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
+    type: 3}
+  m_PrefabInstance: {fileID: 1854828787}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1588268839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588268832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462a9de21a5ee18499cd627428f690d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionLight: {fileID: 643556169}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +2955,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.0175
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924090794624018101, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 3.5170622
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924090794624018101, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.858739
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924090794624018101, guid: 3fbf706444674ff4fb3e2bfea3ee0289,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 7.1379495
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fbf706444674ff4fb3e2bfea3ee0289, type: 3}
