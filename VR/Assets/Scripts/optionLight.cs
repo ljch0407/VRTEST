@@ -19,9 +19,9 @@ public class optionLight : MonoBehaviour
         if (currentLightIntensity > limitIntensity)
         {
             currentLightIntensity = limitIntensity;
-        }else if (currentLightIntensity <= 0)
+        }else if (currentLightIntensity <= 0.2f)
         {
-            currentLightIntensity = 0;
+            currentLightIntensity = 0.2f;
         }
 
     }
