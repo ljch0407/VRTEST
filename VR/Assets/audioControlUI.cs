@@ -15,7 +15,11 @@ public class audioControlUI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        curAudioVolume = trans.rotation.x;
-        optionAudio.currentAudioVolume += curAudioVolume;
-    }
+        if (Mathf.Abs(trans.rotation.x) > 0.001)
+        {
+            curAudioVolume = trans.rotation.x;
+            optionAudio.currentAudioVolume += curAudioVolume; 
+        }
+}
+
 }
