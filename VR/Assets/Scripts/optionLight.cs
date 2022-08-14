@@ -5,7 +5,7 @@ using UnityEngine;
 public class optionLight : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float limitIntensity = 15.0f;
+    private float limitIntensity = 10.0f;
     public float currentLightIntensity;
     
     void Start()
