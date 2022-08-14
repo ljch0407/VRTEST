@@ -88,6 +88,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Start button",
+                    "type": "Button",
+                    "id": "41b78599-7e82-4f79-b6bc-3cd4e3d9ed9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -198,6 +207,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Tracking State",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9dda639d-039d-418b-adcf-8ce654daa989",
+                    "path": "<XRController>{LeftHand}/menuButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
