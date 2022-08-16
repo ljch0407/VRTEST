@@ -41,7 +41,7 @@ public class GameStartObject : MonoBehaviour
     }
     void TriggerPulled(ActivateEventArgs args)
     {
-        m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().PlayerLocationBefore.position;
+        m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
         Debug.Log("Triigerpulled");
         m_TriggerDown = true;
     }

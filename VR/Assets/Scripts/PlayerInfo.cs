@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEditor.XR.Interaction.Toolkit;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,19 +11,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class PlayerInfo : MonoBehaviour
 {
 
-    public int HealthPoint;
-    private int HasMagicGemCount;
+    public int healthPoint;
+    private int hasMagicGemCount;
 
-    private bool IsHasteReady = true;
-    private bool IsFlashReady = true;
-    private bool IsPathFindReady = true;
+    private bool isHasteReady = true;
+    private bool isFlashReady = true;
+    private bool isPathFindReady = true;
 
-    private float HasteCooldown = 5f;
-    private float FlashCooldown = 5f;
-    private float PathFindCooldown = 10f;
+    private float hasteCooldown = 5f;
+    private float flashCooldown = 5f;
+    private float pathFindCooldown = 10f;
 
     public Transform menuTransform;
-    public Transform PlayerLocationBefore;
+    public Transform playerLocationBefore;
 
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
@@ -36,8 +37,8 @@ public class PlayerInfo : MonoBehaviour
         menuTransform.transform.position = new Vector3(6f, 0f, 2f);
         menuTransform.transform.rotation = new Quaternion(0, -0.87f, 0, 0.47f);
         
-        HealthPoint = 2;
-        HasMagicGemCount = 0;
+        healthPoint = 2;
+        hasMagicGemCount = 0;
         
         rightControllerCharacteristics =
             InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
@@ -53,7 +54,7 @@ public class PlayerInfo : MonoBehaviour
 
     void Update()
     {
-        if (HealthPoint < 2)
+        if (healthPoint < 2)
         {
             GameObject postProcess = GameObject.Find("Post-process P");
             Volume postVolume = postProcess.gameObject.GetComponent<Volume>();
@@ -69,7 +70,19 @@ public class PlayerInfo : MonoBehaviour
         if (targetDevice.TryGetFeatureValue(CommonUsages.menuButton, out menuButton) && menuButton)
         {
             Debug.Log("Menu Button Pressed");
+            StartCoroutine(MenuRoomEnter());
+            Debug.Log("Menu Room Entered");
         }
+    }
+
+    private IEnumerator MenuRoomEnter()
+    {
+        playerLocationBefore.position = transform.position;
+        playerLocationBefore.rotation = transform.rotation;
+
+        transform.position = menuTransform.position;
+        transform.rotation = menuTransform.rotation;
+        yield return new WaitForSeconds(2.0f);
     }
 
 
