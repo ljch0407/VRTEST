@@ -25,6 +25,9 @@ public class PlayerInfo : MonoBehaviour
     public Transform menuTransform;
     public Transform playerLocationBefore;
 
+    public AudioSource menuAudioSource;
+    public AudioSource gameAudioSource;
+    
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
@@ -82,6 +85,10 @@ public class PlayerInfo : MonoBehaviour
 
         transform.position = menuTransform.position;
         transform.rotation = menuTransform.rotation;
+
+        menuAudioSource.enabled = true;
+        gameAudioSource.enabled = false;
+        
         yield return new WaitForSeconds(2.0f);
     }
 

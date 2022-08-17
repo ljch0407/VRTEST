@@ -10,6 +10,9 @@ public class GameStartObject : MonoBehaviour
     public XRGrabInteractable m_InteractableBase;
 
     public Transform m_TeleportLocation;
+
+    private AudioSource menuAudioSource;
+    private AudioSource gameAudioSource;
     private Transform m_postPlayerTransform;
     private GameObject m_target;
     private bool m_TriggerDown = false;
@@ -21,6 +24,9 @@ public class GameStartObject : MonoBehaviour
         m_InteractableBase.selectExited.AddListener(DropObject);
         m_InteractableBase.deactivated.AddListener(TriggerReleased);
         m_InteractableBase.activated.AddListener(TriggerPulled);
+
+        gameAudioSource = GameObject.Find("Game Audio").GetComponent<AudioSource>();
+        menuAudioSource = GameObject.Find("Menu Audio").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -42,6 +48,8 @@ public class GameStartObject : MonoBehaviour
     void TriggerPulled(ActivateEventArgs args)
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
+        menuAudioSource.enabled = false;
+        gameAudioSource.enabled = true;
         Debug.Log("Triigerpulled");
         m_TriggerDown = true;
     }
