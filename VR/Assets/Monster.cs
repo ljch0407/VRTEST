@@ -24,6 +24,11 @@ public class Monster : MonoBehaviour
 
     private float blindedTime;
 
+    [SerializeField]  
+    public SphereCollider MeleeArea;
+    public BoxCollider SightArea;
+    public CapsuleCollider HearingArea;
+
     public bool isBlind = false;
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +38,11 @@ public class Monster : MonoBehaviour
 
         State = MonsterState.Idle;
         blindedTime = 0.0f;
+        
+        HearingArea.enabled = false;
+        SightArea.enabled = true;
+        MeleeArea.enabled = false;
+        
     }
 
     // Update is called once per frame
@@ -81,20 +91,69 @@ public class Monster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (State == MonsterState.Idle)
         {
-            State = MonsterState.Attack;
-            anim.SetTrigger("Attack");
-            
+            if (!isBlind)
+            {
+                HearingArea.enabled = false;
+                SightArea.enabled = true; 
+                MeleeArea.enabled = false;
+            }else if (isBlind)
+            {
+                HearingArea.enabled = true;
+                SightArea.enabled = false; 
+                MeleeArea.enabled = false;
+            }
+
+            if (other.tag == "Player")
+            {
+                State = MonsterState.Chase;
+                target = other.transform;
+            }
+
+        }
+        else if (State == MonsterState.Chase)
+        {
+           
+                HearingArea.enabled = false;
+                SightArea.enabled = false;
+                MeleeArea.enabled = true;
+
+                if (other.tag == "Player")
+                {
+                    State = MonsterState.Attack;
+                }
+        }
+        else if (State == MonsterState.Wandering)
+        {
+            if (!isBlind)
+            {
+                HearingArea.enabled = false;
+                SightArea.enabled = true; 
+                MeleeArea.enabled = false;
+            }else if (isBlind)
+            {
+                HearingArea.enabled = true;
+                SightArea.enabled = false; 
+                MeleeArea.enabled = false;
+            }
+            if (other.tag == "Player")
+            {
+                State = MonsterState.Chase;
+                target = other.transform;
+            }
+        }
+        else if (State == MonsterState.Attack)
+        {
+            if (other.tag == "Player")
+            {
+                anim.SetTrigger("Attack");
+                State = MonsterState.Idle;
+                anim.SetBool("Chase",false);
+                anim.SetBool("Move",false);
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            State = MonsterState.Idle;
-            anim.SetBool("Chase",false);
-        }
-    }
+    
 }
