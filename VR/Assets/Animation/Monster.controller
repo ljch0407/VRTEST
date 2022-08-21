@@ -12,7 +12,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Attack
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: Chase
+    m_ConditionEvent: Move
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 640327419037881846}
@@ -65,7 +65,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Chase
+    m_ConditionEvent: Move
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5429627725911615602}
@@ -90,7 +90,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Chase
+    m_ConditionEvent: Move
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5429627725911615602}
@@ -123,6 +123,12 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: Attack
     m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Move
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -176,8 +182,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Chase
+  - m_ConditionMode: 1
+    m_ConditionEvent: Move
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5248285792584082875}
@@ -201,8 +207,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Chase
+  - m_ConditionMode: 1
+    m_ConditionEvent: Move
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5248285792584082875}
@@ -226,8 +232,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Chase
+  - m_ConditionMode: 1
+    m_ConditionEvent: Move
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Attack
@@ -257,13 +263,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -5429627725911615602}
-    m_Position: {x: 580, y: 210, z: 0}
+    m_Position: {x: 650, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 640327419037881846}
     m_Position: {x: 350, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5248285792584082875}
-    m_Position: {x: 330, y: 300, z: 0}
+    m_Position: {x: 260, y: 390, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
