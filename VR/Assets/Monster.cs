@@ -26,7 +26,7 @@ public class Monster : MonoBehaviour
 
     [SerializeField]  
     public SphereCollider MeleeArea;
-    public BoxCollider SightArea;
+    public MeshCollider SightArea;
     public CapsuleCollider HearingArea;
 
     public bool isBlind = false;
@@ -52,6 +52,7 @@ public class Monster : MonoBehaviour
         {
             State = MonsterState.Wandering;
             anim.SetBool("Move",true);
+            anim.SetBool("Chase",false);
             nav.SetDestination(wanderingSpot1.position);
         }
         else if (State == MonsterState.Wandering)
@@ -68,6 +69,7 @@ public class Monster : MonoBehaviour
         else if (State == MonsterState.Chase)
         {
             anim.SetBool("Chase", true);
+            anim.SetBool("Move",false);
             nav.SetDestination(target.transform.position);
         }
         else if (State == MonsterState.Attack)
@@ -82,6 +84,11 @@ public class Monster : MonoBehaviour
         if (isBlind)
         {
             blindedTime += Time.deltaTime;
+            anim.SetTrigger("Blind");
+            target = null;
+            State = MonsterState.Idle;
+            anim.SetBool("Chase",false);
+            anim.SetBool("Move",false);
             if (blindedTime > 10.0f)
             {
                 blindedTime = 0.0f;

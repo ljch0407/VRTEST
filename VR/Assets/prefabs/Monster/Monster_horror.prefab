@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 8059832895970611943}
   - component: {fileID: 8776071296981920180}
   - component: {fileID: 6179714604487857056}
-  - component: {fileID: 3536388632527573264}
+  - component: {fileID: 2341748798378113536}
   - component: {fileID: 2205388259826557359}
   m_Layer: 10
   m_Name: Monster_horror
@@ -413,7 +413,7 @@ MonoBehaviour:
   target: {fileID: 0}
   State: 0
   MeleeArea: {fileID: 6179714604487857056}
-  SightArea: {fileID: 3536388632527573264}
+  SightArea: {fileID: 2341748798378113536}
   HearingArea: {fileID: 2205388259826557359}
   isBlind: 0
 --- !u!135 &6179714604487857056
@@ -429,8 +429,8 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0.25, z: 0.18}
---- !u!65 &3536388632527573264
-BoxCollider:
+--- !u!64 &2341748798378113536
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -439,9 +439,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 1.5}
-  m_Center: {x: 0, y: 0.25, z: 0.75}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 22f9c8fb80bb3eb4880fc5de38d34b39, type: 2}
 --- !u!136 &2205388259826557359
 CapsuleCollider:
   m_ObjectHideFlags: 0
