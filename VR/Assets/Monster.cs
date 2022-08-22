@@ -56,11 +56,11 @@ public class Monster : MonoBehaviour
         }
         else if (State == MonsterState.Wandering)
         {
-            if (transform.position.x == wanderingSpot1.position.x &&transform.position.z == wanderingSpot1.position.z )
+            if (transform.position.x == wanderingSpot1.position.x && transform.position.z == wanderingSpot1.position.z )
             {
                 nav.SetDestination(wanderingSpot2.position);
             }
-            else if(transform.position.x == wanderingSpot2.position.x &&transform.position.z == wanderingSpot2.position.z)
+            else if(transform.position.x == wanderingSpot2.position.x && transform.position.z == wanderingSpot2.position.z)
             {
                 nav.SetDestination(wanderingSpot1.position);
             }
@@ -74,6 +74,8 @@ public class Monster : MonoBehaviour
         {
             nav.SetDestination(target.transform.position);
             GameObject.FindWithTag("Player").GetComponent<PlayerInfo>().healthPoint--;
+            State = MonsterState.Idle;
+            target = null;
         }
 
 
@@ -122,6 +124,7 @@ public class Monster : MonoBehaviour
                 if (other.tag == "Player")
                 {
                     State = MonsterState.Attack;
+                    anim.SetTrigger("Attack");
                 }
         }
         else if (State == MonsterState.Wandering)
@@ -145,13 +148,10 @@ public class Monster : MonoBehaviour
         }
         else if (State == MonsterState.Attack)
         {
-            if (other.tag == "Player")
-            {
-                anim.SetTrigger("Attack");
-                State = MonsterState.Idle;
-                anim.SetBool("Chase",false);
-                anim.SetBool("Move",false);
-            }
+            State = MonsterState.Idle;
+            anim.SetBool("Chase",false);
+            anim.SetBool("Move",false);
+            
         }
     }
 
