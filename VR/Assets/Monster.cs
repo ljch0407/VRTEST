@@ -24,6 +24,11 @@ public class Monster : MonoBehaviour
 
     private float blindedTime;
 
+    [SerializeField]  
+    public SphereCollider MeleeArea;
+    public BoxCollider SightArea;
+    public CapsuleCollider HearingArea;
+
     public bool isBlind = false;
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +38,11 @@ public class Monster : MonoBehaviour
 
         State = MonsterState.Idle;
         blindedTime = 0.0f;
+        
+        HearingArea.enabled = false;
+        SightArea.enabled = true;
+        MeleeArea.enabled = false;
+        
     }
 
     // Update is called once per frame
@@ -46,11 +56,11 @@ public class Monster : MonoBehaviour
         }
         else if (State == MonsterState.Wandering)
         {
-            if (transform.position.x == wanderingSpot1.position.x &&transform.position.z == wanderingSpot1.position.z )
+            if (transform.position.x == wanderingSpot1.position.x && transform.position.z == wanderingSpot1.position.z )
             {
                 nav.SetDestination(wanderingSpot2.position);
             }
-            else if(transform.position.x == wanderingSpot2.position.x &&transform.position.z == wanderingSpot2.position.z)
+            else if(transform.position.x == wanderingSpot2.position.x && transform.position.z == wanderingSpot2.position.z)
             {
                 nav.SetDestination(wanderingSpot1.position);
             }
@@ -64,6 +74,8 @@ public class Monster : MonoBehaviour
         {
             nav.SetDestination(target.transform.position);
             GameObject.FindWithTag("Player").GetComponent<PlayerInfo>().healthPoint--;
+            State = MonsterState.Idle;
+            target = null;
         }
 
 
@@ -81,20 +93,67 @@ public class Monster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (State == MonsterState.Idle)
         {
-            State = MonsterState.Attack;
-            anim.SetTrigger("Attack");
+            if (!isBlind)
+            {
+                HearingArea.enabled = false;
+                SightArea.enabled = true; 
+                MeleeArea.enabled = false;
+            }else if (isBlind)
+            {
+                HearingArea.enabled = true;
+                SightArea.enabled = false; 
+                MeleeArea.enabled = false;
+            }
+
+            if (other.tag == "Player")
+            {
+                State = MonsterState.Chase;
+                target = other.transform;
+            }
+
+        }
+        else if (State == MonsterState.Chase)
+        {
+           
+                HearingArea.enabled = false;
+                SightArea.enabled = false;
+                MeleeArea.enabled = true;
+
+                if (other.tag == "Player")
+                {
+                    State = MonsterState.Attack;
+                    anim.SetTrigger("Attack");
+                }
+        }
+        else if (State == MonsterState.Wandering)
+        {
+            if (!isBlind)
+            {
+                HearingArea.enabled = false;
+                SightArea.enabled = true; 
+                MeleeArea.enabled = false;
+            }else if (isBlind)
+            {
+                HearingArea.enabled = true;
+                SightArea.enabled = false; 
+                MeleeArea.enabled = false;
+            }
+            if (other.tag == "Player")
+            {
+                State = MonsterState.Chase;
+                target = other.transform;
+            }
+        }
+        else if (State == MonsterState.Attack)
+        {
+            State = MonsterState.Idle;
+            anim.SetBool("Chase",false);
+            anim.SetBool("Move",false);
             
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            State = MonsterState.Idle;
-            anim.SetBool("Chase",false);
-        }
-    }
+    
 }
