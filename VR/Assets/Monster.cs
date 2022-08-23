@@ -89,7 +89,7 @@ public class Monster : MonoBehaviour
             State = MonsterState.Idle;
             anim.SetBool("Chase",false);
             anim.SetBool("Move",false);
-            if (blindedTime > 12.0f)
+            if (blindedTime > 5.0f)
             {
                 blindedTime = 0.0f;
                 isBlind = false;
