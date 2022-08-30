@@ -88,6 +88,7 @@ public class PlayerInfo : MonoBehaviour
 
         menuAudioSource.enabled = true;
         gameAudioSource.enabled = false;
+        gameAudioSource.Stop();
         
         yield return new WaitForSeconds(2.0f);
     }

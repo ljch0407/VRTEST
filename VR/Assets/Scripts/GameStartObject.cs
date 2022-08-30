@@ -50,6 +50,7 @@ public class GameStartObject : MonoBehaviour
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
         menuAudioSource.enabled = false;
         gameAudioSource.enabled = true;
+        gameAudioSource.Play();
         Debug.Log("Triigerpulled");
         m_TriggerDown = true;
     }
