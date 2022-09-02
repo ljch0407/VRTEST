@@ -27,11 +27,15 @@ public class PlayerInfo : MonoBehaviour
 
     public AudioSource menuAudioSource;
     public AudioSource gameAudioSource;
+
+    public bool isPaused = false;
     
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
     private bool menuButton;
+    
+    
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -86,6 +90,7 @@ public class PlayerInfo : MonoBehaviour
         transform.position = menuTransform.position;
         transform.rotation = menuTransform.rotation;
 
+        isPaused = true;
         menuAudioSource.enabled = true;
         gameAudioSource.enabled = false;
         gameAudioSource.Stop();

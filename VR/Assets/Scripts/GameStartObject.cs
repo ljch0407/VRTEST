@@ -51,6 +51,9 @@ public class GameStartObject : MonoBehaviour
         menuAudioSource.enabled = false;
         gameAudioSource.enabled = true;
         gameAudioSource.Play();
+
+        m_target.GetComponent<PlayerInfo>().isPaused = false;
+        
         Debug.Log("Triigerpulled");
         m_TriggerDown = true;
     }
