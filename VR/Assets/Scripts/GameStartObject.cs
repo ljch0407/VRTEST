@@ -11,8 +11,8 @@ public class GameStartObject : MonoBehaviour
 
     public Transform m_TeleportLocation;
 
-    private AudioSource menuAudioSource;
-    private AudioSource gameAudioSource;
+    public AudioSource menuAudioSource;
+    public AudioSource gameAudioSource;
     private Transform m_postPlayerTransform;
     private GameObject m_target;
     private bool m_TriggerDown = false;
@@ -34,6 +34,7 @@ public class GameStartObject : MonoBehaviour
         if (m_TriggerDown)
         {
             m_target.transform.position = m_TeleportLocation.transform.position;
+            m_TriggerDown = false;
         }
     }
 
@@ -49,6 +50,7 @@ public class GameStartObject : MonoBehaviour
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
         menuAudioSource.enabled = false;
+        menuAudioSource.Stop();
         gameAudioSource.enabled = true;
         gameAudioSource.Play();
 
