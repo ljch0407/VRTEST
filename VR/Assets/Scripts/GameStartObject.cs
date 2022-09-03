@@ -24,9 +24,7 @@ public class GameStartObject : MonoBehaviour
         m_InteractableBase.selectExited.AddListener(DropObject);
         m_InteractableBase.deactivated.AddListener(TriggerReleased);
         m_InteractableBase.activated.AddListener(TriggerPulled);
-
-        gameAudioSource = GameObject.Find("Game Audio").GetComponent<AudioSource>();
-        menuAudioSource = GameObject.Find("Menu Audio").GetComponent<AudioSource>();
+        
     }
 
     private void Update()

@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ManagerAIScript : MonoBehaviour
 {
-    public List<GameObject> Monsters;
+    public List<GameObject> monstersList;
+
+    public GameObject[] monsterPrefabs;
+    
     private PlayerInfo _playerInfo;
 
     // Start is called before the first frame update
     void Start()
     {
-        Monsters = new List<GameObject>();
+        monstersList = new List<GameObject>();
+        foreach (var VARIABLE in monsterPrefabs)
+        {
+            monstersList.Add(VARIABLE);
+        }
         _playerInfo = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
+        
     }
 
     // Update is called once per frame
@@ -19,20 +28,20 @@ public class ManagerAIScript : MonoBehaviour
     {
         if (_playerInfo.isPaused)
         {
-            foreach (var monster in Monsters)
+            foreach (var m in monstersList)
             {
-                monster.SetActive(false);
-                monster.gameObject.GetComponent<Monster>().State = MonsterState.Idle;
+                m.GetComponent<Monster>().State = MonsterState.Idle;
+                m.SetActive(false);
             }
+           
+
         }
         else if(!_playerInfo.isPaused)
         {
-            foreach (var monster in Monsters)
+            foreach (var m in monstersList)
             {
-                monster.SetActive(true);
-                monster.gameObject.GetComponent<Monster>().State = MonsterState.Idle;
+                m.SetActive(true);
             }
         }
-
     }
 }
