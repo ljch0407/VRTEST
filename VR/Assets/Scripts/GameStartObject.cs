@@ -11,8 +11,6 @@ public class GameStartObject : MonoBehaviour
 
     public Transform m_TeleportLocation;
 
-    public AudioSource menuAudioSource;
-    public AudioSource gameAudioSource;
     private Transform m_postPlayerTransform;
     private GameObject m_target;
     private bool m_TriggerDown = false;
@@ -25,8 +23,6 @@ public class GameStartObject : MonoBehaviour
         m_InteractableBase.deactivated.AddListener(TriggerReleased);
         m_InteractableBase.activated.AddListener(TriggerPulled);
 
-        gameAudioSource = GameObject.Find("Game Audio").GetComponent<AudioSource>();
-        menuAudioSource = GameObject.Find("Menu Audio").GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -50,8 +46,6 @@ public class GameStartObject : MonoBehaviour
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
         
-        menuAudioSource.Stop();
-        gameAudioSource.Play();
 
         m_target.GetComponent<PlayerInfo>().isPaused = false;
         

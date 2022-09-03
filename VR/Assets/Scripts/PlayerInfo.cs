@@ -21,12 +21,11 @@ public class PlayerInfo : MonoBehaviour
     private float hasteCooldown = 5f;
     private float flashCooldown = 5f;
     private float pathFindCooldown = 10f;
-
+    
+    
     public Transform menuTransform;
     public Transform playerLocationBefore;
 
-    public AudioSource menuAudioSource;
-    public AudioSource gameAudioSource;
 
     public bool isPaused = false;
     
@@ -34,18 +33,16 @@ public class PlayerInfo : MonoBehaviour
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
     private bool menuButton;
-    
+    public SoundManager _soundManager;
     
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevices(devices);
-        
-        menuTransform.transform.position = new Vector3(6f, 0f, 2f);
-        menuTransform.transform.rotation = new Quaternion(0, -0.87f, 0, 0.47f);
-        
-        menuAudioSource.Play();
-        gameAudioSource.Stop();
+
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
+        _soundManager.PlayBGM("BGM0");
+ 
         
         healthPoint = 2;
         hasMagicGemCount = 0;
@@ -92,11 +89,10 @@ public class PlayerInfo : MonoBehaviour
 
         transform.position = menuTransform.position;
         transform.rotation = menuTransform.rotation;
-
+        _soundManager.StopBGM();
+        _soundManager.PlayBGM("BGM1");
         isPaused = true;
-        menuAudioSource.Play();
-        gameAudioSource.Stop();
-        
+
         yield return new WaitForSeconds(2.0f);
     }
 
