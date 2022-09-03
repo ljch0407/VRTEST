@@ -44,6 +44,9 @@ public class PlayerInfo : MonoBehaviour
         menuTransform.transform.position = new Vector3(6f, 0f, 2f);
         menuTransform.transform.rotation = new Quaternion(0, -0.87f, 0, 0.47f);
         
+        menuAudioSource.Play();
+        gameAudioSource.Stop();
+        
         healthPoint = 2;
         hasMagicGemCount = 0;
         
@@ -91,8 +94,7 @@ public class PlayerInfo : MonoBehaviour
         transform.rotation = menuTransform.rotation;
 
         isPaused = true;
-        menuAudioSource.enabled = true;
-        gameAudioSource.enabled = false;
+        menuAudioSource.Play();
         gameAudioSource.Stop();
         
         yield return new WaitForSeconds(2.0f);
