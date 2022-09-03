@@ -37,15 +37,15 @@ public class GameStartObject : MonoBehaviour
         }
     }
 
-    void DropObject(SelectExitEventArgs args)
+    public void DropObject(SelectExitEventArgs args)
     {
         m_TriggerDown = false;
     }
-    void TriggerReleased(DeactivateEventArgs args)
+    public void TriggerReleased(DeactivateEventArgs args)
     {
         m_TriggerDown = false;
     }
-    void TriggerPulled(ActivateEventArgs args)
+    public void TriggerPulled(ActivateEventArgs args)
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
         menuAudioSource.enabled = false;
