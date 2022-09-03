@@ -49,9 +49,8 @@ public class GameStartObject : MonoBehaviour
     public void TriggerPulled(ActivateEventArgs args)
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
-        menuAudioSource.enabled = false;
+        
         menuAudioSource.Stop();
-        gameAudioSource.enabled = true;
         gameAudioSource.Play();
 
         m_target.GetComponent<PlayerInfo>().isPaused = false;
