@@ -698,6 +698,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7201342666541787638, guid: bdd6c5599cbd5014bb6ed082a7df0062, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bdd6c5599cbd5014bb6ed082a7df0062, type: 3}
+--- !u!1 &111770025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1434889145391071964, guid: bdd6c5599cbd5014bb6ed082a7df0062,
+    type: 3}
+  m_PrefabInstance: {fileID: 111770024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &118390945 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2559684230387348725, guid: 2a4a50d01c5de0244a94198198f14b15,
@@ -5756,6 +5762,7 @@ MonoBehaviour:
   playerLocationBefore: {fileID: 0}
   menuAudioSource: {fileID: 69735718}
   gameAudioSource: {fileID: 1067624971}
+  isPaused: 0
 --- !u!114 &924640142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9254,6 +9261,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 022e15ebac79b1641a9ded4363755da1, type: 3}
+--- !u!1 &1570371672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570371674}
+  - component: {fileID: 1570371673}
+  m_Layer: 0
+  m_Name: AI_manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1570371673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570371672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc183c5b7f238047bab22cdc7a0280d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Monsters:
+  - {fileID: 111770025}
+--- !u!4 &1570371674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570371672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4359183, y: 4.068208, z: -3.8485045}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1581860017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6763333956528858516, guid: 451ce7411a25187429ea04f4fc591254,
