@@ -12,7 +12,7 @@ public class HideSpot : MonoBehaviour
     private float _coolTimeLimit = 15f;
     private float _coolTime = 0;
 
-    private Transform _playerLocation;
+    public Transform playerLocation;
     void Start()
     {
         _player = GameObject.FindWithTag("Player");
@@ -27,9 +27,9 @@ public class HideSpot : MonoBehaviour
 
             if (_coolTime == 5.0)
             {
-                _player.transform.position = _playerLocation.position;
-                _player.transform.rotation = _playerLocation.rotation;
-                _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true;
+                _player.transform.position = playerLocation.position;
+                _player.transform.rotation = playerLocation.rotation;
+                _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true; 
             }
 
             if (_coolTime == _coolTimeLimit)
@@ -42,9 +42,6 @@ public class HideSpot : MonoBehaviour
 
     public void Hide()
     {
-        _playerLocation.position = _player.transform.position;
-        _playerLocation.rotation = _player.transform.rotation;
-        
         _player.transform.position = transform.position;
         _player.transform.rotation = transform.rotation;
 
