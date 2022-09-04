@@ -109,19 +109,22 @@ public class PlayerInfo : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
     }
 
-    private void OnCollisionStay(Collision collisionInfo)
+
+    private void OnTriggerStay(Collider other)
     {
-        if (collisionInfo.gameObject.tag == "HideSpot")
+        if (other.tag == "HideSpot")
         {
+            Debug.Log("HideSpotNear");
             possibleToHide = true;
-            hideSpotObject = collisionInfo.gameObject.GetComponent<HideSpot>();
+            hideSpotObject = other.gameObject.GetComponent<HideSpot>();
         }
     }
-    
-    private void OnCollisionExit(Collision collisionInfo)
+
+    private void OnTriggerExit(Collider other)
     {
-        if (collisionInfo.gameObject.tag == "HideSpot")
+        if (other.tag == "HideSpot")
         {
+            Debug.Log("HideSpotAreaExit");
             possibleToHide = false;
             hideSpotObject = null;
         }
