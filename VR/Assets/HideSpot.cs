@@ -29,7 +29,7 @@ public class HideSpot : MonoBehaviour
             {
                 _player.transform.position = playerLocation.position;
                 _player.transform.rotation = playerLocation.rotation;
-                _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true;
+                _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true; 
             }
 
             if (_coolTime == _coolTimeLimit)
