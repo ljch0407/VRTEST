@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -5,7 +6,6 @@ using UnityEditor.XR.Interaction.Toolkit;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
 
 
 public class PlayerInfo : MonoBehaviour
@@ -28,13 +28,17 @@ public class PlayerInfo : MonoBehaviour
 
 
     public bool isPaused = false;
+    public bool possibleToHide = false;
     
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
     private bool menuButton;
-    public SoundManager _soundManager;
+    private bool hide;
     
+    public SoundManager _soundManager;
+
+    private HideSpot hideSpotObject = null;
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -80,6 +84,15 @@ public class PlayerInfo : MonoBehaviour
             StartCoroutine(MenuRoomEnter());
             Debug.Log("Menu Room Entered");
         }
+        
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
+        {
+            Debug.Log("Menu primary Pressed");
+            if (possibleToHide)
+            {
+                hideSpotObject.Hide();
+            }
+        }
     }
 
     private IEnumerator MenuRoomEnter()
@@ -96,6 +109,21 @@ public class PlayerInfo : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
     }
 
-
-
+    private void OnCollisionStay(Collision collisionInfo)
+    {
+        if (collisionInfo.gameObject.tag == "HideSpot")
+        {
+            possibleToHide = true;
+            hideSpotObject = collisionInfo.gameObject.GetComponent<HideSpot>();
+        }
+    }
+    
+    private void OnCollisionExit(Collision collisionInfo)
+    {
+        if (collisionInfo.gameObject.tag == "HideSpot")
+        {
+            possibleToHide = false;
+            hideSpotObject = null;
+        }
+    }
 }
