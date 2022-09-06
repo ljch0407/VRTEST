@@ -7,17 +7,18 @@ public class Safe : MonoBehaviour
 
     public bool isOpen = false;
     
-    public List<GameObject> stoolList;
+    private List<GameObject> _stoolList;
     public GameObject[] stoolPrefabs;
-
-
+    public int countOfStoolActive;
+    
     // Start is called before the first frame update
     void Start()
     {
-        stoolList = new List<GameObject>();
-        foreach (var VARIABLE in stoolPrefabs)
+        countOfStoolActive = 0;
+        _stoolList = new List<GameObject>();
+        foreach (var stoolObject in stoolPrefabs)
         {
-            stoolList.Add(VARIABLE);
+            _stoolList.Add(stoolObject);
         }
     }
 
@@ -25,5 +26,17 @@ public class Safe : MonoBehaviour
     void Update()
     {
         
+        if (_stoolList[0].GetComponent<Stool>().isActive &&
+            _stoolList[1].GetComponent<Stool>().isActive &&
+            _stoolList[2].GetComponent<Stool>().isActive &&
+            countOfStoolActive == 3)
+        {
+            isOpen = true;
+        }
+        else
+        {
+            isOpen = false;
+        }
+
     }
 }
