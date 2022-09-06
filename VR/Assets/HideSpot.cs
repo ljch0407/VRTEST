@@ -9,8 +9,7 @@ public class HideSpot : MonoBehaviour
     private bool _isUsed = false;
     private GameObject _player;
     
-    private float _coolTimeLimit = 15f;
-    private float _coolTime = 0;
+    public float _coolTime = 0;
 
     public Transform playerLocation;
     void Start()
@@ -25,18 +24,15 @@ public class HideSpot : MonoBehaviour
         {
             _coolTime += Time.deltaTime;
 
-            if (_coolTime == 5.0)
+            if (_coolTime >= 7.0)
             {
                 _player.transform.position = playerLocation.position;
                 _player.transform.rotation = playerLocation.rotation;
-                _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true; 
-            }
-
-            if (_coolTime == _coolTimeLimit)
-            {
+                _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true;
                 _coolTime = 0;
                 _isUsed = false;
             }
+
         }
     }
 
