@@ -133,4 +133,19 @@ public class PlayerInfo : MonoBehaviour
             hideSpotObject = null;
         }
     }
+
+    public void Statue_Mid()
+    {
+        midStatue = true;
+    }
+
+    public void Statue_Under()
+    {
+        underStatue = true;
+    }
+
+    public void Statue_Upper()
+    {
+        upperStatue = true;
+    }
 }
