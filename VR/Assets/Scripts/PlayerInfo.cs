@@ -38,6 +38,10 @@ public class PlayerInfo : MonoBehaviour
     
     public SoundManager _soundManager;
 
+    public bool underStatue = false;
+    public bool midStatue = false;
+    public bool upperStatue = false;
+
     private HideSpot hideSpotObject = null;
     void Start()
     {
