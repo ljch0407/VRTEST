@@ -52,6 +52,8 @@ public class PlayerInfo : MonoBehaviour
     private HideSpot hideSpotObject = null;
 
     public ContinuousMoveProviderBase continuousMoveProviderBase;
+
+    public GameObject hasteEffect;
     
     void Start()
     {
@@ -164,13 +166,13 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToHaste = false;
             Debug.Log("Haste On");
-            
-            continuousMoveProviderBase.moveSpeed *= 2;
+            hasteEffect.gameObject.SetActive(true);
+            continuousMoveProviderBase.moveSpeed = 4;
         }
         
         yield return new WaitForSeconds(hasteCooldown);
-        continuousMoveProviderBase.moveSpeed = (continuousMoveProviderBase.moveSpeed/2);
-        
+        continuousMoveProviderBase.moveSpeed = 2;
+        hasteEffect.gameObject.SetActive(false);
         
         yield return new WaitForSeconds(hasteCooldown);
         possibleToHaste = true;
