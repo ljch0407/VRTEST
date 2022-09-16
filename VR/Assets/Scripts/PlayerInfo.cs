@@ -33,6 +33,7 @@ public class PlayerInfo : MonoBehaviour
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
+    private InputDevice targetDeviceR;
     private bool menuButton;
     private bool hide;
     
@@ -64,7 +65,10 @@ public class PlayerInfo : MonoBehaviour
         InputDevices.GetDevicesWithCharacteristics(leftControllerCharacteristics, devices);
 
         if (devices.Count > 0)
+        {
             targetDevice = devices[0];
+            targetDeviceR = devices[1];
+        }
     }
 
     void Update()
@@ -84,13 +88,15 @@ public class PlayerInfo : MonoBehaviour
 
         if (targetDevice.TryGetFeatureValue(CommonUsages.menuButton, out menuButton) && menuButton)
         {
+            //Menu button mapping
             Debug.Log("Menu Button Pressed");
             StartCoroutine(MenuRoomEnter());
             Debug.Log("Menu Room Entered");
         }
         
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
+        if (targetDeviceR.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
         {
+            //Hide spot use
             Debug.Log("Menu primary Pressed");
             if (possibleToHide)
             {
