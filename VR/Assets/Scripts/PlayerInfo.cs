@@ -42,6 +42,9 @@ public class PlayerInfo : MonoBehaviour
     private InputDevice targetDeviceR;
     private bool menuButton;
     private bool hide;
+    private bool haste;
+    private bool flash;
+    
     
     public SoundManager _soundManager;
 
@@ -117,11 +120,18 @@ public class PlayerInfo : MonoBehaviour
             }
         }
         
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out haste) && haste)
         {
             //Haste
             Debug.Log("Left primary Pressed");
             StartCoroutine(Haste());
+        }
+        
+        if (targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out flash) && flash)
+        {
+            //flash
+            Debug.Log("Left secondary Pressed");
+            StartCoroutine(Flash());
         }
     }
 
@@ -176,6 +186,22 @@ public class PlayerInfo : MonoBehaviour
         
         yield return new WaitForSeconds(hasteCooldown);
         possibleToHaste = true;
+    }
+    
+    IEnumerator Flash()
+    {
+        if (possibleToFlash)
+        {
+            possibleToFlash = false;
+            Debug.Log("Flash On");
+            //flashEffect.gameObject.SetActive(true);
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+        //flashEffect.gameObject.SetActive(false);
+        
+        yield return new WaitForSeconds(flashCooldown);
+        possibleToFlash = true;
     }
 
     public void Statue_Mid()
