@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
 
-
 public class PlayerInfo : MonoBehaviour
 {
 
@@ -21,7 +20,6 @@ public class PlayerInfo : MonoBehaviour
     private float hasteCooldown = 5f;
     private float flashCooldown = 5f;
     private float pathFindCooldown = 10f;
-    
     
     public Transform menuTransform;
     public Transform playerLocationBefore;
@@ -56,18 +54,20 @@ public class PlayerInfo : MonoBehaviour
         healthPoint = 2;
         hasMagicGemCount = 0;
         
-        rightControllerCharacteristics =
-            InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
-        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
-        
        leftControllerCharacteristics =
             InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller;
         InputDevices.GetDevicesWithCharacteristics(leftControllerCharacteristics, devices);
-
         if (devices.Count > 0)
         {
             targetDevice = devices[0];
-            targetDeviceR = devices[1];
+        }
+        
+        rightControllerCharacteristics =
+            InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
+        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
+        if (devices.Count > 0)
+        {
+            targetDeviceR = devices[0];
         }
     }
 
