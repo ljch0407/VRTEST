@@ -28,6 +28,7 @@ public class HideSpot : MonoBehaviour
             {
                 _player.transform.position = playerLocation.position;
                 _player.transform.rotation = playerLocation.rotation;
+                _player.tag = "Player";
                 _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = true;
                 _coolTime = 0;
                 _isUsed = false;
@@ -40,7 +41,7 @@ public class HideSpot : MonoBehaviour
     {
         _player.transform.position = transform.position;
         _player.transform.rotation = transform.rotation;
-
+        _player.tag = "PlayerHide";
         _player.GetComponent<ActionBasedContinuousMoveProvider>().enabled = false;
 
         _isUsed = true;
