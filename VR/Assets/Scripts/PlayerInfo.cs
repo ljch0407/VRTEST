@@ -103,6 +103,16 @@ public class PlayerInfo : MonoBehaviour
                 hideSpotObject.Hide();
             }
         }
+        
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
+        {
+            //Hide spot use
+            Debug.Log("Menu primary Pressed");
+            if (possibleToHide)
+            {
+                hideSpotObject.Hide();
+            }
+        }
     }
 
     private IEnumerator MenuRoomEnter()
