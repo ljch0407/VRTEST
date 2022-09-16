@@ -6,6 +6,7 @@ using UnityEditor.XR.Interaction.Toolkit;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -18,8 +19,11 @@ public class PlayerInfo : MonoBehaviour
     private bool isPathFindReady = true;
 
     private float hasteCooldown = 5f;
+   
     private float flashCooldown = 5f;
+    
     private float pathFindCooldown = 10f;
+    
     
     public Transform menuTransform;
     public Transform playerLocationBefore;
@@ -28,6 +32,10 @@ public class PlayerInfo : MonoBehaviour
     public bool isPaused = false;
     public bool possibleToHide = false;
     
+    private bool possibleToHaste = true;
+    private bool possibleToFlash = true;
+    private bool possibleToPathFind = true;
+
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
@@ -42,6 +50,9 @@ public class PlayerInfo : MonoBehaviour
     public bool upperStatue = false;
 
     private HideSpot hideSpotObject = null;
+
+    public ContinuousMoveProviderBase continuousMoveProviderBase;
+    
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -97,7 +108,7 @@ public class PlayerInfo : MonoBehaviour
         if (targetDeviceR.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
         {
             //Hide spot use
-            Debug.Log("Menu primary Pressed");
+            Debug.Log("Right primary Pressed");
             if (possibleToHide)
             {
                 hideSpotObject.Hide();
@@ -106,12 +117,9 @@ public class PlayerInfo : MonoBehaviour
         
         if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
         {
-            //Hide spot use
-            Debug.Log("Menu primary Pressed");
-            if (possibleToHide)
-            {
-                hideSpotObject.Hide();
-            }
+            //Haste
+            Debug.Log("Left primary Pressed");
+            StartCoroutine(Haste());
         }
     }
 
@@ -148,6 +156,24 @@ public class PlayerInfo : MonoBehaviour
             possibleToHide = false;
             hideSpotObject = null;
         }
+    }
+
+    IEnumerator Haste()
+    {
+        if (possibleToHaste)
+        {
+            possibleToHaste = false;
+            Debug.Log("Haste On");
+            
+            continuousMoveProviderBase.moveSpeed *= 2;
+        }
+        
+        yield return new WaitForSeconds(hasteCooldown);
+        continuousMoveProviderBase.moveSpeed = (continuousMoveProviderBase.moveSpeed/2);
+        
+        
+        yield return new WaitForSeconds(hasteCooldown);
+        possibleToHaste = true;
     }
 
     public void Statue_Mid()
