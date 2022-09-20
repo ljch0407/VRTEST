@@ -12,16 +12,10 @@ public class PlayerInfo : MonoBehaviour
 {
 
     public int healthPoint;
-    private int hasMagicGemCount;
-
-    private bool isHasteReady = true;
-    private bool isFlashReady = true;
-    private bool isPathFindReady = true;
-
-    private float hasteCooldown = 5f;
-   
-    private float flashCooldown = 5f;
+    public int hasManaStoneCount;
     
+    private float hasteCooldown = 5f;
+    private float flashCooldown = 5f;
     private float pathFindCooldown = 10f;
     
     
@@ -68,7 +62,7 @@ public class PlayerInfo : MonoBehaviour
  
         
         healthPoint = 2;
-        hasMagicGemCount = 0;
+        hasManaStoneCount = 3;
         
        leftControllerCharacteristics =
             InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller;
@@ -100,6 +94,13 @@ public class PlayerInfo : MonoBehaviour
             GameObject postProcess = GameObject.Find("Post-process P");
             Volume postVolume = postProcess.gameObject.GetComponent<Volume>();
             postVolume.enabled = false;
+        }
+
+        if (hasManaStoneCount == 0)
+        {
+            possibleToHaste = false;
+            possibleToFlash = false;
+            possibleToPathFind = false;
         }
 
         if (targetDevice.TryGetFeatureValue(CommonUsages.menuButton, out menuButton) && menuButton)
@@ -178,6 +179,7 @@ public class PlayerInfo : MonoBehaviour
             Debug.Log("Haste On");
             hasteEffect.gameObject.SetActive(true);
             continuousMoveProviderBase.moveSpeed = 4;
+            hasManaStoneCount--;
         }
         
         yield return new WaitForSeconds(hasteCooldown);
@@ -195,6 +197,7 @@ public class PlayerInfo : MonoBehaviour
             possibleToFlash = false;
             Debug.Log("Flash On");
             //flashEffect.gameObject.SetActive(true);
+            hasManaStoneCount--;
         }
         
         yield return new WaitForSeconds(0.5f);
