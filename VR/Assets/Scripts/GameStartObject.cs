@@ -10,7 +10,7 @@ public class GameStartObject : MonoBehaviour
     public XRGrabInteractable m_InteractableBase;
 
     public Transform m_TeleportLocation;
-
+    public Transform gameStartObjectTransform;
     private Transform m_postPlayerTransform;
     private GameObject m_target;
     private bool m_TriggerDown = false;
@@ -45,7 +45,9 @@ public class GameStartObject : MonoBehaviour
     public void TriggerPulled(ActivateEventArgs args)
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
-        
+
+        transform.position = gameStartObjectTransform.position;
+        transform.rotation = gameStartObjectTransform.rotation;
 
         m_target.GetComponent<PlayerInfo>().isPaused = false;
         
