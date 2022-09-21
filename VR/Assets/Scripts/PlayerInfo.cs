@@ -6,18 +6,14 @@ using UnityEditor.XR.Interaction.Toolkit;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR;
-
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerInfo : MonoBehaviour
 {
 
     public int healthPoint;
-    private int hasMagicGemCount;
-
-    private bool isHasteReady = true;
-    private bool isFlashReady = true;
-    private bool isPathFindReady = true;
-
+    public int hasManaStoneCount;
+    
     private float hasteCooldown = 5f;
     private float flashCooldown = 5f;
     private float pathFindCooldown = 10f;
@@ -30,11 +26,19 @@ public class PlayerInfo : MonoBehaviour
     public bool isPaused = false;
     public bool possibleToHide = false;
     
+    private bool possibleToHaste = true;
+    private bool possibleToFlash = true;
+    private bool possibleToPathFind = true;
+
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
+    private InputDevice targetDeviceR;
     private bool menuButton;
     private bool hide;
+    private bool haste;
+    private bool flash;
+    
     
     public SoundManager _soundManager;
 
@@ -43,28 +47,40 @@ public class PlayerInfo : MonoBehaviour
     public bool upperStatue = false;
 
     private HideSpot hideSpotObject = null;
+
+    public ContinuousMoveProviderBase continuousMoveProviderBase;
+
+    public ParticleSystem hasteEffect;
+    public GameObject Flashlight;
+    
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevices(devices);
+        hasteEffect.Stop();
 
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");
  
         
         healthPoint = 2;
-        hasMagicGemCount = 0;
-        
-        rightControllerCharacteristics =
-            InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
-        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
+        hasManaStoneCount = 3;
         
        leftControllerCharacteristics =
             InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller;
         InputDevices.GetDevicesWithCharacteristics(leftControllerCharacteristics, devices);
-
         if (devices.Count > 0)
+        {
             targetDevice = devices[0];
+        }
+        
+        rightControllerCharacteristics =
+            InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
+        InputDevices.GetDevicesWithCharacteristics(rightControllerCharacteristics, devices);
+        if (devices.Count > 0)
+        {
+            targetDeviceR = devices[0];
+        }
     }
 
     void Update()
@@ -82,20 +98,43 @@ public class PlayerInfo : MonoBehaviour
             postVolume.enabled = false;
         }
 
+        if (hasManaStoneCount == 0)
+        {
+            possibleToHaste = false;
+            possibleToFlash = false;
+            possibleToPathFind = false;
+        }
+
         if (targetDevice.TryGetFeatureValue(CommonUsages.menuButton, out menuButton) && menuButton)
         {
+            //Menu button mapping
             Debug.Log("Menu Button Pressed");
             StartCoroutine(MenuRoomEnter());
             Debug.Log("Menu Room Entered");
         }
         
-        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
+        if (targetDeviceR.TryGetFeatureValue(CommonUsages.primaryButton, out hide) && hide)
         {
-            Debug.Log("Menu primary Pressed");
+            //Hide spot use
+            Debug.Log("Right primary Pressed");
             if (possibleToHide)
             {
                 hideSpotObject.Hide();
             }
+        }
+        
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out haste) && haste)
+        {
+            //Haste
+            Debug.Log("Left primary Pressed");
+            StartCoroutine(Haste());
+        }
+        
+        if (targetDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out flash) && flash)
+        {
+            //flash
+            Debug.Log("Left secondary Pressed");
+            StartCoroutine(Flash());
         }
     }
 
@@ -132,6 +171,42 @@ public class PlayerInfo : MonoBehaviour
             possibleToHide = false;
             hideSpotObject = null;
         }
+    }
+
+    IEnumerator Haste()
+    {
+        if (possibleToHaste)
+        {
+            possibleToHaste = false;
+            Debug.Log("Haste On");
+            hasteEffect.Play();
+            continuousMoveProviderBase.moveSpeed = 4;
+            hasManaStoneCount--;
+        }
+        
+        yield return new WaitForSeconds(hasteCooldown);
+        continuousMoveProviderBase.moveSpeed = 2;
+        hasteEffect.Stop();
+        
+        yield return new WaitForSeconds(hasteCooldown);
+        possibleToHaste = true;
+    }
+    
+    IEnumerator Flash()
+    {
+        if (possibleToFlash)
+        {
+            possibleToFlash = false;
+            Debug.Log("Flash On");
+            Flashlight.gameObject.SetActive(true);
+            hasManaStoneCount--;
+        }
+        
+        yield return new WaitForSeconds(1f);
+        Flashlight.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(flashCooldown);
+        possibleToFlash = true;
     }
 
     public void Statue_Mid()
