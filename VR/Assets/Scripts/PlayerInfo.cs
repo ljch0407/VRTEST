@@ -184,7 +184,7 @@ public class PlayerInfo : MonoBehaviour
             hasManaStoneCount--;
         }
         
-        yield return new WaitForSeconds(hasteCooldown);
+        yield return new WaitForSeconds(15f);
         continuousMoveProviderBase.moveSpeed = 2;
         hasteEffect.Stop();
         
