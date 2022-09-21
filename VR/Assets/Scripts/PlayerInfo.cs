@@ -59,6 +59,7 @@ public class PlayerInfo : MonoBehaviour
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevices(devices);
         hasteEffect.Stop();
+        flashEffect.Stop();
 
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");

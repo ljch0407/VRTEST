@@ -37,6 +37,10 @@ public class GameStartObject : MonoBehaviour
     public void DropObject(SelectExitEventArgs args)
     {
         m_TriggerDown = false;
+        
+        transform.position = gameStartObjectTransform.position;
+        transform.rotation = gameStartObjectTransform.rotation;
+
     }
     public void TriggerReleased(DeactivateEventArgs args)
     {
@@ -45,9 +49,6 @@ public class GameStartObject : MonoBehaviour
     public void TriggerPulled(ActivateEventArgs args)
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
-
-        transform.position = gameStartObjectTransform.position;
-        transform.rotation = gameStartObjectTransform.rotation;
 
         m_target.GetComponent<PlayerInfo>().isPaused = false;
         
