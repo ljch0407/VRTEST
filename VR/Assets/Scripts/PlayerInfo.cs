@@ -51,6 +51,7 @@ public class PlayerInfo : MonoBehaviour
     public ContinuousMoveProviderBase continuousMoveProviderBase;
 
     public ParticleSystem hasteEffect;
+    public ParticleSystem flashEffect;
     public GameObject Flashlight;
     
     void Start()
@@ -199,10 +200,12 @@ public class PlayerInfo : MonoBehaviour
             possibleToFlash = false;
             Debug.Log("Flash On");
             Flashlight.gameObject.SetActive(true);
+            flashEffect.Play();
             hasManaStoneCount--;
         }
         
         yield return new WaitForSeconds(1f);
+        flashEffect.Stop();
         Flashlight.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(flashCooldown);
