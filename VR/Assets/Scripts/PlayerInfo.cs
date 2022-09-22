@@ -50,12 +50,16 @@ public class PlayerInfo : MonoBehaviour
 
     public ContinuousMoveProviderBase continuousMoveProviderBase;
 
-    public GameObject hasteEffect;
+    public ParticleSystem hasteEffect;
+    public ParticleSystem flashEffect;
+    public GameObject Flashlight;
     
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevices(devices);
+        hasteEffect.Stop();
+        flashEffect.Stop();
 
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");
@@ -177,14 +181,14 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToHaste = false;
             Debug.Log("Haste On");
-            hasteEffect.gameObject.SetActive(true);
+            hasteEffect.Play();
             continuousMoveProviderBase.moveSpeed = 4;
             hasManaStoneCount--;
         }
         
-        yield return new WaitForSeconds(hasteCooldown);
+        yield return new WaitForSeconds(15f);
         continuousMoveProviderBase.moveSpeed = 2;
-        hasteEffect.gameObject.SetActive(false);
+        hasteEffect.Stop();
         
         yield return new WaitForSeconds(hasteCooldown);
         possibleToHaste = true;
@@ -196,13 +200,15 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToFlash = false;
             Debug.Log("Flash On");
-            //flashEffect.gameObject.SetActive(true);
+            Flashlight.gameObject.SetActive(true);
+            flashEffect.Play();
             hasManaStoneCount--;
         }
         
-        yield return new WaitForSeconds(0.5f);
-        //flashEffect.gameObject.SetActive(false);
-        
+        yield return new WaitForSeconds(1f);
+        flashEffect.Stop();
+        Flashlight.gameObject.SetActive(false);
+
         yield return new WaitForSeconds(flashCooldown);
         possibleToFlash = true;
     }
