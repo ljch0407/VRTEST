@@ -14,6 +14,7 @@ public class GameStartObject : MonoBehaviour
     private Transform m_postPlayerTransform;
     private GameObject m_target;
     private bool m_TriggerDown = false;
+    public SoundManager _soundManager;
 
     private void Start()
     {
@@ -49,7 +50,8 @@ public class GameStartObject : MonoBehaviour
     public void TriggerPulled(ActivateEventArgs args)
     {
         m_TeleportLocation.position = m_target.gameObject.GetComponent<PlayerInfo>().playerLocationBefore.position;
-
+        _soundManager.StopBGM();
+        _soundManager.PlayBGM("BGM1");
         m_target.GetComponent<PlayerInfo>().isPaused = false;
         
         Debug.Log("Triigerpulled");
