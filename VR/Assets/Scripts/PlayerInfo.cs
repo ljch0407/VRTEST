@@ -148,7 +148,7 @@ public class PlayerInfo : MonoBehaviour
         transform.position = menuTransform.position;
         transform.rotation = menuTransform.rotation;
         _soundManager.StopBGM();
-        _soundManager.PlayBGM("BGM1");
+        _soundManager.PlayBGM("BGM0");
         isPaused = true;
 
         yield return new WaitForSeconds(2.0f);
