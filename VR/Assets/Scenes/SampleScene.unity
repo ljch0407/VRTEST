@@ -7738,7 +7738,7 @@ PrefabInstance:
     - target: {fileID: 3425775778049474089, guid: 27842fb4eb355ee41a55c6585f65d1a6,
         type: 3}
       propertyPath: m_MovementType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3425775778049474089, guid: 27842fb4eb355ee41a55c6585f65d1a6,
         type: 3}
@@ -7750,6 +7750,11 @@ PrefabInstance:
       propertyPath: m_Colliders.Array.data[0]
       value: 
       objectReference: {fileID: 491573280}
+    - target: {fileID: 3425775778049474089, guid: 27842fb4eb355ee41a55c6585f65d1a6,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3571348390537199754, guid: 27842fb4eb355ee41a55c6585f65d1a6,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
