@@ -59,6 +59,7 @@ public class PlayerInfo : MonoBehaviour
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevices(devices);
         hasteEffect.Stop();
+        flashEffect.Stop();
 
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");
@@ -147,7 +148,7 @@ public class PlayerInfo : MonoBehaviour
         transform.position = menuTransform.position;
         transform.rotation = menuTransform.rotation;
         _soundManager.StopBGM();
-        _soundManager.PlayBGM("BGM1");
+        _soundManager.PlayBGM("BGM0");
         isPaused = true;
 
         yield return new WaitForSeconds(2.0f);
@@ -185,7 +186,7 @@ public class PlayerInfo : MonoBehaviour
             hasManaStoneCount--;
         }
         
-        yield return new WaitForSeconds(hasteCooldown);
+        yield return new WaitForSeconds(15f);
         continuousMoveProviderBase.moveSpeed = 2;
         hasteEffect.Stop();
         

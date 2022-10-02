@@ -97,70 +97,97 @@ public class Monster : MonoBehaviour
         }
 
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (State == MonsterState.Idle)
-        {
-            if (!isBlind)
-            {
-                HearingArea.enabled = false;
-                SightArea.enabled = true; 
-                MeleeArea.enabled = false;
-            }else if (isBlind)
-            {
-                HearingArea.enabled = true;
-                SightArea.enabled = false; 
-                MeleeArea.enabled = false;
-            }
-
-            if (other.tag == "Player")
-            {
-                State = MonsterState.Chase;
-                target = other.transform;
-            }
-
-        }
-        else if (State == MonsterState.Chase)
-        {
-           
-                HearingArea.enabled = false;
-                SightArea.enabled = false;
-                MeleeArea.enabled = true;
-
-                if (other.tag == "Player")
-                {
-                    State = MonsterState.Attack;
-                    anim.SetTrigger("Attack");
-                }
-        }
-        else if (State == MonsterState.Wandering)
-        {
-            if (!isBlind)
-            {
-                HearingArea.enabled = false;
-                SightArea.enabled = true; 
-                MeleeArea.enabled = false;
-            }else if (isBlind)
-            {
-                HearingArea.enabled = true;
-                SightArea.enabled = false; 
-                MeleeArea.enabled = false;
-            }
-            if (other.tag == "Player")
-            {
-                State = MonsterState.Chase;
-                target = other.transform;
-            }
-        }
-        else if (State == MonsterState.Attack)
+        if (other.tag == "PlayerHide")
         {
             State = MonsterState.Idle;
-            anim.SetBool("Chase",false);
-            anim.SetBool("Move",false);
+            target = null;
+        }
+        else
+        {
+             if (State == MonsterState.Idle)
+                    {
+                        if (!isBlind)
+                        {
+                            HearingArea.enabled = false;
+                            SightArea.enabled = true; 
+                            MeleeArea.enabled = false;
+                        }else if (isBlind)
+                        {
+                            HearingArea.enabled = true;
+                            SightArea.enabled = false; 
+                            MeleeArea.enabled = false;
+                        }
             
+                        if (other.tag == "Player")
+                        {
+                            State = MonsterState.Chase;
+                            target = other.transform;
+                        }
+            
+                    }
+                    else if (State == MonsterState.Chase)
+                    {
+                       
+                        HearingArea.enabled = false;
+                        SightArea.enabled = false;
+                        MeleeArea.enabled = true;
+            
+                        if (other.tag == "Player")
+                        {
+                            State = MonsterState.Attack;
+                            anim.SetTrigger("Attack");
+                        }
+                    }
+                    else if (State == MonsterState.Wandering)
+                    {
+                        if (!isBlind)
+                        {
+                            HearingArea.enabled = false;
+                            SightArea.enabled = true; 
+                            MeleeArea.enabled = false;
+                        }else if (isBlind)
+                        {
+                            HearingArea.enabled = true;
+                            SightArea.enabled = false; 
+                            MeleeArea.enabled = false;
+                        }
+                        if (other.tag == "Player")
+                        {
+                            State = MonsterState.Chase;
+                            target = other.transform;
+                        }
+                    }
+                    else if (State == MonsterState.Attack)
+                    {
+                        State = MonsterState.Idle;
+                        anim.SetBool("Chase",false);
+                        anim.SetBool("Move",false);
+                        
+                    }
         }
     }
 
-    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (State == MonsterState.Chase)
+            {
+                State = MonsterState.Idle;
+                target = null;
+                anim.SetBool("Chase", false);
+                anim.SetBool("Move", false);
+            }
+        }
+        else if (other.tag == "PlayerHide")
+        {
+            State = MonsterState.Idle;
+            target = null;
+            anim.SetBool("Chase", false);
+            anim.SetBool("Move", false);
+        }
+    }
+
 }
