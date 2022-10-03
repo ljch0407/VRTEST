@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7208499998887962991}
   - component: {fileID: 3425775778049474089}
   - component: {fileID: 6745972737506490841}
+  - component: {fileID: 4081220646325350639}
   m_Layer: 6
   m_Name: lantern
   m_TagString: Untagged
@@ -200,6 +201,22 @@ CapsuleCollider:
   m_Height: 0.14
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4081220646325350639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777758928561290317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7fa1b61b0b74d44095092b4b8b33172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 487085383850588520}
+  spotLight: {fileID: 3547044041021764}
+  pointLight: {fileID: 9075984217223543385}
+  interactableBase: {fileID: 3425775778049474089}
 --- !u!1 &1070631257031763316
 GameObject:
   m_ObjectHideFlags: 0
