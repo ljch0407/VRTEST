@@ -11,9 +11,10 @@ public class Lantern : MonoBehaviour
     public Light pointLight;
     public XRGrabInteractable interactableBase;
     
-    private bool isopen = false;
+    public bool isopen = true;
     void Start()
     {
+        animator.SetBool("IsOpen",true);
         interactableBase = GetComponent<XRGrabInteractable>();
         interactableBase.selectExited.AddListener(DropObject);
         interactableBase.deactivated.AddListener(TriggerReleased);
