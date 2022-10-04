@@ -12,10 +12,10 @@ public class Lantern : MonoBehaviour
     public XRGrabInteractable interactableBase;
     
     public bool isopen = true;
-    public bool isRightHanded = false;
-    public bool isLeftHanded = false;
-    public GameObject handRight;
-    public GameObject handLeft;
+    public bool dropDown = false;
+    public Transform limitTransform;
+    private float _floating = 0.0f;
+    private float _limit;
     
     void Start()
     {
@@ -25,19 +25,30 @@ public class Lantern : MonoBehaviour
         interactableBase.selectEntered.AddListener(SelectObject);
         interactableBase.deactivated.AddListener(TriggerReleased);
         interactableBase.activated.AddListener(TriggerPulled);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        _limit = limitTransform.position.y + 1.5f;
 
+        if (dropDown)
+        {
+            _floating += 0.01f;
+
+            if (_floating >= _limit)
+                _floating = _limit;
+
+            transform.position = new Vector3(transform.position.x, _floating, transform.position.z);
+        }
+        
     }
 
 
     public void SelectObject(SelectEnterEventArgs args)
     {
-       
+        dropDown = false;
     }
 
     public void DropObject(SelectExitEventArgs args)
@@ -45,7 +56,8 @@ public class Lantern : MonoBehaviour
         isopen = true;
         spotLight.enabled = false;
         pointLight.enabled = true;
-        
+        dropDown = true;
+        _floating = _limit - 1.0f;
         animator.SetBool("IsOpen",true);
     }
     public void TriggerReleased(DeactivateEventArgs args)
@@ -54,6 +66,7 @@ public class Lantern : MonoBehaviour
         spotLight.enabled = false;
         pointLight.enabled = true;
        
+        dropDown = false;
         animator.SetBool("IsOpen",true);
     }
     public void TriggerPulled(ActivateEventArgs args)
@@ -63,6 +76,7 @@ public class Lantern : MonoBehaviour
         spotLight.enabled = true;
         pointLight.enabled = false;
         
+        dropDown = false;
         Debug.Log("Lantern Triigerpulled");
     }
     
