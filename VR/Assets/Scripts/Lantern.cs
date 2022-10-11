@@ -29,21 +29,6 @@ public class Lantern : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        _limit = limitTransform.position.y + 1.5f;
-
-        if (dropDown)
-        {
-            _floating += 0.01f;
-
-            if (_floating >= _limit)
-                _floating = _limit;
-
-            transform.position = new Vector3(transform.position.x, _floating, transform.position.z);
-        }
-        
-    }
 
 
     public void SelectObject(SelectEnterEventArgs args)

@@ -16,15 +16,13 @@ public class OffsetInteractable : XRGrabInteractable
         base.OnSelectEntering(args);
         MatchAttachPoint(args.interactorObject);
     }
-
     protected void MatchAttachPoint(IXRInteractor interactor)
     {
         if (IsFirstSelecting(interactor))
         {
-            bool isDirect = interactor is XRDirectInteractor;
-            attachTransform.position = isDirect ? interactor.GetAttachTransform(this).position : transform.position;
-            attachTransform.rotation = isDirect ? interactor.GetAttachTransform(this).rotation : transform.rotation;
-
+            attachTransform.position = interactor.GetAttachTransform(this).position;
+            attachTransform.rotation = interactor.GetAttachTransform(this).rotation;
+           
         }
     }
 
