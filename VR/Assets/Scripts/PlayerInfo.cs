@@ -53,6 +53,9 @@ public class PlayerInfo : MonoBehaviour
     public ParticleSystem hasteEffect;
     public ParticleSystem flashEffect;
     public GameObject Flashlight;
+
+    public ParticleSystem hasteCooldownEffect;
+    public ParticleSystem flashCooldownEffect;
     
     void Start()
     {
@@ -60,6 +63,8 @@ public class PlayerInfo : MonoBehaviour
         InputDevices.GetDevices(devices);
         hasteEffect.Stop();
         flashEffect.Stop();
+        hasteCooldownEffect.Stop();
+        flashCooldownEffect.Stop();
 
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");
@@ -189,9 +194,11 @@ public class PlayerInfo : MonoBehaviour
         yield return new WaitForSeconds(15f);
         continuousMoveProviderBase.moveSpeed = 2;
         hasteEffect.Stop();
+        hasteCooldownEffect.Play();
         
         yield return new WaitForSeconds(hasteCooldown);
         possibleToHaste = true;
+        hasteCooldownEffect.Stop();
     }
     
     IEnumerator Flash()
@@ -207,10 +214,12 @@ public class PlayerInfo : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         flashEffect.Stop();
+        flashCooldownEffect.Play();
         Flashlight.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(flashCooldown);
         possibleToFlash = true;
+        flashCooldownEffect.Stop();
     }
 
     public void Statue_Mid()
