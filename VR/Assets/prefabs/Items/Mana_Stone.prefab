@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 5612264979321481212}
   - component: {fileID: 778795011802832884}
   - component: {fileID: 1510673898041770400}
+  - component: {fileID: 7262463890240898769}
   m_Layer: 6
   m_Name: Mana_Stone
   m_TagString: ManaStone
@@ -207,7 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 7262463890240898769}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -309,6 +311,20 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!136 &7262463890240898769
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260629324471060009}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.029142454
+  m_Height: 0.11586821
+  m_Direction: 1
+  m_Center: {x: -0.003041829, y: 0.058290884, z: 0.0013727155}
 --- !u!1001 &5722791094429299545
 PrefabInstance:
   m_ObjectHideFlags: 0
