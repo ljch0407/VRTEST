@@ -57,12 +57,16 @@ public class Monster : MonoBehaviour
         }
         else if (State == MonsterState.Wandering)
         {
-            if (transform.position.x == wanderingSpot1.position.x && transform.position.z == wanderingSpot1.position.z )
+            if ((transform.position.x <= wanderingSpot1.position.x + 0.4f && transform.position.x >= wanderingSpot1.position.x - 0.4f)
+                && (transform.position.z <= wanderingSpot1.position.z + 0.4f && transform.position.z >= wanderingSpot1.position.z - 0.4f ))
             {
+                Debug.Log("SetDesination2");
                 nav.SetDestination(wanderingSpot2.position);
             }
-            else if(transform.position.x == wanderingSpot2.position.x && transform.position.z == wanderingSpot2.position.z)
+            else if((transform.position.x <= wanderingSpot2.position.x + 0.4f || transform.position.x >= wanderingSpot2.position.x - 0.4f)
+                    && (transform.position.z <= wanderingSpot2.position.z + 0.4f || transform.position.z >= wanderingSpot2.position.z - 0.4f ))
             {
+                Debug.Log("SetDesination1");
                 nav.SetDestination(wanderingSpot1.position);
             }
         }
