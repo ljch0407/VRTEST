@@ -13,7 +13,7 @@ public class FallDown : MonoBehaviour
         rayCastStartPos = transform.position + new Vector3(0, 30, 0);
     }
 
-    void Update()
+    void LateUpdate()
     {
         Ray ray = new Ray(rayCastStartPos, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit info, 100, terrainLayer.value))
