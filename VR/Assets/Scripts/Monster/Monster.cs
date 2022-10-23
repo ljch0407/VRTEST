@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 
 public enum MonsterState
 {
@@ -11,6 +13,7 @@ public enum MonsterState
     Attack,
     Wandering
 }
+
 public class Monster : MonoBehaviour
 {
     private NavMeshAgent nav;
@@ -50,50 +53,25 @@ public class Monster : MonoBehaviour
     {
         if (State == MonsterState.Idle)
         {
-            State = MonsterState.Wandering;
-            anim.SetBool("Move",true);
-            anim.SetBool("Chase",false);
-            nav.SetDestination(wanderingSpot1.position);
+            StartCoroutine(Idle());
         }
         else if (State == MonsterState.Wandering)
         {
-            if (transform.position.x == wanderingSpot1.position.x && transform.position.z == wanderingSpot1.position.z )
-            {
-                nav.SetDestination(wanderingSpot2.position);
-            }
-            else if(transform.position.x == wanderingSpot2.position.x && transform.position.z == wanderingSpot2.position.z)
-            {
-                nav.SetDestination(wanderingSpot1.position);
-            }
+            StartCoroutine(Wandering());
         }
         else if (State == MonsterState.Chase)
         {
-            anim.SetBool("Chase", true);
-            anim.SetBool("Move",false);
-            nav.SetDestination(target.transform.position);
+            StartCoroutine(Chase());
         }
         else if (State == MonsterState.Attack)
         {
-            nav.SetDestination(target.transform.position);
-            GameObject.FindWithTag("Player").GetComponent<PlayerInfo>().healthPoint--;
-            State = MonsterState.Idle;
-            target = null;
+            StartCoroutine(Attack());
         }
 
 
         if (isBlind)
         {
-            blindedTime += Time.deltaTime;
-            anim.SetTrigger("Blind");
-            target = null;
-            State = MonsterState.Idle;
-            anim.SetBool("Chase",false);
-            anim.SetBool("Move",false);
-            if (blindedTime > 5.0f)
-            {
-                blindedTime = 0.0f;
-                isBlind = false;
-            }
+            StartCoroutine(Blind());
         }
 
     }
@@ -164,7 +142,7 @@ public class Monster : MonoBehaviour
                         State = MonsterState.Idle;
                         anim.SetBool("Chase",false);
                         anim.SetBool("Move",false);
-                        
+
                     }
         }
     }
@@ -189,5 +167,96 @@ public class Monster : MonoBehaviour
             anim.SetBool("Move", false);
         }
     }
+    
+    
+    IEnumerator Idle()
+    {
+        yield return null;
 
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            anim.SetTrigger("Idle");
+        }
+
+        State = MonsterState.Wandering;
+        anim.SetBool("Move",true);
+        anim.SetBool("Chase",false);
+        nav.SetDestination(wanderingSpot1.position);
+    }
+
+    IEnumerator Wandering()
+    {
+        yield return null;
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Move"))
+        {
+            anim.SetTrigger("Move");
+        }   
+        
+        if ((transform.position.x <= wanderingSpot1.position.x + 0.4f && transform.position.x >= wanderingSpot1.position.x - 0.4f)
+                 && (transform.position.z <= wanderingSpot1.position.z + 0.4f && transform.position.z >= wanderingSpot1.position.z - 0.4f ))
+        {
+            Debug.Log("SetDesination2");
+            nav.SetDestination(wanderingSpot2.position);
+        }
+        else if((transform.position.x <= wanderingSpot2.position.x + 0.4f && transform.position.x >= wanderingSpot2.position.x - 0.4f)
+            && (transform.position.z <= wanderingSpot2.position.z + 0.4f && transform.position.z >= wanderingSpot2.position.z - 0.4f ))
+        {
+            Debug.Log("SetDesination1");
+            nav.SetDestination(wanderingSpot1.position);
+        }
+    }
+
+    IEnumerator Chase()
+    {
+        yield return null;
+        
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Chase"))
+        {
+            anim.SetTrigger("Chase");
+        }   
+        
+        anim.SetBool("Chase", true);
+        anim.SetBool("Move",false);
+        nav.SetDestination(target.transform.position);
+    }
+
+    IEnumerator Attack()
+    {
+        yield return null;
+        
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            anim.SetTrigger("Attack");
+        }   
+        
+        nav.SetDestination(target.transform.position);
+        GameObject.FindWithTag("Player").GetComponent<PlayerInfo>().healthPoint--;
+        State = MonsterState.Idle;
+        target = null;
+    }
+
+    IEnumerator Blind()
+    {
+        yield return null;
+        
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Blind"))
+        {
+            anim.SetTrigger("Blind");
+        }   
+
+        blindedTime += Time.deltaTime;
+        anim.SetTrigger("Blind");
+        target = null;
+        State = MonsterState.Idle;
+        anim.SetBool("Chase",false);
+        anim.SetBool("Move",false);
+        if (blindedTime > 5.0f)
+        {
+            blindedTime = 0.0f;
+            isBlind = false;
+        }
+    }
 }
+
+
+
