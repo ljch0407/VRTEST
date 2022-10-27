@@ -32,7 +32,7 @@ public class IKController : MonoBehaviour
     
     void LateUpdate()
     {
-        HeadTrackingUpdate();
+        //HeadTrackingUpdate();
         //RootMotionUpdate();
     }
     
