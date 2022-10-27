@@ -18,24 +18,25 @@ public class Monster : MonoBehaviour
 {
     private NavMeshAgent nav;
     private Animator anim;
-
-    public Transform wanderingSpot1;
-    public Transform wanderingSpot2;
-
+    
     public Transform target;
     public MonsterState State;
 
     private float blindedTime;
 
+    public Transform WanderingSpot;
+    
     [SerializeField]  
     public SphereCollider MeleeArea;
     public MeshCollider SightArea;
     public CapsuleCollider HearingArea;
 
     public bool isBlind = false;
+
     // Start is called before the first frame update
     void Awake()
     {
+       
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -172,16 +173,10 @@ public class Monster : MonoBehaviour
     IEnumerator Idle()
     {
         yield return null;
-
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            anim.SetTrigger("Idle");
-        }
-
+        
         State = MonsterState.Wandering;
         anim.SetBool("Move",true);
-        anim.SetBool("Chase",false);
-        nav.SetDestination(wanderingSpot1.position);
+        anim.SetBool("Chase", false);
     }
 
     IEnumerator Wandering()
@@ -190,20 +185,9 @@ public class Monster : MonoBehaviour
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Move"))
         {
             anim.SetTrigger("Move");
-        }   
-        
-        if ((transform.position.x <= wanderingSpot1.position.x + 0.4f && transform.position.x >= wanderingSpot1.position.x - 0.4f)
-                 && (transform.position.z <= wanderingSpot1.position.z + 0.4f && transform.position.z >= wanderingSpot1.position.z - 0.4f ))
-        {
-            Debug.Log("SetDesination2");
-            nav.SetDestination(wanderingSpot2.position);
         }
-        else if((transform.position.x <= wanderingSpot2.position.x + 0.4f && transform.position.x >= wanderingSpot2.position.x - 0.4f)
-            && (transform.position.z <= wanderingSpot2.position.z + 0.4f && transform.position.z >= wanderingSpot2.position.z - 0.4f ))
-        {
-            Debug.Log("SetDesination1");
-            nav.SetDestination(wanderingSpot1.position);
-        }
+
+        nav.SetDestination(WanderingSpot.position);
     }
 
     IEnumerator Chase()
