@@ -256,6 +256,7 @@ public class Monster : MonoBehaviour
             isBlind = false;
         }
     }
+    
 }
 
 

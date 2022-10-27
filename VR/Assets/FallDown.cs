@@ -21,4 +21,5 @@ public class FallDown : MonoBehaviour
             transform.position = new Vector3(transform.position.x, info.point.y + delay, transform.position.z);
         }
     }
+
 }
