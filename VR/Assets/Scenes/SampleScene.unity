@@ -21334,7 +21334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924640133}
   m_LocalRotation: {x: -0, y: -0.3661449, z: -0, w: 0.93055785}
-  m_LocalPosition: {x: -0.97, y: 0.094, z: -23.36}
+  m_LocalPosition: {x: -101.945, y: 0.094, z: -16.738}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 761282901}
@@ -39296,6 +39296,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3343410915821912812, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: m_CookingOptions
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6919802247438145742, guid: 6b89aadd82057a04884640574316eca6,
         type: 3}
       propertyPath: m_RootOrder
@@ -39371,7 +39376,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameMap_Renewal
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3343410915821912812, guid: 6b89aadd82057a04884640574316eca6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b89aadd82057a04884640574316eca6, type: 3}
 --- !u!1001 &1793772721
 PrefabInstance:
