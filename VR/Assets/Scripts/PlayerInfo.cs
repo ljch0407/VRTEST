@@ -10,7 +10,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerInfo : MonoBehaviour
 {
-
     public int healthPoint;
     public int hasManaStoneCount;
     
@@ -38,6 +37,7 @@ public class PlayerInfo : MonoBehaviour
     private bool hide;
     private bool haste;
     private bool flash;
+    private Vector2 move;
     
     
     public SoundManager _soundManager;
@@ -143,6 +143,25 @@ public class PlayerInfo : MonoBehaviour
             Debug.Log("Left secondary Pressed");
             StartCoroutine(Flash());
         }
+
+        if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis,out move))
+        {
+            if (move.x != 0 || move.y != 0)
+            {
+                Debug.Log("Player is moving around");
+                StartCoroutine(FootStepStart());
+            }
+
+        }
+        
+        if (targetDeviceR.TryGetFeatureValue(CommonUsages.primary2DAxis,out move))
+        {
+            if (move.x != 0 || move.y != 0)
+            {
+                Debug.Log("Player is turning around");
+                StartCoroutine(FootStepStart());
+            }
+        }
     }
 
     private IEnumerator MenuRoomEnter()
@@ -222,6 +241,12 @@ public class PlayerInfo : MonoBehaviour
         flashCooldownEffect.Stop();
     }
 
+    IEnumerator FootStepStart()
+    {
+        yield return new WaitForSeconds(1f);
+        _soundManager.PlaySFX("PlayerFootStep");
+    }
+    
     public void Statue_Mid()
     {
         midStatue = true;
