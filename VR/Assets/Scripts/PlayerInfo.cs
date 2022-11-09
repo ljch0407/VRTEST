@@ -151,6 +151,8 @@ public class PlayerInfo : MonoBehaviour
                 Debug.Log("Player is moving around");
                 StartCoroutine(FootStepStart());
             }
+            else
+                StartCoroutine(FootStepStop());
 
         }
         
@@ -161,6 +163,8 @@ public class PlayerInfo : MonoBehaviour
                 Debug.Log("Player is turning around");
                 StartCoroutine(FootStepStart());
             }
+            else
+                StartCoroutine(FootStepStop());
         }
     }
 
@@ -243,8 +247,16 @@ public class PlayerInfo : MonoBehaviour
 
     IEnumerator FootStepStart()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
+
         _soundManager.PlaySFX("PlayerFootStep");
+
+    }
+    
+    IEnumerator FootStepStop()
+    {
+        _soundManager.StopSFX("PlayerFootStep");
+        yield return new WaitForSeconds(0.1f);
     }
     
     public void Statue_Mid()
