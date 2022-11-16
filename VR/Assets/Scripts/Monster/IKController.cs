@@ -20,10 +20,8 @@ public class IKController : MonoBehaviour
     Vector3 currentVelocity;
     float currentAngularVelocity;
     
-    [SerializeField] LegStepper frontLeftLegStepper;
-    [SerializeField] LegStepper frontRightLegStepper;
-    [SerializeField] LegStepper backLeftLegStepper;
-    [SerializeField] LegStepper backRightLegStepper;
+    [SerializeField] LegStepper LeftLegStepper;
+    [SerializeField] LegStepper RightLegStepper;
 
     void Awake()
     {
@@ -43,18 +41,14 @@ public class IKController : MonoBehaviour
         {
             do
             {
-                frontLeftLegStepper.TryMove();
-                backRightLegStepper.TryMove();
+                LeftLegStepper.TryMove();
                 yield return null;
-      
-            } while (backRightLegStepper.Moving || frontLeftLegStepper.Moving);
-
+            } while (LeftLegStepper.Moving);
             do
             {
-                frontRightLegStepper.TryMove();
-                backLeftLegStepper.TryMove();
+                RightLegStepper.TryMove();
                 yield return null;
-            } while (backLeftLegStepper.Moving || frontRightLegStepper.Moving);
+            } while (RightLegStepper.Moving);
         }
     }
     
