@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 1859013612050221964}
   - component: {fileID: 3288323837329424659}
   - component: {fileID: 4663222239417323717}
+  - component: {fileID: 3691922480850023735}
   m_Layer: 0
   m_Name: Box004_2 (1)
   m_TagString: Untagged
@@ -61,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2318639325677879713}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.667, y: 0, z: 0.016}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7.238573, y: 4.845098, z: 2.9959006}
   m_Children: []
   m_Father: {fileID: 1610718243255710556}
@@ -158,6 +159,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 3288323837329424659}
+  _soundManager: {fileID: 0}
+--- !u!65 &3691922480850023735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318639325677879713}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.087628424, y: 0.28163695, z: 0.03}
+  m_Center: {x: -0.000000005587938, y: 0.14163837, z: 0.000002089888}
 --- !u!1 &8398213606191651293
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +187,7 @@ GameObject:
   - component: {fileID: 3828990097928969299}
   - component: {fileID: 622545502051225394}
   - component: {fileID: 768997714893638525}
+  - component: {fileID: 1978207613454633645}
   m_Layer: 0
   m_Name: Box004_1 (1)
   m_TagString: Untagged
@@ -187,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8398213606191651293}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.74760914, y: 0, z: 0.016000003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7.238573, y: 4.845098, z: 2.9959006}
   m_Children: []
   m_Father: {fileID: 1610718243255710556}
@@ -284,3 +300,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 622545502051225394}
+  _soundManager: {fileID: 0}
+--- !u!65 &1978207613454633645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8398213606191651293}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08863084, y: 0.35585356, z: 0.03}
+  m_Center: {x: -0.000025756666, y: -0.11620696, z: -0.000047561487}
