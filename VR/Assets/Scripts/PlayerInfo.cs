@@ -65,7 +65,7 @@ public class PlayerInfo : MonoBehaviour
         flashEffect.Stop();
         hasteCooldownEffect.Stop();
         flashCooldownEffect.Stop();
-
+  
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");
  
