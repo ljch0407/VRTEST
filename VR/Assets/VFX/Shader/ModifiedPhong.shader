@@ -7,6 +7,7 @@ Shader "Custom/ModifiedPhong"
         _SpecColor("Specular MAterial Color", Color) = (1,1,1,1)
         _Shininess("Shininess (n)", Range(1,1000)) = 100
         _NormalMap("Normal MAp", 2D) = "bump" {}
+        _Ambient("Ambient",Range (0,1)) = 0.25
     }
     SubShader
     {
@@ -29,6 +30,7 @@ Shader "Custom/ModifiedPhong"
 
         half _Shininess;
         fixed4 _Color;
+        float _Ambient;
 
         inline void LightingPhongModified_GI(
             SurfaceOutput s,
@@ -43,7 +45,7 @@ Shader "Custom/ModifiedPhong"
             const float PI = 3.14159265358979323846;
             UnityLight light = gi.light;
 
-            float nl = max(0.0f, dot(s.Normal, light.dir));
+            float nl = max(_Ambient, dot(s.Normal, light.dir));
             float3 diffuseTerm = nl * s.Albedo.rgb * light.color;
 
             float norm = (_Shininess + 2) / (2 * PI);
