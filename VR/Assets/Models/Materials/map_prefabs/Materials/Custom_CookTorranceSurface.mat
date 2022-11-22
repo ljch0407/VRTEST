@@ -32,9 +32,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Roughness: 0.85
+    - _Anisotropic: 0
+    - _Clearcoat: 0
+    - _ClearcoatGloss: 0
+    - _Metallic: 1
+    - _Roughness: 0.32
+    - _Sheen: 0
+    - _SheenTint: 0
     - _Shininess: 4
-    - _Subsurface: 0
+    - _Specular: 1
+    - _Subsurface: 0.56
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorTint: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
