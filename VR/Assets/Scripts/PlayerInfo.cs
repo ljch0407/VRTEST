@@ -5,6 +5,7 @@ using Unity.Collections;
 using UnityEditor.XR.Interaction.Toolkit;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -15,6 +16,7 @@ public class PlayerInfo : MonoBehaviour
     
     private float hasteCooldown = 5f;
     private float flashCooldown = 5f;
+    private float SeethroughCooldown = 10f;
     private float pathFindCooldown = 10f;
     
     
@@ -28,7 +30,8 @@ public class PlayerInfo : MonoBehaviour
     private bool possibleToHaste = true;
     private bool possibleToFlash = true;
     private bool possibleToPathFind = true;
-
+    private bool possibleToSeethrough = true;
+    
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
@@ -37,6 +40,7 @@ public class PlayerInfo : MonoBehaviour
     private bool hide;
     private bool haste;
     private bool flash;
+    private bool outlines;
     private Vector2 move;
     
     
@@ -56,6 +60,8 @@ public class PlayerInfo : MonoBehaviour
 
     public ParticleSystem hasteCooldownEffect;
     public ParticleSystem flashCooldownEffect;
+
+    public outline outline;
     
     void Start()
     {
@@ -129,6 +135,17 @@ public class PlayerInfo : MonoBehaviour
                 hideSpotObject.Hide();
             }
         }
+        
+        if (targetDeviceR.TryGetFeatureValue(CommonUsages.secondaryButton, out outlines) && outlines)
+        {
+            //Hide spot use
+            Debug.Log("Right secondary Pressed");
+            if (possibleToSeethrough)
+            {
+                StartCoroutine(Seethrough());
+            }
+        }
+
         
         if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out haste) && haste)
         {
@@ -222,6 +239,22 @@ public class PlayerInfo : MonoBehaviour
         yield return new WaitForSeconds(hasteCooldown);
         possibleToHaste = true;
         hasteCooldownEffect.Stop();
+    }
+    
+    IEnumerator Seethrough()
+    {
+        if (possibleToSeethrough)
+        {
+            possibleToSeethrough = false;
+            Debug.Log("Seethrough On");
+            outline.enabled = true;
+            hasManaStoneCount--;
+        }
+        yield return new WaitForSeconds(10f);
+        outline.enabled = false;
+        
+        yield return new WaitForSeconds(SeethroughCooldown);
+        possibleToSeethrough = true;
     }
     
     IEnumerator Flash()

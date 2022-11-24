@@ -64,10 +64,8 @@ Shader "Custom/Post Outline"
                     ColorIntensityInRadius *= 0.005;
 
                     //output some intensity of teal
-                    half4 color = tex2D(_SceneTex,i.uvs.xy) + ColorIntensityInRadius * half4(0,1,1,1);
-
-                    //don't want our teal outline to be white in cases where there's too much red
-                    color.r = max(tex2D(_SceneTex,i.uvs.xy).r - ColorIntensityInRadius,0);
+                    half4 color = tex2D(_SceneTex,i.uvs.xy) + ColorIntensityInRadius * half4(1,0,0,1);
+                
                     return color;
                 }
 
