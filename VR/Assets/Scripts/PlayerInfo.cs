@@ -56,7 +56,8 @@ public class PlayerInfo : MonoBehaviour
 
     public ParticleSystem hasteCooldownEffect;
     public ParticleSystem flashCooldownEffect;
-    
+
+    public ParticleSystem[] manaStoneUIs;
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -65,7 +66,11 @@ public class PlayerInfo : MonoBehaviour
         flashEffect.Stop();
         hasteCooldownEffect.Stop();
         flashCooldownEffect.Stop();
-  
+
+        foreach (var VARIABLE in manaStoneUIs)
+        {
+            VARIABLE.Stop();
+        }
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.PlayBGM("BGM0");
  
@@ -165,6 +170,18 @@ public class PlayerInfo : MonoBehaviour
             }
             else
                 StartCoroutine(FootStepStop());
+        }
+
+        for (int i = 0; i < 5; ++i)
+        {
+            if (hasManaStoneCount > i)
+            {
+                manaStoneUIs[i].Play();
+            }
+            else
+            {
+                manaStoneUIs[i].Stop();
+            }
         }
     }
 
