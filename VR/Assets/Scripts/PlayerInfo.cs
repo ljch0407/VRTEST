@@ -250,9 +250,10 @@ public class PlayerInfo : MonoBehaviour
             outline.enabled = true;
             hasManaStoneCount--;
         }
+        yield return new WaitForSeconds(10f);
+        outline.enabled = false;
         
         yield return new WaitForSeconds(SeethroughCooldown);
-        outline.enabled = false;
         possibleToSeethrough = true;
     }
     
