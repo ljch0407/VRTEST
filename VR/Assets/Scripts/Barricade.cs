@@ -26,8 +26,7 @@ public class Barricade : MonoBehaviour
         if (other.tag == "Hammer")
         {
             Other_rigidBody.isKinematic = false;
-            Door_rigidBody.constraints = ~RigidbodyConstraints.FreezeRotationX | ~RigidbodyConstraints.FreezeRotationY |
-                                         ~RigidbodyConstraints.FreezeRotationZ;
+            Door_rigidBody.constraints = RigidbodyConstraints.None;
             // StartCoroutine(BreakBarricades());
         }
     }
