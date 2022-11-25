@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,5 +34,10 @@ public class outline : MonoBehaviour
 		Graphics.Blit(rt, dst, _outlineMaterial);
 
 		RenderTexture.ReleaseTemporary(rt);
+	}
+
+	private void OnDisable()
+	{
+
 	}
 }
