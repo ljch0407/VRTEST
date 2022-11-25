@@ -2492,6 +2492,12 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &333808581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7680342291045035657, guid: 38e8948ef80144549875005c907e25aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 4513237298783413888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &351303661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8660880334937386849, guid: f7576a3aa8153194d9b0d8c52609498d,
@@ -6685,6 +6691,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Peice_Under
       objectReference: {fileID: 0}
+    - target: {fileID: 295466782625563162, guid: 4145fc396c0bbf74b82d7fea3c9ced9e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7695684008283795914, guid: 4145fc396c0bbf74b82d7fea3c9ced9e,
         type: 3}
       propertyPath: m_RootOrder
@@ -6693,7 +6704,7 @@ PrefabInstance:
     - target: {fileID: 7695684008283795914, guid: 4145fc396c0bbf74b82d7fea3c9ced9e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -115.52706
+      value: -115.513
       objectReference: {fileID: 0}
     - target: {fileID: 7695684008283795914, guid: 4145fc396c0bbf74b82d7fea3c9ced9e,
         type: 3}
@@ -6703,7 +6714,7 @@ PrefabInstance:
     - target: {fileID: 7695684008283795914, guid: 4145fc396c0bbf74b82d7fea3c9ced9e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.11
+      value: 18.211
       objectReference: {fileID: 0}
     - target: {fileID: 7695684008283795914, guid: 4145fc396c0bbf74b82d7fea3c9ced9e,
         type: 3}
@@ -14938,6 +14949,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4513237299475115243, guid: 38e8948ef80144549875005c907e25aa,
+        type: 3}
+      propertyPath: isOpen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513237299475115243, guid: 38e8948ef80144549875005c907e25aa,
+        type: 3}
+      propertyPath: Safedoor
+      value: 
+      objectReference: {fileID: 333808581}
     - target: {fileID: 4513237299475115243, guid: 38e8948ef80144549875005c907e25aa,
         type: 3}
       propertyPath: stoolPrefabs.Array.data[0]
