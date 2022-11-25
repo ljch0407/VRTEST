@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class FastIKFabric : MonoBehaviour
 {
     public int ChainLength = 2;
@@ -218,6 +219,7 @@ public class FastIKFabric : MonoBehaviour
             current.rotation = Root.rotation * rotation;
     }
 
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         var current = this.transform;
@@ -233,4 +235,5 @@ public class FastIKFabric : MonoBehaviour
             current = current.parent;
         }
     }
+#endif    
 }
