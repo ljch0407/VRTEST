@@ -6,7 +6,8 @@ using UnityEngine;
 public class Barricade : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Rigidbody rigidBody;
+    public Rigidbody Other_rigidBody;
+    public Rigidbody Door_rigidBody;
     public SoundManager _soundManager;
 
     void Start()
@@ -24,8 +25,10 @@ public class Barricade : MonoBehaviour
     {
         if (other.tag == "Hammer")
         {
-            rigidBody.isKinematic = false;
-           // StartCoroutine(BreakBarricades());
+            Other_rigidBody.isKinematic = false;
+            Door_rigidBody.constraints = ~RigidbodyConstraints.FreezeRotationX | ~RigidbodyConstraints.FreezeRotationY |
+                                         ~RigidbodyConstraints.FreezeRotationZ;
+            // StartCoroutine(BreakBarricades());
         }
     }
 
