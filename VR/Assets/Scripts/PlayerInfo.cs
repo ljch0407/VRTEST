@@ -16,6 +16,7 @@ public class PlayerInfo : MonoBehaviour
     private float hasteCooldown = 5f;
     private float flashCooldown = 5f;
     private float pathFindCooldown = 10f;
+    private float SeethroughCooldown = 10f;
     
     
     public Transform menuTransform;
@@ -28,7 +29,8 @@ public class PlayerInfo : MonoBehaviour
     private bool possibleToHaste = true;
     private bool possibleToFlash = true;
     private bool possibleToPathFind = true;
-
+    private bool possibleTpSeethrough = true;
+    
     private InputDeviceCharacteristics rightControllerCharacteristics;
     private InputDeviceCharacteristics leftControllerCharacteristics;
     private InputDevice targetDevice;
@@ -37,6 +39,7 @@ public class PlayerInfo : MonoBehaviour
     private bool hide;
     private bool haste;
     private bool flash;
+    private bool seethrough;
     private Vector2 move;
     
     
@@ -58,6 +61,9 @@ public class PlayerInfo : MonoBehaviour
     public ParticleSystem flashCooldownEffect;
 
     public ParticleSystem[] manaStoneUIs;
+
+    public Camera mainCam;
+    public Camera outlineCam;
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -66,6 +72,9 @@ public class PlayerInfo : MonoBehaviour
         flashEffect.Stop();
         hasteCooldownEffect.Stop();
         flashCooldownEffect.Stop();
+
+        mainCam.enabled = true;
+        outlineCam.enabled = false;
 
         foreach (var VARIABLE in manaStoneUIs)
         {
@@ -115,6 +124,7 @@ public class PlayerInfo : MonoBehaviour
             possibleToHaste = false;
             possibleToFlash = false;
             possibleToPathFind = false;
+            possibleTpSeethrough = false;
         }
 
         if (targetDevice.TryGetFeatureValue(CommonUsages.menuButton, out menuButton) && menuButton)
@@ -132,6 +142,16 @@ public class PlayerInfo : MonoBehaviour
             if (possibleToHide)
             {
                 hideSpotObject.Hide();
+            }
+        }
+        
+        if (targetDeviceR.TryGetFeatureValue(CommonUsages.secondaryButton, out seethrough) && seethrough)
+        {
+            //Hide spot use
+            Debug.Log("Right secondary Pressed");
+            if (possibleTpSeethrough)
+            {
+                StartCoroutine(Seethrough());
             }
         }
         
@@ -239,6 +259,25 @@ public class PlayerInfo : MonoBehaviour
         yield return new WaitForSeconds(hasteCooldown);
         possibleToHaste = true;
         hasteCooldownEffect.Stop();
+    }
+    
+    IEnumerator Seethrough()
+    {
+        if (possibleTpSeethrough)
+        {
+            possibleTpSeethrough = false;
+            Debug.Log("Seethrough On");
+            outlineCam.enabled = true;
+            mainCam.enabled = false;
+            hasManaStoneCount--;
+        }
+        
+        yield return new WaitForSeconds(10f);
+        outlineCam.enabled = false;
+        mainCam.enabled = true;
+        
+        yield return new WaitForSeconds(SeethroughCooldown);
+        possibleTpSeethrough = true;
     }
     
     IEnumerator Flash()
