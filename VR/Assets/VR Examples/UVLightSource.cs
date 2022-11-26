@@ -5,7 +5,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class UVLightSource : MonoBehaviour
 {
-    public Material reveal;
+    public List<Material> reveals;
     public Light light;
 
     public Lantern _lantern;
@@ -14,16 +14,20 @@ public class UVLightSource : MonoBehaviour
 
     void Update()
     {
-        if (!_lantern.isopen)
+        foreach (var reveal in reveals)
         {
-            reveal.SetVector("_LightPosition", light.transform.position);
-            reveal.SetVector("_LightDirection", -light.transform.forward);
-            reveal.SetFloat("_LightAngle", light.spotAngle);
+            if (!_lantern.isopen)
+            {
+                reveal.SetVector("_LightPosition", light.transform.position);
+                reveal.SetVector("_LightDirection", -light.transform.forward);
+                reveal.SetFloat("_LightAngle", light.spotAngle);
+            }
+            else{
+                reveal.SetVector("_LightPosition", light.transform.position);
+                reveal.SetVector("_LightDirection", -light.transform.forward);
+                reveal.SetFloat("_LightAngle", 0);
+            }
         }
-        else{
-            reveal.SetVector("_LightPosition", light.transform.position);
-            reveal.SetVector("_LightDirection", -light.transform.forward);
-            reveal.SetFloat("_LightAngle", 0);
-        }
+        
     }
 }
