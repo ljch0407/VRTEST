@@ -8,10 +8,11 @@ Shader "Custom/ModifiedPhong"
         _Shininess("Shininess (n)", Range(1,1000)) = 100
         _NormalMap("Normal MAp", 2D) = "bump" {}
         _Ambient("Ambient",Range (0,1)) = 0.25
+        _Cutoff ("Cutoff", Range(0,1)) = 0.5
     }
     SubShader
     {
-        Tags { "RenderType"="Cutout" }
+        Tags {  "RenderType"="Opaque" }
         LOD 200
 
         CGPROGRAM
@@ -31,6 +32,7 @@ Shader "Custom/ModifiedPhong"
         half _Shininess;
         fixed4 _Color;
         float _Ambient;
+        float _Cutoff;
 
         inline void LightingPhongModified_GI(
             SurfaceOutput s,
@@ -78,6 +80,7 @@ Shader "Custom/ModifiedPhong"
             o.Normal = UnpackNormal(tex2D(_NormalMap, IN.uv_MainTex));
             // Metallic and smoothness come from slider variables
             o.Specular = _Shininess;
+            clip(c.a - _Cutoff);
             o.Alpha = c.a;
         }
         ENDCG
