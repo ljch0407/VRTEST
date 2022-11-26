@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -62,6 +63,8 @@ public class PlayerInfo : MonoBehaviour
 
     public Camera mainCam;
     public Camera outlineCam;
+
+    private outline camsetting;
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -70,7 +73,8 @@ public class PlayerInfo : MonoBehaviour
         flashEffect.Stop();
         hasteCooldownEffect.Stop();
         flashCooldownEffect.Stop();
-
+        camsetting = outlineCam.GetComponent<outline>();
+        camsetting.enabled = false;
         mainCam.enabled = true;
         outlineCam.enabled = false;
 
@@ -266,6 +270,7 @@ public class PlayerInfo : MonoBehaviour
             possibleTpSeethrough = false;
             Debug.Log("Seethrough On");
             outlineCam.enabled = true;
+            camsetting.enabled = true;
             mainCam.enabled = false;
             hasManaStoneCount--;
         }
