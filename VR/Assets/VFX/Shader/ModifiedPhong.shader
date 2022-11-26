@@ -11,7 +11,7 @@ Shader "Custom/ModifiedPhong"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Cutout" }
         LOD 200
 
         CGPROGRAM
