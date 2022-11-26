@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -110,15 +111,16 @@ public class PlayerInfo : MonoBehaviour
     {
         if (healthPoint < 2)
         {
-            GameObject postProcess = GameObject.Find("Post-process P");
-            Volume postVolume = postProcess.gameObject.GetComponent<Volume>();
-            postVolume.enabled = true;
+            GameObject postProcess = GameObject.Find("Post-process Volume Player");
+            PostProcessVolume Volume = postProcess.GetComponent<PostProcessVolume>();
+            Volume.enabled = true;
+
         }
         else
         {
-            GameObject postProcess = GameObject.Find("Post-process P");
-            Volume postVolume = postProcess.gameObject.GetComponent<Volume>();
-            postVolume.enabled = false;
+            GameObject postProcess = GameObject.Find("Post-process Volume Player");
+            PostProcessVolume Volume = postProcess.GetComponent<PostProcessVolume>();
+            Volume.enabled = false;
         }
 
         if (hasManaStoneCount == 0)
