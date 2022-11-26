@@ -11,9 +11,13 @@ Shader "Custom/ModifiedPhong"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Cutout" }
         LOD 200
-
+        
+        Cull Back
+        Zwrite On
+        Ztest On
+        
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf PhongModified fullforwardshadows
