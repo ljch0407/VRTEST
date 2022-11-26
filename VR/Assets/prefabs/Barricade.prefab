@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1610718243255710556}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3288323837329424659}
   - component: {fileID: 4663222239417323717}
   - component: {fileID: 3691922480850023735}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box004_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1e7a40f3876864993c82c289f82c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidBody: {fileID: 3288323837329424659}
+  Other_rigidBody: {fileID: 622545502051225394}
+  Door_rigidBody: {fileID: 0}
   _soundManager: {fileID: 0}
 --- !u!65 &3691922480850023735
 BoxCollider:
@@ -188,7 +189,7 @@ GameObject:
   - component: {fileID: 622545502051225394}
   - component: {fileID: 768997714893638525}
   - component: {fileID: 1978207613454633645}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box004_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1e7a40f3876864993c82c289f82c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidBody: {fileID: 622545502051225394}
+  Other_rigidBody: {fileID: 3288323837329424659}
+  Door_rigidBody: {fileID: 0}
   _soundManager: {fileID: 0}
 --- !u!65 &1978207613454633645
 BoxCollider:
