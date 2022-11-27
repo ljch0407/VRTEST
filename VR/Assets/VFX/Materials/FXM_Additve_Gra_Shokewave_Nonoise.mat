@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Blood1 1
-  m_Shader: {fileID: 4800000, guid: 8203e0567834c59418206b8f24961fc2, type: 3}
-  m_ShaderKeywords: 
+  m_Name: FXM_Additve_Gra_Shokewave_Nonoise
+  m_Shader: {fileID: 4800000, guid: 7241c7217b3ecb840a879550eea82359, type: 3}
+  m_ShaderKeywords: _USE_CUSTOM_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,17 +39,25 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
+    - _FXT_GraTex01:
+        m_Texture: {fileID: 2800000, guid: e82e528e3daeec24aa176f65274788f0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 1d69a41f38d58074db432b1de8d769f7, type: 3}
+    - _Gra_Texture:
+        m_Texture: {fileID: 2800000, guid: e82e528e3daeec24aa176f65274788f0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise_Texture:
+        m_Texture: {fileID: 2800000, guid: 291b26790b4e30e43b6347b381849af8, type: 3}
+        m_Scale: {x: 3, y: 0.15}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -58,6 +66,10 @@ Material:
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Sub_Texture:
+        m_Texture: {fileID: 2800000, guid: 68e5980af78d21e4f8e879df5d2164b5, type: 3}
+        m_Scale: {x: 2, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _tex4coord:
         m_Texture: {fileID: 0}
@@ -69,28 +81,41 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
+    - _Chromatic_Val: 0
+    - _CullMode: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Main_Ins: 1
-    - _Main_Pow: 3.02
+    - _Gra_Ins: 1
+    - _Gra_Offset: 0
+    - _Gra_Pow: 5.5
+    - _Gra_UOffset: 0
+    - _Gra_VOffset: 0.16
+    - _Mask_Range: 6.5
     - _Metallic: 0
     - _Mode: 0
+    - _Noise_UPanner: 0
+    - _Noise_VPanner: 0.08
+    - _Noise_Val: 0.04
     - _OcclusionStrength: 1
-    - _Opacity: 1.99
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Sub_Tex_Ins: 0
+    - _Sub_Tex_Pow: 1.61
+    - _Sub_Tex_UPanner: 0
+    - _Sub_Tex_VPanner: 0.2
     - _UVSec: 0
-    - _Use_Custom: 0
+    - _Use_Custom: 1
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Tint_Color: {r: 0.05490196, g: 0.007843138, b: 0.007843138, a: 1}
+    - _Gra_Color: {r: 0.5719095, g: 0.91028935, b: 0.6815255, a: 0}
+    - _Sub_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
