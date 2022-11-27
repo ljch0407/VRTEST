@@ -32,10 +32,7 @@ public class Safe : MonoBehaviour
     void Update()
     {
         
-        if (_stoolList[0].GetComponent<Stool>().isActive &&
-            _stoolList[1].GetComponent<Stool>().isActive &&
-            _stoolList[2].GetComponent<Stool>().isActive &&
-            countOfStoolActive == 3)
+        if (_stoolList[0].GetComponent<Stool>().isActive)
         {
             isOpen = true;
         }
