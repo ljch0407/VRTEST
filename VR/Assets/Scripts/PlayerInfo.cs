@@ -66,6 +66,11 @@ public class PlayerInfo : MonoBehaviour
     public Camera outlineCam;
 
     private outline camsetting;
+
+    private bool Invincible;
+    private bool Infinite_Mana;
+    private bool MetaUISetting;
+    
     void Start()
     {
         List<InputDevice> devices = new List<InputDevice>();
@@ -79,6 +84,10 @@ public class PlayerInfo : MonoBehaviour
         mainCam.enabled = true;
         outlineCam.enabled = false;
 
+        Invincible = false;
+        Infinite_Mana = false;
+        MetaUISetting = false;
+        
         foreach (var VARIABLE in manaStoneUIs)
         {
             VARIABLE.Stop();
@@ -207,6 +216,21 @@ public class PlayerInfo : MonoBehaviour
                 manaStoneUIs[i].Stop();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            StartCoroutine(PlayerInvincible());
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            StartCoroutine(PlayerInfiniteMana());
+        }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            StartCoroutine(PlayerMetaUISetting());
+        }
     }
 
     private IEnumerator MenuRoomEnter()
@@ -320,6 +344,52 @@ public class PlayerInfo : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
     
+    IEnumerator PlayerInvincible()
+    {
+        Invincible = !Invincible;
+        yield return new WaitForSeconds(0.1f);
+        if (Invincible)
+        {
+           Debug.Log("POWEROVERWHELMING ACTIVATED");
+           tag = "Invincible";
+        }else if (!Invincible)
+        {
+            Debug.Log("POWEROVERWHELMING DEACTIVATED");
+            tag = "Player";
+        }
+    }
+    
+    IEnumerator PlayerInfiniteMana()
+    {
+        Infinite_Mana = !Infinite_Mana;
+        yield return new WaitForSeconds(0.1f);
+        if (Infinite_Mana)
+        {
+            Debug.Log("INFINITE MANA ACTIVATED");
+            hasManaStoneCount = 99;
+        }else if (!Infinite_Mana)
+        {
+            Debug.Log("INFINITE MANA DEACTIVATED");
+            hasManaStoneCount = 2;
+        }
+    }
+
+    
+    IEnumerator PlayerMetaUISetting()
+    {
+        MetaUISetting = !MetaUISetting;
+        yield return new WaitForSeconds(0.1f);
+        if (MetaUISetting)
+        {
+            Debug.Log("MetaUI Setting ACTIVATED");
+            healthPoint = 1;
+        }else if (!MetaUISetting)
+        {
+            Debug.Log("MetaUI Setting DEACTIVATED");
+            healthPoint = 2;
+        }
+    }
+     
     public void Statue_Mid()
     {
         midStatue = true;
