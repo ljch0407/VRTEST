@@ -3972,7 +3972,6 @@ GameObject:
   - component: {fileID: 588446727}
   - component: {fileID: 588446726}
   - component: {fileID: 588446725}
-  - component: {fileID: 588446724}
   m_Layer: 16
   m_Name: Outline Camera
   m_TagString: MainCamera
@@ -3994,20 +3993,6 @@ Transform:
   m_Father: {fileID: 761282901}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 20.146, y: 195.09, z: 0.001}
---- !u!114 &588446724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588446722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f5feaa2d58f2fd4b869406381697ac3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DrawAsSolidColor: {fileID: 4800000, guid: f7c014a7005d7b54aba742978733b3c7, type: 3}
-  Outline: {fileID: 4800000, guid: d92c82c0b277f324b96f79583809b530, type: 3}
 --- !u!114 &588446725
 MonoBehaviour:
   m_ObjectHideFlags: 0
