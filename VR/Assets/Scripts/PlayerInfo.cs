@@ -65,7 +65,6 @@ public class PlayerInfo : MonoBehaviour
     public Camera mainCam;
     public Camera outlineCam;
 
-    private outline camsetting;
 
     private bool Invincible;
     private bool Infinite_Mana;
@@ -79,8 +78,7 @@ public class PlayerInfo : MonoBehaviour
         flashEffect.Stop();
         hasteCooldownEffect.Stop();
         flashCooldownEffect.Stop();
-        camsetting = outlineCam.GetComponent<outline>();
-        camsetting.enabled = false;
+      
         mainCam.enabled = true;
         outlineCam.enabled = false;
 
@@ -296,7 +294,6 @@ public class PlayerInfo : MonoBehaviour
             possibleTpSeethrough = false;
             Debug.Log("Seethrough On");
             outlineCam.enabled = true;
-            camsetting.enabled = true;
             mainCam.enabled = false;
             hasManaStoneCount--;
         }
