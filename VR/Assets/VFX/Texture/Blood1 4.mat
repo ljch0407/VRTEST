@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rune_shader_Mat 2
-  m_Shader: {fileID: 4800000, guid: e93fa43327d726541bbeab46de10a100, type: 3}
+  m_Name: Blood1 4
+  m_Shader: {fileID: 4800000, guid: 8203e0567834c59418206b8f24961fc2, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -40,7 +40,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3f4fb6c2ffe2bc3419d3ead683fd7c91, type: 3}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Main_Texture:
+        m_Texture: {fileID: 2800000, guid: 54033549f1be2864aa1a44cbeab3044b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -55,6 +59,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _tex4coord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -63,20 +75,22 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LightAngle: 0
+    - _Main_Ins: 1.1
+    - _Main_Pow: 5.97647
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Opacity: 2.92
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _Use_Custom: 0
     - _ZWrite: 1
-    - _strengthScalar: 50
+    - __dirty: 0
     m_Colors:
-    - _Color: {r: 0.172549, g: 0.5775797, b: 0.8784314, a: 0.43137255}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightDirection: {r: -0, g: -0, b: 1.0000007, a: 0}
-    - _LightPosition: {r: -91.30613, g: 1.0030321, b: -11.210096, a: 0}
+    - _Tint_Color: {r: 0.02745098, g: 0.003921569, b: 0.003921569, a: 1}
   m_BuildTextureStacks: []
