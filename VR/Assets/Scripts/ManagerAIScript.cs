@@ -30,7 +30,7 @@ public class ManagerAIScript : MonoBehaviour
         {
             foreach (var m in monstersList)
             {
-                m.GetComponent<Monster>().State = MonsterState.Idle;
+                m.GetComponent<Monster>().CurrentState = MonsterState.Idle;
                 m.SetActive(false);
             }
            
