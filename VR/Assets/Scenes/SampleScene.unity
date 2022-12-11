@@ -125,6 +125,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 0844e0812b2655e469b6a28de8da8356, type: 2}
+--- !u!1 &7420670 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8779413916616584020, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+    type: 3}
+  m_PrefabInstance: {fileID: 625401167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7420675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 525423892995302266, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+    type: 3}
+  m_PrefabInstance: {fileID: 625401167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1b46e03a7b6ae4a92d3528bfa2040f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &12289564 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 577920563543133382, guid: cbe46716f234f5e49a9b5b599d982f1a,
@@ -1998,10 +2016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554e6926cf6c45d4fad16e3c60bc88c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instance: {fileID: 0}
+  instance: {fileID: 390304021}
   sfx:
-  - name: PlayerFootStep
-    clip: {fileID: 8300000, guid: e86c2f3dd33681847adb3e0feadd801c, type: 3}
+  - name: SFX_Barricade
+    clip: {fileID: 8300000, guid: 00259f166cc17344fa6433e1658cc886, type: 3}
   bgm:
   - name: BGM0
     clip: {fileID: 8300000, guid: 0d3ea3b82201be74498f81b2d2633486, type: 3}
@@ -2203,6 +2221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
       propertyPath: Door_rigidBody
       value: 
       objectReference: {fileID: 777867363}
@@ -2281,6 +2304,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
       propertyPath: Door_rigidBody
@@ -3378,10 +3406,99 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 2064172215}
+    - target: {fileID: 1385792832, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.861
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385792832, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385792832, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.822
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682939860, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.623
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682939860, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682939860, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.822
+      objectReference: {fileID: 0}
+    - target: {fileID: 283380538674269810, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 461729487f1461d46bd8f3670b600a09, type: 3}
+    - target: {fileID: 525423892995302266, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 924640137}
+    - target: {fileID: 525423892995302266, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: PlayerInfo
+      value: 
+      objectReference: {fileID: 924640141}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 924640137}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: _monster
+      value: 
+      objectReference: {fileID: 7420675}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: headBone
+      value: 
+      objectReference: {fileID: 1121762747}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: LeftLegStepper
+      value: 
+      objectReference: {fileID: 1739249314}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: RightLegStepper
+      value: 
+      objectReference: {fileID: 2064172212}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: headMaxTurnAngle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: headTrackingSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.87827057
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.87827057
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.87827057
       objectReference: {fileID: 0}
     - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
@@ -3822,6 +3939,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
       propertyPath: Door_rigidBody
       value: 
       objectReference: {fileID: 1997567346}
@@ -3890,6 +4012,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barricade (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
       propertyPath: Door_rigidBody
@@ -5499,6 +5626,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3036472322505341221, guid: e1723f43b7e327a41806ac02dd912b82,
         type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3036472322505341221, guid: e1723f43b7e327a41806ac02dd912b82,
+        type: 3}
       propertyPath: ShapeModule.randomPositionAmount
       value: 1.82
       objectReference: {fileID: 0}
@@ -5912,6 +6044,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2574215135940635564, guid: cbe46716f234f5e49a9b5b599d982f1a,
     type: 3}
   m_PrefabInstance: {fileID: 7903393745769826784}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1121762747 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 914550791347793834, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+    type: 3}
+  m_PrefabInstance: {fileID: 625401167}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1126914705
 PrefabInstance:
@@ -6675,6 +6813,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
       propertyPath: Door_rigidBody
       value: 
       objectReference: {fileID: 1997567346}
@@ -6743,6 +6886,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barricade (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
       propertyPath: Door_rigidBody
@@ -7604,9 +7752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc183c5b7f238047bab22cdc7a0280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monstersList: []
+  monstersList:
+  - {fileID: 7420670}
   monsterPrefabs:
-  - {fileID: 0}
+  - {fileID: 7420670}
 --- !u!4 &1570371674
 Transform:
   m_ObjectHideFlags: 0
@@ -8632,6 +8781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
       propertyPath: Door_rigidBody
       value: 
       objectReference: {fileID: 777867363}
@@ -8712,6 +8866,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
       propertyPath: Door_rigidBody
       value: 
       objectReference: {fileID: 1923056829}
@@ -8724,6 +8883,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
       propertyPath: Door_rigidBody
@@ -8794,6 +8958,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barricade (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
       propertyPath: Door_rigidBody
@@ -9073,6 +9242,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 641170851278401576, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 718603070891700565, guid: 6b89aadd82057a04884640574316eca6,
         type: 3}
       propertyPath: m_Range
@@ -9088,6 +9262,51 @@ PrefabInstance:
       propertyPath: m_Lightmapping
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 768997713096058417, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997713313436137, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997713376982532, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997713769121181, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997713975599191, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714124400884, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714360480576, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714894972495, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997715102938983, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 943350906037495596, guid: 6b89aadd82057a04884640574316eca6,
         type: 3}
       propertyPath: m_Intensity
@@ -9658,6 +9877,51 @@ PrefabInstance:
       propertyPath: m_Lightmapping
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4663222239416532471, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222239761886431, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222239967209720, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222240575397413, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222240790295372, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222240922516463, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222241064634961, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222241248738697, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 4663222241521397180, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4669255871399563290, guid: 6b89aadd82057a04884640574316eca6,
         type: 3}
       propertyPath: m_Intensity
@@ -9693,6 +9957,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4827566118160952208, guid: 6b89aadd82057a04884640574316eca6,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4989494927516388751, guid: 6b89aadd82057a04884640574316eca6,
         type: 3}
       propertyPath: m_Intensity
@@ -13802,6 +14071,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
+    - target: {fileID: 768997714893638525, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
       propertyPath: Door_rigidBody
       value: 
       objectReference: {fileID: 1338105835}
@@ -13870,6 +14144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barricade
       objectReference: {fileID: 0}
+    - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
+        type: 3}
+      propertyPath: _soundManager
+      value: 
+      objectReference: {fileID: 390304021}
     - target: {fileID: 4663222239417323717, guid: 9a75f4857a84c6e42990c1a04033242f,
         type: 3}
       propertyPath: Door_rigidBody

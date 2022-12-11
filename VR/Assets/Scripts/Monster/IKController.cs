@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class IKController : MonoBehaviour
 {
+    public Monster _monster;
+    
     [SerializeField] Transform target;
     [SerializeField] Transform headBone;
     [SerializeField] float headMaxTurnAngle;
@@ -37,7 +39,7 @@ public class IKController : MonoBehaviour
     //LegStep
     IEnumerator LegUpdateCoroutine()
     {
-        while (true)
+        while (_monster.CurrentState != MonsterState.Attack)
         {
             do
             {

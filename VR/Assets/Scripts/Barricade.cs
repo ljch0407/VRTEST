@@ -27,13 +27,16 @@ public class Barricade : MonoBehaviour
         {
             Other_rigidBody.isKinematic = false;
             Door_rigidBody.constraints = RigidbodyConstraints.None;
-            // StartCoroutine(BreakBarricades());
+            StartCoroutine(BreakBarricades());
         }
     }
 
     IEnumerator BreakBarricades()
     {
-        _soundManager.PlaySFX("BreakWoodenBarricades");
+        _soundManager.PlaySFX("SFX_Barricade");
+        yield return new WaitForSeconds(2f);
+        _soundManager.StopSFX("SFX_Barricade");
         yield return new WaitForSeconds(0.1f);
+        gameObject.GetComponent<Barricade>().enabled = false;
     }
 }
