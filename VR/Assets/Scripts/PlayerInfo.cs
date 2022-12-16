@@ -272,6 +272,7 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToHaste = false;
             Debug.Log("Haste On");
+            StartCoroutine(HasteSound());
             hasteEffect.Play();
             continuousMoveProviderBase.moveSpeed = 4;
             hasManaStoneCount--;
@@ -281,12 +282,28 @@ public class PlayerInfo : MonoBehaviour
         continuousMoveProviderBase.moveSpeed = 2;
         hasteEffect.Stop();
         hasteCooldownEffect.Play();
+        StartCoroutine(BreathLoop());
         
         yield return new WaitForSeconds(hasteCooldown);
+        
         possibleToHaste = true;
         hasteCooldownEffect.Stop();
     }
-    
+
+    IEnumerator HasteSound()
+    {
+        _soundManager.PlaySFX("SFX_Haste");
+        yield return new WaitForSeconds(2.0f);
+        _soundManager.StopSFX("SFX_Haste");
+    }
+
+    IEnumerator BreathLoop()
+    {
+        _soundManager.StopSFX("SFX_Breath_loop");
+        yield return new WaitForSeconds(5.0f);
+        _soundManager.StopSFX("SFX_Breath_loop");
+    }
+
     IEnumerator Seethrough()
     {
         if (possibleTpSeethrough)

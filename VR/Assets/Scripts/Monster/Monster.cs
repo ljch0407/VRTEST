@@ -36,13 +36,15 @@ public class Monster : MonoBehaviour
     private float AtkCooldown = 0.0f;
     public PlayerInfo PlayerInfo;
 
+    public SoundManager _soundManager;
+    
     // Start is called before the first frame update
     void Awake()
     {
 
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
 
         HearingArea.enabled = false;
         SightArea.enabled = true;
@@ -95,12 +97,19 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("chase");
         }
 
-        
+        StartCoroutine(StartHeartBeat());
         anim.SetBool("Move",true);
         anim.SetBool("Chase",true);
         
         nav.speed = 1.5f;
         nav.SetDestination(target.position);
+    }
+
+    IEnumerator StartHeartBeat()
+    {
+        _soundManager.PlaySFX("SFX_Heartbeat");
+        yield return new WaitForSeconds(10.0f);
+        _soundManager.StopSFX("SFX_Heartbeat");
     }
 
     protected virtual IEnumerator Attack()
@@ -111,6 +120,8 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("Attack");
         }
 
+        StartCoroutine(AttackSound());
+        
         anim.SetTrigger("Attack");
         nav.stoppingDistance = 2.0f;
         AtkCooldown = 0.0f;
@@ -118,6 +129,15 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         PlayerInfo.healthPoint--;
         CurrentState = MonsterState.Idle;
+    }
+    
+    IEnumerator AttackSound()
+    {
+        _soundManager.PlaySFX("SFX_Bite");
+        _soundManager.PlaySFX("SFX_Hurt");
+        yield return new WaitForSeconds(2.0f);
+        _soundManager.StopSFX("SFX_Bite");
+        _soundManager.StopSFX("SFX_Hurt");
     }
     
     protected virtual IEnumerator Blind()
