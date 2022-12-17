@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.XR.Haptics;
+using UnityEngine.Rendering.PostProcessing;
 
 public enum MonsterState
 {
@@ -126,7 +127,7 @@ public class Monster : MonoBehaviour
         nav.stoppingDistance = 2.0f;
         AtkCooldown = 0.0f;
             
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(2.0f);
         PlayerInfo.healthPoint--;
         CurrentState = MonsterState.Idle;
     }
@@ -135,6 +136,11 @@ public class Monster : MonoBehaviour
     {
         _soundManager.PlaySFX("SFX_Bite");
         _soundManager.PlaySFX("SFX_Hurt");
+        
+        GameObject postProcess = GameObject.Find("Post-process Volume Player");
+        PostProcessVolume Volume = postProcess.GetComponent<PostProcessVolume>();
+        Volume.enabled = true;
+        
         yield return new WaitForSeconds(2.0f);
         _soundManager.StopSFX("SFX_Bite");
         _soundManager.StopSFX("SFX_Hurt");

@@ -116,14 +116,7 @@ public class PlayerInfo : MonoBehaviour
 
     void Update()
     {
-        if (healthPoint < 2)
-        {
-            GameObject postProcess = GameObject.Find("Post-process Volume Player");
-            PostProcessVolume Volume = postProcess.GetComponent<PostProcessVolume>();
-            Volume.enabled = true;
-
-        }
-        else
+        if (healthPoint > 2)
         {
             GameObject postProcess = GameObject.Find("Post-process Volume Player");
             PostProcessVolume Volume = postProcess.GetComponent<PostProcessVolume>();
