@@ -272,6 +272,7 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToHaste = false;
             Debug.Log("Haste On");
+            StartCoroutine(HasteSound());
             hasteEffect.Play();
             continuousMoveProviderBase.moveSpeed = 4;
             hasManaStoneCount--;
@@ -281,12 +282,28 @@ public class PlayerInfo : MonoBehaviour
         continuousMoveProviderBase.moveSpeed = 2;
         hasteEffect.Stop();
         hasteCooldownEffect.Play();
+        StartCoroutine(BreathLoop());
         
         yield return new WaitForSeconds(hasteCooldown);
+        
         possibleToHaste = true;
         hasteCooldownEffect.Stop();
     }
-    
+
+    IEnumerator HasteSound()
+    {
+        _soundManager.PlaySFX("SFX_Haste");
+        yield return new WaitForSeconds(2.0f);
+        _soundManager.StopSFX("SFX_Haste");
+    }
+
+    IEnumerator BreathLoop()
+    {
+        _soundManager.StopSFX("SFX_Breath_loop");
+        yield return new WaitForSeconds(5.0f);
+        _soundManager.StopSFX("SFX_Breath_loop");
+    }
+
     IEnumerator Seethrough()
     {
         if (possibleTpSeethrough)
@@ -312,6 +329,7 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToFlash = false;
             Debug.Log("Flash On");
+            StartCoroutine(FlashSound());
             Flashlight.gameObject.SetActive(true);
             flashEffect.Play();
             hasManaStoneCount--;
@@ -326,13 +344,18 @@ public class PlayerInfo : MonoBehaviour
         possibleToFlash = true;
         flashCooldownEffect.Stop();
     }
+    
+    IEnumerator FlashSound()
+    {
+        _soundManager.PlaySFX("SFX_Flash");
+        yield return new WaitForSeconds(2.0f);
+        _soundManager.StopSFX("SFX_Flash");
+    }
 
     IEnumerator FootStepStart()
     {
         yield return new WaitForSeconds(0.1f);
-
         _soundManager.PlaySFX("PlayerFootStep");
-
     }
     
     IEnumerator FootStepStop()
