@@ -355,12 +355,12 @@ public class PlayerInfo : MonoBehaviour
     IEnumerator FootStepStart()
     {
         yield return new WaitForSeconds(0.1f);
-        _soundManager.PlaySFX("PlayerFootStep");
+        _soundManager.PlaySFX("SFX_FootStep");
     }
     
     IEnumerator FootStepStop()
     {
-        _soundManager.StopSFX("PlayerFootStep");
+        _soundManager.StopSFX("SFX_FootStep");
         yield return new WaitForSeconds(0.1f);
     }
     
