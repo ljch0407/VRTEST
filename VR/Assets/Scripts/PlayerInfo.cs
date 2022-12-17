@@ -329,6 +329,7 @@ public class PlayerInfo : MonoBehaviour
         {
             possibleToFlash = false;
             Debug.Log("Flash On");
+            StartCoroutine(FlashSound());
             Flashlight.gameObject.SetActive(true);
             flashEffect.Play();
             hasManaStoneCount--;
@@ -343,13 +344,18 @@ public class PlayerInfo : MonoBehaviour
         possibleToFlash = true;
         flashCooldownEffect.Stop();
     }
+    
+    IEnumerator FlashSound()
+    {
+        _soundManager.PlaySFX("SFX_Flash");
+        yield return new WaitForSeconds(2.0f);
+        _soundManager.StopSFX("SFX_Flash");
+    }
 
     IEnumerator FootStepStart()
     {
         yield return new WaitForSeconds(0.1f);
-
         _soundManager.PlaySFX("PlayerFootStep");
-
     }
     
     IEnumerator FootStepStop()
