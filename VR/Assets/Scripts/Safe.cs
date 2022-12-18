@@ -35,19 +35,25 @@ public class Safe : MonoBehaviour
         if (_stoolList[0].GetComponent<Stool>().isActive)
         {
             isOpen = true;
+            StartCoroutine(SafeOpen());
+            
         }
         else
         {
             isOpen = false;
         }
+    }
 
+    IEnumerator SafeOpen()
+    {
+        if (doorRotate < 100)
+            isOpen = false;
+        yield return new WaitForSeconds(0.1f);
+        
         if (isOpen)
         {
             Safedoor.transform.Rotate(new Vector3(0,0,-1) * doorRotate * Time.fixedDeltaTime);
             doorRotate -= 1f;
-            if (doorRotate < 100)
-                isOpen = false;
         }
-
     }
 }
