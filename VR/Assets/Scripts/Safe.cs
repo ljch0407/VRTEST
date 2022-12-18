@@ -29,7 +29,7 @@ public class Safe : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
         if (_stoolList[0].GetComponent<Stool>().isActive)
@@ -43,7 +43,7 @@ public class Safe : MonoBehaviour
 
         if (isOpen)
         {
-            Safedoor.transform.Rotate(new Vector3(0,0,-1) * doorRotate * Time.deltaTime);
+            Safedoor.transform.Rotate(new Vector3(0,0,-1) * doorRotate * Time.fixedDeltaTime);
             doorRotate -= 1f;
             if (doorRotate < 100)
                 isOpen = false;
