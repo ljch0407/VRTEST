@@ -133,8 +133,7 @@ public class FastIKFabric : MonoBehaviour
 
             for (int iteration = 0; iteration < Iterations; iteration++)
             {
-                //https://www.youtube.com/watch?v=UNoX65PRehA
-                //back
+              
                 for (int i = Positions.Length - 1; i > 0; i--)
                 {
                     if (i == Positions.Length - 1)
