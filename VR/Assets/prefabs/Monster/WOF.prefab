@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 6672770639057167331}
   - component: {fileID: 6672770639057167330}
   - component: {fileID: 6672770639057167262}
+  - component: {fileID: 3367749676040933360}
   m_Layer: 0
   m_Name: WOF
   m_TagString: WOF
@@ -513,6 +514,25 @@ MonoBehaviour:
   SpawnPoint:
   - {fileID: 6672770638227463047}
   targetTransform: {fileID: 0}
+--- !u!95 &3367749676040933360
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672770639057167257}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7705797383695550632
 GameObject:
   m_ObjectHideFlags: 0
