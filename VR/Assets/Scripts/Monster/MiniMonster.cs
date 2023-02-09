@@ -8,13 +8,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class MiniMonster : MonoBehaviour
 {
     private NavMeshAgent _nav;
-    //private Animator _anim;
+    private Animator _anim;
     public Transform Target;
-    
+
+    private bool isAlive = true;
     private void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
-        //_anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
+        isAlive = true;
     
         Target = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -29,10 +31,14 @@ public class MiniMonster : MonoBehaviour
     IEnumerator MiniMonsterBehavior()
     {
         yield return null;
-        
+
+        if (isAlive)
+        {
+            _anim.SetBool("Idle", false);
             _nav.stoppingDistance = 1.0f;
             _nav.SetDestination(Target.position);
-        
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,10 +49,13 @@ public class MiniMonster : MonoBehaviour
             gameObject.GetComponent<MiniMonster>().enabled = false;
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
+            isAlive = false;
+            _anim.SetBool("Idle", true);
         }
         else if (other.tag == "Player")
         {
-            Target.GetComponent<PlayerInfo>().healthPoint--;
+            //Target.GetComponent<PlayerInfo>().healthPoint--;
+            GameObject.Destroy(gameObject);
         }
     }
 }
