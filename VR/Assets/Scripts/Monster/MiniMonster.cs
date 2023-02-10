@@ -19,6 +19,8 @@ public class MiniMonster : MonoBehaviour
         isAlive = true;
     
         Target = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        _anim.SetTrigger("Spawn");
     }
 
 
