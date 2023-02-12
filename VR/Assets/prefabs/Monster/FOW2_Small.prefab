@@ -1080,6 +1080,8 @@ GameObject:
   - component: {fileID: 7006467969593913165}
   - component: {fileID: 2004611313472400109}
   - component: {fileID: 2208340724359275428}
+  - component: {fileID: 1404829068099288807}
+  - component: {fileID: 2189282563043064054}
   m_Layer: 21
   m_Name: FOW2_Small
   m_TagString: WOF
@@ -1137,6 +1139,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1404829068099288807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7669676153832764919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792f9f61ad6b1eb469206e18c8abeffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeDirector: {fileID: 2189282563043064054}
+--- !u!320 &2189282563043064054
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7669676153832764919}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 0}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &7953797643570616577
 GameObject:
   m_ObjectHideFlags: 0
