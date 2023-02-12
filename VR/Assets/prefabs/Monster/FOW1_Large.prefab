@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 6672770639057167330}
   - component: {fileID: 6672770639057167262}
   - component: {fileID: -660534114732133330}
+  - component: {fileID: 783267189286995437}
   m_Layer: 21
   m_Name: FOW1_Large
   m_TagString: WOF
@@ -510,10 +511,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55139d26852834d4a83aff1e5dacf216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MiniMonsterPrefab: {fileID: 0}
+  MiniMonsterPrefab: {fileID: 683582715595907705, guid: c0663b1627db0b340b7d38e37631df6e,
+    type: 3}
   SpawnPoint:
   - {fileID: 6672770638227463047}
   targetTransform: {fileID: 0}
+  TimeDirector: {fileID: 783267189286995437}
 --- !u!65 &-660534114732133330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -527,6 +530,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 7, y: 7.39, z: 1}
   m_Center: {x: 0, y: -1.5, z: 0}
+--- !u!320 &783267189286995437
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672770639057167257}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 3105b4301c30974448fb1eb362abbdab, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &7705797383695550632
 GameObject:
   m_ObjectHideFlags: 0
