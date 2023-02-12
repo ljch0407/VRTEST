@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class WallOfFlesh : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class WallOfFlesh : MonoBehaviour
     public GameObject MiniMonsterPrefab;
     public Transform[] SpawnPoint;
     public Transform targetTransform;
+    public PlayableDirector TimeDirector;
     
     
     private float monsterCounter;
@@ -24,7 +26,14 @@ public class WallOfFlesh : MonoBehaviour
     {
     }
 
-   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Explosive")
+        {
+            TimeDirector.Play();
+        }
+    }
 
     IEnumerator SpawnMonster()
     {

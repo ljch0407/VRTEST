@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Explosive : MonoBehaviour
 {
     public ParticleSystem Effect;
+
+    private void Awake()
+    {
+        Effect.Stop();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,10 +24,13 @@ public class Explosive : MonoBehaviour
 
     IEnumerator Explode(Collider other)
     {
-        Effect.Play();
-        yield return new WaitForSeconds(2);
-        other.gameObject.SetActive(false);
-        this.gameObject.SetActive(false);
-        Effect.Stop();
+        if (other.tag == "WOF")
+        {
+            Effect.Play();
+            yield return new WaitForSeconds(3);
+            Effect.Stop();
+            other.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
+        }
     }
 }
