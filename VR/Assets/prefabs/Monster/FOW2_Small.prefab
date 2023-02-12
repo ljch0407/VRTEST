@@ -1079,6 +1079,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7006467969593913165}
   - component: {fileID: 2004611313472400109}
+  - component: {fileID: 2208340724359275428}
   m_Layer: 21
   m_Name: FOW2_Small
   m_TagString: WOF
@@ -1117,6 +1118,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 24.103123, y: 158.40855, z: 92.050064}
   m_Center: {x: 0.3, y: 78.70432, z: -1.4573016}
+--- !u!95 &2208340724359275428
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7669676153832764919}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 7ac22a6b74c8ee941967c9bdc2d858e8, type: 3}
+  m_Controller: {fileID: 9100000, guid: cb75816fdd382c64aa256dedb564243a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7953797643570616577
 GameObject:
   m_ObjectHideFlags: 0
