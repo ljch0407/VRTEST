@@ -27,8 +27,6 @@ public class Explosive : MonoBehaviour
         if (other.tag == "WOF")
         {
             Effect.Play();
-            PlayableDirector Director = other.GetComponent<PlayableDirector>();
-            Director.Play();
             yield return new WaitForSeconds(3);
             Effect.Stop();
             other.gameObject.SetActive(false);

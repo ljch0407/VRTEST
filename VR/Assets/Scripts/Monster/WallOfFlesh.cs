@@ -26,7 +26,14 @@ public class WallOfFlesh : MonoBehaviour
     {
     }
 
-   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Explosive")
+        {
+            TimeDirector.Play();
+        }
+    }
 
     IEnumerator SpawnMonster()
     {
