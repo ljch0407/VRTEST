@@ -3126,6 +3126,56 @@ MonoBehaviour:
   - {fileID: 190134957}
   - {fileID: 356295883}
   - {fileID: 2009481503}
+--- !u!1 &1297756297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1297756299}
+  - component: {fileID: 1297756298}
+  m_Layer: 0
+  m_Name: Death_Timeline2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &1297756298
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297756297}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 060f984e091b52844b5682f1ac3a6409, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 8326812562788321693, guid: 060f984e091b52844b5682f1ac3a6409, type: 2}
+    value: {fileID: 7399766041053737072}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &1297756299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297756297}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.37064934, y: 1.6000416, z: -10.273436}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1304777742
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,8 +3653,6 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 6355133258046725460, guid: 3105b4301c30974448fb1eb362abbdab, type: 2}
     value: {fileID: 6672770638512341028}
-  - key: {fileID: 1817918998779623490, guid: 3105b4301c30974448fb1eb362abbdab, type: 2}
-    value: {fileID: 7399766041053737072}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1469255823
