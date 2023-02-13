@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2208581457196874197}
   - component: {fileID: 3224194643954849793}
   - component: {fileID: 6945814308017882583}
+  - component: {fileID: 7840471972874222440}
   m_Layer: 0
   m_Name: Red_Fog
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6195035547817466760}
-  m_LocalRotation: {x: -0, y: 0.00000005960463, z: 0.68275774, w: 0.7306449}
+  m_LocalRotation: {x: 0, y: 0, z: 0.6827575, w: 0.7306451}
   m_LocalPosition: {x: 34.56, y: 222.38, z: 16.41}
   m_LocalScale: {x: 0.01668173, y: 0.040916692, z: 0.04091668}
   m_Children: []
@@ -4816,5 +4817,19 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 858.2, y: 60.9, z: 232.4}
-  m_Center: {x: 24.16, y: 0, z: -2.2}
+  m_Size: {x: 1056.75, y: 60.9, z: 377.9}
+  m_Center: {x: -44, y: 0, z: -2.2}
+--- !u!114 &7840471972874222440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6195035547817466760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369393c3ba491b24ea0cc3c87fc00c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerInfo: {fileID: 0}
+  FirstFog: 1
