@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RedFog : MonoBehaviour
 {
-    public PlayerInfo PlayerInfo; 
-    // Start is called before the first frame update
+    public PlayerInfo PlayerInfo;
+
+    public bool FirstFog;
+    
     void Start()
     {
         
@@ -14,9 +16,20 @@ public class RedFog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerInfo.underStatue)
+        if (FirstFog)
         {
-            gameObject.SetActive(false);
+            if (PlayerInfo.underStatue)
+            {
+                gameObject.SetActive(false);
+            }
         }
+        else
+        {
+            if (PlayerInfo.midStatue)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
     }
 }
