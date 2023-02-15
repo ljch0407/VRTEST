@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 7339466614535439080}
   - component: {fileID: 4176003172060874197}
   - component: {fileID: 5683193797820479380}
+  - component: {fileID: 4211902123349306539}
   m_Layer: 20
   m_Name: Weapon_cane
   m_TagString: Weapon
@@ -374,3 +375,17 @@ CapsuleCollider:
   m_Height: 1.45
   m_Direction: 1
   m_Center: {x: 0.1, y: -0.49, z: 0}
+--- !u!136 &4211902123349306539
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414185867693878437}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
