@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4272971215457680953}
   - component: {fileID: 8448561676956419202}
   - component: {fileID: 8052717362024867633}
+  - component: {fileID: 2100381071}
   m_Layer: 20
   m_Name: Weapon_Kindergarten
   m_TagString: Weapon
@@ -212,6 +213,20 @@ CapsuleCollider:
   m_Height: 136.4
   m_Direction: 1
   m_Center: {x: 3.1, y: 120.9, z: 0}
+--- !u!136 &2100381071
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2501681255855784051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6610952249243682769
 GameObject:
   m_ObjectHideFlags: 0

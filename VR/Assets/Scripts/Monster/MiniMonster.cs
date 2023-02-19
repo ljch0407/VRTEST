@@ -57,6 +57,7 @@ public class MiniMonster : MonoBehaviour
             gameObject.GetComponent<SphereCollider>().enabled = false;
             isAlive = false;
             _anim.SetBool("Idle", true);
+            _anim.gameObject.SetActive(false);
         }
         else if (other.tag == "Player")
         {
