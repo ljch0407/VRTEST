@@ -7,10 +7,15 @@ using UnityEngine.Playables;
 
 public class WallOfFlesh : MonoBehaviour
 {
-
+    [SerializeField] Transform eyeBone;
+    [SerializeField] Transform eyeBone2;
+    [SerializeField] Transform target;
+    [SerializeField] float headMaxTurnAngle;
+    [SerializeField] float headTrackingSpeed;
+    
     public GameObject MiniMonsterPrefab;
     public Transform[] SpawnPoint;
-    public Transform targetTransform;
+    public Transform SpawnTransform;
     public PlayableDirector TimeDirector;
     
     
@@ -24,6 +29,7 @@ public class WallOfFlesh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HeadTrackingUpdate();
     }
 
 
@@ -39,7 +45,7 @@ public class WallOfFlesh : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if (Vector3.Distance(targetTransform.position, transform.position) < 10)
+        if (Vector3.Distance(SpawnTransform.position, transform.position) < 10)
         {
             monsterCounter--;
             
@@ -51,5 +57,40 @@ public class WallOfFlesh : MonoBehaviour
         
         StartCoroutine(SpawnMonster());
        
+    }
+    void HeadTrackingUpdate()
+    {
+        //Head to Target
+        Quaternion currentLocalRotation = eyeBone.localRotation;
+        Quaternion currentLocalRotation2 = eyeBone.localRotation;
+        eyeBone.localRotation = Quaternion.identity;
+        
+        Vector3 targetWorldLookDir = target.position - eyeBone.position;
+        Vector3 targetLocalLookDir = eyeBone.parent.InverseTransformDirection(targetWorldLookDir);
+        
+        Vector3 targetWorldLookDir2 = target.position - eyeBone2.position;
+        Vector3 targetLocalLookDir2 = eyeBone2.parent.InverseTransformDirection(targetWorldLookDir2);
+        
+        targetLocalLookDir = Vector3.RotateTowards(
+            Vector3.forward,
+            targetLocalLookDir,
+            Mathf.Deg2Rad * headMaxTurnAngle,
+            0);
+        targetLocalLookDir2 = Vector3.RotateTowards(
+            Vector3.forward,
+            targetLocalLookDir2,
+            Mathf.Deg2Rad * headMaxTurnAngle,
+            0);
+        Quaternion targetLocalRotation = Quaternion.LookRotation(targetLocalLookDir, -Vector3.up);
+        Quaternion targetLocalRotation2 = Quaternion.LookRotation(targetLocalLookDir2, -Vector3.up);
+        
+        eyeBone.localRotation = Quaternion.Slerp(currentLocalRotation,
+            targetLocalRotation,
+            1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
+        );        
+        eyeBone2.localRotation = Quaternion.Slerp(currentLocalRotation2,
+            targetLocalRotation2,
+            1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
+        );
     }
 }

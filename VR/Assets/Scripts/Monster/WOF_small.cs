@@ -5,8 +5,17 @@ using UnityEngine.Playables;
 
 public class WOF_small : MonoBehaviour
 {
+    [SerializeField] Transform eyeBone;
+    [SerializeField] Transform target;
+    [SerializeField] float headMaxTurnAngle;
+    [SerializeField] float headTrackingSpeed;
+    
     public PlayableDirector TimeDirector;
     
+    void Update()
+    {
+        HeadTrackingUpdate();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Explosive")
@@ -14,5 +23,27 @@ public class WOF_small : MonoBehaviour
             TimeDirector.Play();
         }
     }
-    
+    void HeadTrackingUpdate()
+    {
+        //Head to Target
+        Quaternion currentLocalRotation = eyeBone.localRotation;
+        Quaternion currentLocalRotation2 = eyeBone.localRotation;
+        eyeBone.localRotation = Quaternion.identity;
+        
+        Vector3 targetWorldLookDir = target.position - eyeBone.position;
+        Vector3 targetLocalLookDir = eyeBone.parent.InverseTransformDirection(targetWorldLookDir);
+        
+        
+        targetLocalLookDir = Vector3.RotateTowards(
+            Vector3.forward,
+            targetLocalLookDir,
+            Mathf.Deg2Rad * headMaxTurnAngle,
+            0);
+        Quaternion targetLocalRotation = Quaternion.LookRotation(targetLocalLookDir, -Vector3.up);
+        
+        eyeBone.localRotation = Quaternion.Slerp(currentLocalRotation,
+            targetLocalRotation,
+            1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
+        );        
+    }
 }

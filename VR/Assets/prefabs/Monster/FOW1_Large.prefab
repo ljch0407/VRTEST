@@ -355,7 +355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6394068398506166606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00526}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00591}
   m_LocalScale: {x: -0.0062329844, y: -0.0062329844, z: -0.0062329844}
   m_Children: []
   m_Father: {fileID: 1158082154703233476}
@@ -513,7 +513,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55139d26852834d4a83aff1e5dacf216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MiniMonsterPrefab: {fileID: 0}
+  eyeBone: {fileID: 7758681583945498885}
+  eyeBone2: {fileID: 6581843650595524250}
+  target: {fileID: 0}
+  headMaxTurnAngle: 60
+  headTrackingSpeed: 5
+  MiniMonsterPrefab: {fileID: 683582715595907705, guid: c0663b1627db0b340b7d38e37631df6e,
+    type: 3}
   SpawnPoint:
   - {fileID: 6672770638227463047}
   targetTransform: {fileID: 0}
@@ -609,7 +615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7705797383695550632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00126}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00133}
   m_LocalScale: {x: -0.014438565, y: -0.014438565, z: -0.014438565}
   m_Children: []
   m_Father: {fileID: 1446076186459299299}

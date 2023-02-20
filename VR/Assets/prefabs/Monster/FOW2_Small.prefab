@@ -520,7 +520,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4663413150092709109}
-  m_LocalRotation: {x: -0.061493535, y: 0.7072444, z: -0.5331706, w: -0.46016628}
+  m_LocalRotation: {x: -0.06149354, y: 0.70724446, z: -0.53317064, w: -0.4601663}
   m_LocalPosition: {x: -30.67413, y: 0.000038146973, z: 2.2737368e-13}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children:
@@ -1098,7 +1098,7 @@ Transform:
   m_GameObject: {fileID: 7669676153832764919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.575089, y: 1.6884656, z: -11.396553}
-  m_LocalScale: {x: 0.32605648, y: 0.19461957, z: 0.28243387}
+  m_LocalScale: {x: 0.07799271, y: 0.046553, z: 0.06755818}
   m_Children:
   - {fileID: 3174497102165377858}
   - {fileID: 3189760268733418550}
@@ -1151,6 +1151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792f9f61ad6b1eb469206e18c8abeffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eyeBone: {fileID: 7754063156863318112}
+  target: {fileID: 0}
+  headMaxTurnAngle: 360
+  headTrackingSpeed: 5
   TimeDirector: {fileID: 2189282563043064054}
 --- !u!320 &2189282563043064054
 PlayableDirector:
@@ -1341,7 +1345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6920455333067474256
 Transform:
   m_ObjectHideFlags: 0
