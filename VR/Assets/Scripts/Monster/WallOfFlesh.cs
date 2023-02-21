@@ -50,7 +50,7 @@ public class WallOfFlesh : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if (Vector3.Distance(SpawnTransform.position, transform.position) < 10)
+        if (Vector3.Distance(SpawnTransform.position, transform.position) < 5)
         {
             monsterCounter--;
             
