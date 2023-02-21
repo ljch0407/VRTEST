@@ -11,7 +11,11 @@ public class WOF_small : MonoBehaviour
     [SerializeField] float headTrackingSpeed;
     
     public PlayableDirector TimeDirector;
-    
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     void Update()
     {
         HeadTrackingUpdate();

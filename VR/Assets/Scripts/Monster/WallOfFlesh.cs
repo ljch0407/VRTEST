@@ -20,6 +20,11 @@ public class WallOfFlesh : MonoBehaviour
     
     
     private float monsterCounter;
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     void Start()
     {
         monsterCounter = 100;

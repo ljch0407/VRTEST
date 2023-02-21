@@ -10,6 +10,10 @@ public class WOF_varients : MonoBehaviour
     [SerializeField] float headMaxTurnAngle;
     [SerializeField] float headTrackingSpeed;
     
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     
     void Update()
     {
