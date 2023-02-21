@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 8607266931625281985}
   - component: {fileID: 5807339914142760203}
   - component: {fileID: 4736505464248026418}
-  - component: {fileID: 8500479057099630449}
   - component: {fileID: 2425053188715339477}
   - component: {fileID: 8964314237837678384}
+  - component: {fileID: 5459996412560497838}
   m_Layer: 20
   m_Name: Weapon_lumber
   m_TagString: Weapon
@@ -132,7 +132,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8500479057099630449
+--- !u!136 &2425053188715339477
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446871280286604510}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 7.47
+  m_Height: 122.7
+  m_Direction: 2
+  m_Center: {x: 0, y: 7.72629e-13, z: 54.36895}
+--- !u!136 &8964314237837678384
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446871280286604510}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 7.47
+  m_Height: 122.7
+  m_Direction: 2
+  m_Center: {x: 0, y: 7.72629e-13, z: 54.36895}
+--- !u!114 &5459996412560497838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,7 +169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5446871280286604510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 34431ffeb3fc11342889dfbd0b030fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -211,7 +239,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 3334541207180042340}
+  m_AttachTransform: {fileID: 0}
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -248,31 +276,3 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
---- !u!136 &2425053188715339477
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446871280286604510}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 7.47
-  m_Height: 122.7
-  m_Direction: 2
-  m_Center: {x: 0, y: 7.72629e-13, z: 54.36895}
---- !u!136 &8964314237837678384
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5446871280286604510}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 7.47
-  m_Height: 122.7
-  m_Direction: 2
-  m_Center: {x: 0, y: 7.72629e-13, z: 54.36895}
