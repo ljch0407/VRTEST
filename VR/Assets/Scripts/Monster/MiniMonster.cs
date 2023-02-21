@@ -52,14 +52,17 @@ public class MiniMonster : MonoBehaviour
         if (other.tag == "Weapon")
         {
             gameObject.GetComponent<XRGrabInteractable>().enabled = true;
+            
             gameObject.GetComponent<MiniMonster>().enabled = false;
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
             isAlive = false;
+            gameObject.layer = 06;
+            
             _anim.SetBool("Idle", true);
             _anim.gameObject.SetActive(false);
         }
-        else if (other.tag == "Player")
+        else if (other.tag == "Player" && isAlive)
         {
             //Target.GetComponent<PlayerInfo>().healthPoint--;
 
@@ -70,6 +73,7 @@ public class MiniMonster : MonoBehaviour
     IEnumerator EffectPlay()
     {
         Effect.Play();
+        isAlive = false;
         yield return new WaitForSeconds(0.4f);
         GameObject.Destroy(gameObject);
     }
