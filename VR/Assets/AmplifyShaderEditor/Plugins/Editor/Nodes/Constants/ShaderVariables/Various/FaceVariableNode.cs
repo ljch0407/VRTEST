@@ -9,8 +9,6 @@ namespace AmplifyShaderEditor
 	[NodeAttributes( "Face", "Vertex Data", "Indicates whether the rendered surface is facing the camera (1), or facing away from the camera(-1)" )]
 	public class FaceVariableNode : ParentNode
 	{
-		public const string FaceOnVertexWarning = "Face type nodes generates extra instructions when used on vertex ports since it needs to manually calculate the value";
-
 		protected override void CommonInit( int uniqueId )
 		{
 			base.CommonInit( uniqueId );
@@ -22,28 +20,27 @@ namespace AmplifyShaderEditor
 		{
 			if ( dataCollector.PortCategory == MasterNodePortCategory.Tessellation )
 			{
-				UIUtils.ShowMessage( UniqueId, m_nodeAttribs.Name + " node does not work on Tessellation port" );
-				return m_outputPorts[0].ErrorValue;
+				UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work on Tessellation port" );
+				return "0";
 			}
 
 			if ( dataCollector.PortCategory == MasterNodePortCategory.Vertex )
 			{
-				if( dataCollector.TesselationActive )
+				if ( dataCollector.TesselationActive )
 				{
-					UIUtils.ShowMessage( UniqueId , m_nodeAttribs.Name + " node does not work properly on Tessellation ports" );
-					return m_outputPorts[ 0 ].ErrorValue;
+					UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work properly on Vertex/Tessellation ports" );
+					return "0";
 				}
 				else
 				{
-					UIUtils.ShowMessage( UniqueId , FaceOnVertexWarning, MessageSeverity.Warning );
-					string faceVariable = GeneratorUtils.GenerateVertexFace( ref dataCollector , UniqueId );
-					return faceVariable;
+					UIUtils.ShowMessage( m_nodeAttribs.Name + " does not work propery on Vertex ports" );
+					return "0";
 				}
 			}
 
 			if ( dataCollector.IsTemplate )
 			{
-				return dataCollector.TemplateDataCollectorInstance.GetVFace( UniqueId );
+				return dataCollector.TemplateDataCollectorInstance.GetVFace();
 			}
 			else
 			{

@@ -63,31 +63,20 @@ namespace AmplifyShaderEditor
 
 		public override void RenderNodePreview()
 		{
-			//Runs at least one time
-			if( !m_initialized )
-			{
-				// nodes with no preview don't update at all
-				PreviewIsDirty = false;
-				return;
-			}
-
-			if( !PreviewIsDirty )
+			if( !HasPreviewShader || !m_initialized )
 				return;
 
 			SetPreviewInputs();
-			if( !Preferences.GlobalDisablePreviews )
-			{
-				RenderTexture temp = RenderTexture.active;
 
-				RenderTexture.active = m_outputPorts[ 0 ].OutputPreviewTexture;
-				Graphics.Blit( null , m_outputPorts[ 0 ].OutputPreviewTexture , PreviewMaterial , 0 );
-				Graphics.Blit( m_outputPorts[ 0 ].OutputPreviewTexture , m_outputPorts[ 1 ].OutputPreviewTexture );
+			RenderTexture temp = RenderTexture.active;
 
-				RenderTexture.active = m_outputPorts[ 2 ].OutputPreviewTexture;
-				Graphics.Blit( null , m_outputPorts[ 2 ].OutputPreviewTexture , PreviewMaterial , 1 );
-				RenderTexture.active = temp;
-			}
-			PreviewIsDirty = m_continuousPreviewRefresh;
+			RenderTexture.active = m_outputPorts[ 0 ].OutputPreviewTexture;
+			Graphics.Blit( null, m_outputPorts[ 0 ].OutputPreviewTexture, PreviewMaterial, 0 );
+			Graphics.Blit( m_outputPorts[ 0 ].OutputPreviewTexture, m_outputPorts[ 1 ].OutputPreviewTexture );
+
+			RenderTexture.active = m_outputPorts[ 2 ].OutputPreviewTexture;
+			Graphics.Blit( null, m_outputPorts[ 2 ].OutputPreviewTexture, PreviewMaterial, 1 );
+			RenderTexture.active = temp;
 		}
 	}
 }

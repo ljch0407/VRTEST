@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
         instance = this;
     }
 
+    
     public void PlayBGM(string p_bgmName)
     {
         Debug.Log("Called : " + p_bgmName);

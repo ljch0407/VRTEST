@@ -78,8 +78,6 @@ namespace AmplifyShaderEditor
 
 		private int m_cachedPropertyId = -1;
 
-		private bool m_dirtySettings = false;
-
 		[SerializeField]
 		private int m_refMaxInputs = -1;
 
@@ -96,7 +94,6 @@ namespace AmplifyShaderEditor
 			{
 				AddInputPort( WirePortDataType.FLOAT, false, InputPortNameStr + i );
 				m_inputPorts[ i ].Visible = ( i < 2 );
-				m_inputPorts[ i ].SetFreeForAll();
 			}
 			AddOutputPort( WirePortDataType.FLOAT, " " );
 
@@ -120,7 +117,6 @@ namespace AmplifyShaderEditor
 			else
 				m_currentSelectedInput = Mathf.Clamp( newValue, 0, m_maxAmountInputs - 1 );
 			m_outputPorts[ 0 ].ChangeType( m_inputPorts[ m_currentSelectedInput ].DataType, false );
-			PreviewIsDirty = true;
 			ChangeSignalPropagation();
 		}
 
@@ -149,8 +145,7 @@ namespace AmplifyShaderEditor
 			}
 			else
 			{
-				if( ContainerGraph.ParentWindow.CustomGraph != null )
-					UIUtils.RegisterFunctionSwitchNode( this );
+				UIUtils.RegisterFunctionSwitchNode( this );
 				UIUtils.RegisterFunctionSwitchCopyNode( this );
 			}
 		}
@@ -331,11 +326,6 @@ namespace AmplifyShaderEditor
 				UpdateFromSelected();
 			}
 
-			if( m_functionSwitchReference.DirtySettings )
-			{
-				UpdateFromSelected();
-			}
-
 			m_validReference = true;
 		}
 
@@ -381,7 +371,6 @@ namespace AmplifyShaderEditor
 				m_refMaxInputs = m_functionSwitchReference.m_maxAmountInputs;
 				m_refOptionLabel = m_functionSwitchReference.OptionLabel;
 				m_refSelectedInput = m_functionSwitchReference.GetCurrentSelectedInput();
-				OrderIndex = m_functionSwitchReference.OrderIndex;
 
 				SetCurrentSelectedInput( m_functionSwitchReference.GetCurrentSelectedInput(), m_currentSelectedInput );
 			}
@@ -394,166 +383,157 @@ namespace AmplifyShaderEditor
 		{
 			base.DrawProperties();
 			EditorGUI.BeginChangeCheck();
+			m_referenceType = (TexReferenceType)EditorGUILayoutPopup( Constants.ReferenceTypeStr, (int)m_referenceType, Constants.ReferenceArrayLabels );
+			if( EditorGUI.EndChangeCheck() )
 			{
-				EditorGUI.BeginChangeCheck();
-				m_referenceType = (TexReferenceType)EditorGUILayoutPopup( Constants.ReferenceTypeStr, (int)m_referenceType, Constants.ReferenceArrayLabels );
-				if( EditorGUI.EndChangeCheck() )
+				if( m_referenceType == TexReferenceType.Object )
 				{
-					if( m_referenceType == TexReferenceType.Object )
-					{
-						if( ContainerGraph.ParentWindow.CustomGraph == null )
-							UIUtils.UnregisterFunctionSwitchCopyNode( this );
-						UIUtils.RegisterFunctionSwitchNode( this );
-						ResetToSelf();
-					}
-					else
-					{
-						if( ContainerGraph.ParentWindow.CustomGraph == null )
-							UIUtils.UnregisterFunctionSwitchNode( this );
-						UIUtils.RegisterFunctionSwitchCopyNode( this );
-					}
-				}
-
-				if( m_referenceType == TexReferenceType.Instance )
-				{
-					EditorGUI.BeginChangeCheck();
-					string[] arr = new string[ UIUtils.FunctionSwitchList().Count ];
-					int[] ids = new int[ UIUtils.FunctionSwitchList().Count ];
-					for( int i = 0; i < arr.Length; i++ )
-					{
-						arr[ i ] = i + " - " + UIUtils.FunctionSwitchList()[ i ].OptionLabel;
-						ids[ i ] = UIUtils.FunctionSwitchList()[ i ].UniqueId;
-					}
-					m_referenceUniqueId = EditorGUILayout.IntPopup( Constants.AvailableReferenceStr, m_referenceUniqueId, arr, ids );
-					if( EditorGUI.EndChangeCheck() )
-					{
-						UpdateFromSelected();
-					}
-					return;
-				}
-
-				EditorGUI.BeginChangeCheck();
-				m_optionLabel = EditorGUILayoutTextField( "Option Label", m_optionLabel );
-				if( EditorGUI.EndChangeCheck() )
-				{
-					m_optionLabel = UIUtils.RemoveInvalidEnumCharacters( m_optionLabel );
-					if( string.IsNullOrEmpty( m_optionLabel ) )
-					{
-						m_optionLabel = "Option";
-					}
-
-					UIUtils.UpdateFunctionSwitchData( UniqueId, m_optionLabel );
-				}
-
-				EditorGUI.BeginChangeCheck();
-				m_toggleMode = EditorGUILayoutToggle( "Toggle Mode", m_toggleMode );
-				if( EditorGUI.EndChangeCheck() )
-				{
-					if( m_toggleMode )
-					{
-						m_inputPorts[ 0 ].Name = ToggleFalseStr;
-						m_inputPorts[ 1 ].Name = ToggleTrueStr;
-
-						for( int i = 0; i < MaxAllowedAmount; i++ )
-						{
-							m_inputPorts[ i ].Visible = ( i < 2 );
-						}
-
-						if( m_currentSelectedInput >= 2 )
-						{
-							m_currentSelectedInput = 1;
-						}
-						UpdateLabels();
-						m_sizeIsDirty = true;
-					}
-					else
-					{
-						m_inputPorts[ 0 ].Name = m_optionNames[ 0 ];
-						m_inputPorts[ 1 ].Name = m_optionNames[ 1 ];
-
-						for( int i = 0; i < MaxAllowedAmount; i++ )
-						{
-							m_inputPorts[ i ].Visible = ( i < m_maxAmountInputs );
-						}
-
-						if( m_currentSelectedInput >= m_maxAmountInputs )
-						{
-							m_currentSelectedInput = m_maxAmountInputs - 1;
-						}
-
-						UpdateLabels();
-						m_sizeIsDirty = true;
-					}
-				}
-
-				if( !m_toggleMode )
-				{
-					EditorGUI.BeginChangeCheck();
-					m_maxAmountInputs = EditorGUILayoutIntSlider( MaxAmountStr, m_maxAmountInputs, 2, MaxAllowedAmount );
-					if( EditorGUI.EndChangeCheck() )
-					{
-						for( int i = 0; i < MaxAllowedAmount; i++ )
-						{
-							m_inputPorts[ i ].Visible = ( i < m_maxAmountInputs );
-						}
-
-						if( m_currentSelectedInput >= m_maxAmountInputs )
-						{
-							m_currentSelectedInput = m_maxAmountInputs - 1;
-						}
-
-						UpdateLabels();
-						m_sizeIsDirty = true;
-					}
-
-					EditorGUI.indentLevel++;
-					for( int i = 0; i < m_maxAmountInputs; i++ )
-					{
-						EditorGUI.BeginChangeCheck();
-						m_inputPorts[ i ].Name = EditorGUILayoutTextField( "Item " + i, m_inputPorts[ i ].Name );
-						if( EditorGUI.EndChangeCheck() )
-						{
-							m_nameModified = true;
-							m_lastTimeNameModified = EditorApplication.timeSinceStartup;
-							m_inputPorts[ i ].Name = UIUtils.RemoveInvalidEnumCharacters( m_inputPorts[ i ].Name );
-							m_optionNames[ i ] = m_inputPorts[ i ].Name;
-							if( string.IsNullOrEmpty( m_inputPorts[ i ].Name ) )
-							{
-								m_inputPorts[ i ].Name = InputPortNameStr + i;
-							}
-							m_sizeIsDirty = true;
-						}
-					}
-					EditorGUI.indentLevel--;
-
-					if( m_nameModified )
-					{
-						UpdateLabels();
-					}
-				}
-
-				if( m_toggleMode )
-				{
-					EditorGUI.BeginChangeCheck();
-					int prevVal = m_currentSelectedInput;
-					m_currentSelectedInput = EditorGUILayoutToggle( CurrSelectedStr, ( m_currentSelectedInput != 0 ? true : false ) ) ? 1 : 0;
-					if( EditorGUI.EndChangeCheck() )
-						SetCurrentSelectedInput( m_currentSelectedInput, prevVal );
+					UIUtils.UnregisterFunctionSwitchCopyNode( this );
+					//UIUtils.RegisterFunctionSwitchNode( this );
+					ResetToSelf();
 				}
 				else
 				{
-					EditorGUI.BeginChangeCheck();
-					int prevVal = m_currentSelectedInput;
-					m_currentSelectedInput = EditorGUILayoutIntPopup( CurrSelectedStr, m_currentSelectedInput, AvailableInputsLabels, AvailableInputsValues );
-					if( EditorGUI.EndChangeCheck() )
-					{
-						SetCurrentSelectedInput( m_currentSelectedInput, prevVal );
-					}
+					//UIUtils.UnregisterFunctionSwitchNode( this );
+					UIUtils.RegisterFunctionSwitchCopyNode( this );
 				}
 			}
+
+			if( m_referenceType == TexReferenceType.Instance )
+			{
+				EditorGUI.BeginChangeCheck();
+				string[] arr = new string[ UIUtils.FunctionSwitchList().Count ];
+				int[] ids = new int[ UIUtils.FunctionSwitchList().Count ];
+				for( int i = 0; i < arr.Length; i++ )
+				{
+					arr[ i ] = i + " - " + UIUtils.FunctionSwitchList()[ i ].OptionLabel;
+					ids[ i ] = UIUtils.FunctionSwitchList()[ i ].UniqueId;
+				}
+				m_referenceUniqueId = EditorGUILayout.IntPopup( Constants.AvailableReferenceStr, m_referenceUniqueId, arr, ids );
+				if( EditorGUI.EndChangeCheck() )
+				{
+					UpdateFromSelected();
+				}
+				return;
+			}
+
+			EditorGUI.BeginChangeCheck();
+			m_optionLabel = EditorGUILayoutTextField( "Option Label", m_optionLabel );
 			if( EditorGUI.EndChangeCheck() )
 			{
-				m_dirtySettings = true;
+				m_optionLabel = UIUtils.RemoveInvalidEnumCharacters( m_optionLabel );
+				if( string.IsNullOrEmpty( m_optionLabel ) )
+				{
+					m_optionLabel = "Option";
+				}
+
+				UIUtils.UpdateFunctionSwitchData( UniqueId, m_optionLabel );
+			}
+
+			EditorGUI.BeginChangeCheck();
+			m_toggleMode = EditorGUILayoutToggle( "Toggle Mode", m_toggleMode );
+			if( EditorGUI.EndChangeCheck() )
+			{
+				if( m_toggleMode )
+				{
+					m_inputPorts[ 0 ].Name = ToggleFalseStr;
+					m_inputPorts[ 1 ].Name = ToggleTrueStr;
+
+					for( int i = 0; i < MaxAllowedAmount; i++ )
+					{
+						m_inputPorts[ i ].Visible = ( i < 2 );
+					}
+
+					if( m_currentSelectedInput >= 2 )
+					{
+						m_currentSelectedInput = 1;
+					}
+					UpdateLabels();
+					m_sizeIsDirty = true;
+				}
+				else
+				{
+					m_inputPorts[ 0 ].Name = m_optionNames[ 0 ];
+					m_inputPorts[ 1 ].Name = m_optionNames[ 1 ];
+
+					for( int i = 0; i < MaxAllowedAmount; i++ )
+					{
+						m_inputPorts[ i ].Visible = ( i < m_maxAmountInputs );
+					}
+
+					if( m_currentSelectedInput >= m_maxAmountInputs )
+					{
+						m_currentSelectedInput = m_maxAmountInputs - 1;
+					}
+
+					UpdateLabels();
+					m_sizeIsDirty = true;
+				}
+			}
+
+			if( !m_toggleMode )
+			{
+				EditorGUI.BeginChangeCheck();
+				m_maxAmountInputs = EditorGUILayoutIntSlider( MaxAmountStr, m_maxAmountInputs, 2, MaxAllowedAmount );
+				if( EditorGUI.EndChangeCheck() )
+				{
+					for( int i = 0; i < MaxAllowedAmount; i++ )
+					{
+						m_inputPorts[ i ].Visible = ( i < m_maxAmountInputs );
+					}
+
+					if( m_currentSelectedInput >= m_maxAmountInputs )
+					{
+						m_currentSelectedInput = m_maxAmountInputs - 1;
+					}
+
+					UpdateLabels();
+					m_sizeIsDirty = true;
+				}
+
+				EditorGUI.indentLevel++;
+				for( int i = 0; i < m_maxAmountInputs; i++ )
+				{
+					EditorGUI.BeginChangeCheck();
+					m_inputPorts[ i ].Name = EditorGUILayoutTextField( "Item " + i, m_inputPorts[ i ].Name );
+					if( EditorGUI.EndChangeCheck() )
+					{
+						m_nameModified = true;
+						m_lastTimeNameModified = EditorApplication.timeSinceStartup;
+						m_inputPorts[ i ].Name = UIUtils.RemoveInvalidEnumCharacters( m_inputPorts[ i ].Name );
+						m_optionNames[ i ] = m_inputPorts[ i ].Name;
+						if( string.IsNullOrEmpty( m_inputPorts[ i ].Name ) )
+						{
+							m_inputPorts[ i ].Name = InputPortNameStr + i;
+						}
+						m_sizeIsDirty = true;
+					}
+				}
+				EditorGUI.indentLevel--;
+
+				if( m_nameModified )
+				{
+					UpdateLabels();
+				}
+			}
+
+			if( m_toggleMode )
+			{
+				EditorGUI.BeginChangeCheck();
+				int prevVal = m_currentSelectedInput;
+				m_currentSelectedInput = EditorGUILayoutToggle( CurrSelectedStr, ( m_currentSelectedInput != 0 ? true : false ) ) ? 1 : 0;
+				if( EditorGUI.EndChangeCheck() )
+					SetCurrentSelectedInput( m_currentSelectedInput, prevVal );
+			}
+			else
+			{
+				EditorGUI.BeginChangeCheck();
+				int prevVal = m_currentSelectedInput;
+				m_currentSelectedInput = EditorGUILayoutIntPopup( CurrSelectedStr, m_currentSelectedInput, AvailableInputsLabels, AvailableInputsValues );
+				if( EditorGUI.EndChangeCheck() )
+				{
+					SetCurrentSelectedInput( m_currentSelectedInput, prevVal );
+				}
 			}
 		}
 
@@ -592,8 +572,6 @@ namespace AmplifyShaderEditor
 		{
 			base.OnNodeLogicUpdate( drawInfo );
 			CheckReference();
-			if( m_dirtySettings )
-				m_dirtySettings = false;
 		}
 
 		public override void OnNodeLayout( DrawInfo drawInfo )
@@ -695,7 +673,6 @@ namespace AmplifyShaderEditor
 					{
 						if( GUI.Button( m_varRect, GUIContent.none, UIUtils.GraphButton ) )
 						{
-							PreviewIsDirty = true;
 							int prevVal = m_currentSelectedInput;
 							m_currentSelectedInput = m_currentSelectedInput == 1 ? 0 : 1;
 							if( m_currentSelectedInput != prevVal )
@@ -715,7 +692,6 @@ namespace AmplifyShaderEditor
 						m_currentSelectedInput = EditorGUIIntPopup( m_varRect, m_currentSelectedInput, AvailableInputsLabels, AvailableInputsValues, UIUtils.GraphDropDown );
 						if( EditorGUI.EndChangeCheck() )
 						{
-							PreviewIsDirty = true;
 							SetCurrentSelectedInput( m_currentSelectedInput, prevVal );
 							m_editing = false;
 						}
@@ -775,12 +751,6 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public override void PropagateNodeData( NodeData nodeData, ref MasterNodeDataCollector dataCollector )
-		{
-			if( m_inputPorts[ m_currentSelectedInput ].IsConnected )
-				m_inputPorts[ m_currentSelectedInput ].GetOutputNode().PropagateNodeData( nodeData, ref dataCollector );
-		}
-
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
 			return m_inputPorts[ m_currentSelectedInput ].GeneratePortInstructions( ref dataCollector );
@@ -828,18 +798,16 @@ namespace AmplifyShaderEditor
 				m_referenceType = (TexReferenceType)Enum.Parse( typeof( TexReferenceType ), GetCurrentParam( ref nodeParams ) );
 				m_referenceUniqueId = Convert.ToInt32( GetCurrentParam( ref nodeParams ) );
 
-				if( m_referenceType == TexReferenceType.Object )
+				if( m_referenceType == TexReferenceType.Instance )
 				{
-					if( ContainerGraph.ParentWindow.CustomGraph == null )
-						UIUtils.UnregisterFunctionSwitchCopyNode( this );
+					//UIUtils.UnregisterFunctionSwitchNode( this );
 					UIUtils.RegisterFunctionSwitchNode( this );
-					ResetToSelf();
+					UIUtils.RegisterFunctionSwitchCopyNode( this );
 				}
 				else
 				{
-					if( ContainerGraph.ParentWindow.CustomGraph == null )
-						UIUtils.UnregisterFunctionSwitchNode( this );
-					UIUtils.RegisterFunctionSwitchCopyNode( this );
+					//UIUtils.UnregisterFunctionSwitchCopyNode( this );
+					UIUtils.RegisterFunctionSwitchNode( this );
 				}
 			}
 		}
@@ -881,6 +849,5 @@ namespace AmplifyShaderEditor
 		{
 			get { return m_maxAmountInputs; }
 		}
-		public bool DirtySettings { get { return m_dirtySettings; } }
 	}
 }

@@ -78,7 +78,6 @@ namespace AmplifyShaderEditor
 
 		private bool m_lateRefresh = false;
 
-		private Dictionary<int, bool> m_duplicatesBuffer = new Dictionary<int, bool>();
 		string LastLine( string text )
 		{
 			string[] lines = text.Replace( "\r", "" ).Split( '\n' );
@@ -98,7 +97,20 @@ namespace AmplifyShaderEditor
 
 			if( Function.FunctionName.Length > 1 )
 			{
-				SetTitleText( GraphContextMenu.AddSpacesToSentence( Function.FunctionName ) );
+				bool lastIsUpper = Char.IsUpper( Function.FunctionName, 0 );
+				System.Text.StringBuilder title = new System.Text.StringBuilder();
+				title.Append( Function.FunctionName[ 0 ] );
+				for( int i = 1; i < Function.FunctionName.Length; i++ )
+				{
+					bool currIsUpper = Char.IsUpper( Function.FunctionName, i );
+					if( currIsUpper && !lastIsUpper && Char.IsLetter( Function.FunctionName[ i - 1 ] ))
+					{
+						title.Append( " " );
+					}
+					lastIsUpper = currIsUpper;
+					title.Append( Function.FunctionName[ i ] );
+					SetTitleText( title.ToString() );
+				}
 			}
 			else
 			{
@@ -158,7 +170,6 @@ namespace AmplifyShaderEditor
 					m_inputPorts[ i ].AutoDrawInternalData = true;
 					m_inputPorts[ i ].InternalData = m_allFunctionInputs[ i ].InputPorts[ 0 ].InternalData;
 				}
-				m_allFunctionInputs[ i ].Fnode = this;
 			}
 
 			int outputCount = m_allFunctionOutputs.Count;
@@ -210,83 +221,46 @@ namespace AmplifyShaderEditor
 				ContainerGraph.ParentWindow.CustomGraph = null;
 				UIUtils.RegisterPropertyNode( m_reordenator );
 				ContainerGraph.ParentWindow.CustomGraph = cachedGraph;
-
-				if( inside )
-				{
-					UIUtils.RegisterPropertyNode( m_reordenator );
-				}
 			}
+
+			m_textLabelWidth = 120;
 
 			UIUtils.RegisterFunctionNode( this );
 
 			m_previewShaderGUID = "aca70c900c50c004e8ef0b47c4fac4d4";
 			m_useInternalPortData = false;
 			m_selectedLocation = function.PreviewPosition;
-			UIUtils.CurrentWindow.OutsideGraph.OnLODMasterNodesAddedEvent += OnLODMasterNodesAddedEvent;
 		}
 
-		public InputPort GetInput( FunctionInput input )
+		public override void SetPreviewInputs()
 		{
-			int index = m_allFunctionInputs.FindIndex( ( x ) => { return x.Equals( input ); } );
-			if( index >= 0 )
-				return InputPorts[ index ];
-			else
-				return null;
-		}
-
-		private void OnLODMasterNodesAddedEvent( int lod )
-		{
-			AddShaderFunctionDirectivesInternal( lod );
-		}
-
-		public void SetPreviewInput( InputPort input )
-		{
-			if( !HasPreviewShader || !m_initialized )
+			base.SetPreviewInputs();
+			if( !m_initialized || m_inputPorts == null )
 				return;
 
-			if( input.IsConnected && input.InputNodeHasPreview( ContainerGraph ) )
+			int count = m_inputPorts.Count;
+			for( int i = 0; i < count; i++ )
 			{
-				input.SetPreviewInputTexture( ContainerGraph );
-			}
-			else
-			{
-				input.SetPreviewInputValue( ContainerGraph );
-			}
-		}
-
-		public override bool RecursivePreviewUpdate( Dictionary<string, bool> duplicatesDict = null )
-		{
-			if( duplicatesDict == null )
-			{
-				duplicatesDict = ContainerGraph.ParentWindow.VisitedChanged;
-			}
-
-			if( m_allFunctionOutputs == null || m_allFunctionOutputs.Count == 0 )
-				return false;
-
-			for( int i = 0; i < m_allFunctionOutputs.Count; i++ )
-			{
-				ParentNode outNode = m_allFunctionOutputs[ i ];
-				if( outNode != null )
+				if( !m_allFunctionInputs[ i ].InputPorts[ 0 ].IsConnected || m_inputPorts[ i ].IsConnected )
 				{
-					if( !duplicatesDict.ContainsKey( outNode.OutputId ) )
-					{
-						bool result = outNode.RecursivePreviewUpdate();
-						if( result )
-							PreviewIsDirty = true;
-					}
-					else if( duplicatesDict[ outNode.OutputId ] )
-					{
-						PreviewIsDirty = true;
-					}
+					m_allFunctionInputs[ i ].m_ignoreConnection = true;
+					m_allFunctionInputs[ i ].InputPorts[ 0 ].PreparePortCacheID();
+					m_allFunctionInputs[ i ].PreviewMaterial.SetTexture( m_allFunctionInputs[ i ].InputPorts[ 0 ].CachedPropertyId, m_inputPorts[ i ].InputPreviewTexture );
+				}
+				else
+				{
+					m_allFunctionInputs[ i ].m_ignoreConnection = false;
 				}
 			}
 
-			bool needsUpdate = PreviewIsDirty;
-			RenderNodePreview();
-			if( !duplicatesDict.ContainsKey( OutputId ) )
-				duplicatesDict.Add( OutputId, needsUpdate );
-			return needsUpdate;
+			if( m_mainPreviewNode != null )
+			{
+				if( m_drawPreviewAsSphere != m_mainPreviewNode.SpherePreview )
+				{
+					m_drawPreviewAsSphere = m_mainPreviewNode.SpherePreview;
+					OnNodeChange();
+				}
+			}
 		}
 
 		public override void RenderNodePreview()
@@ -294,26 +268,28 @@ namespace AmplifyShaderEditor
 			if( m_outputPorts == null )
 				return;
 
-			if( !PreviewIsDirty && !m_continuousPreviewRefresh )
-				return;
-
-			// this is in the wrong place??
-			if( m_drawPreviewAsSphere != m_mainPreviewNode.SpherePreview )
+			ParentGraph cachedGraph = ContainerGraph.ParentWindow.CustomGraph;
+			ContainerGraph.ParentWindow.CustomGraph = m_functionGraph;
+			if( m_functionGraph != null )
 			{
-				m_drawPreviewAsSphere = m_mainPreviewNode.SpherePreview;
-				OnNodeChange();
+				for( int i = 0; i < m_functionGraph.AllNodes.Count; i++ )
+				{
+					ParentNode node = m_functionGraph.AllNodes[ i ];
+					if( node != null )
+					{
+						node.RenderNodePreview();
+					}
+				}
 			}
+			ContainerGraph.ParentWindow.CustomGraph = cachedGraph;
+
+			SetPreviewInputs();
 
 			int count = m_outputPorts.Count;
 			for( int i = 0; i < count; i++ )
 			{
 				m_outputPorts[ i ].OutputPreviewTexture = m_allFunctionOutputs[ i ].PreviewTexture;
 			}
-
-			if( PreviewIsDirty )
-				FinishPreviewRender = true;
-
-			PreviewIsDirty = false;
 		}
 
 		public override RenderTexture PreviewTexture
@@ -324,16 +300,6 @@ namespace AmplifyShaderEditor
 					return m_mainPreviewNode.PreviewTexture;
 				else
 					return base.PreviewTexture;
-			}
-		}
-
-		private void AddShaderFunctionDirectivesInternal( int lod )
-		{
-			List<TemplateMultiPassMasterNode> nodes = ContainerGraph.ParentWindow.OutsideGraph.GetMultiPassMasterNodes( lod );
-			int count = nodes.Count;
-			for( int i = 0; i < count; i++ )
-			{
-				nodes[ i ].PassModule.AdditionalDirectives.AddShaderFunctionItems( OutputId, Function.AdditionalDirectives.DirectivesList );
 			}
 		}
 
@@ -350,8 +316,6 @@ namespace AmplifyShaderEditor
 			MasterNode masterNode = UIUtils.CurrentWindow.OutsideGraph.CurrentMasterNode;
 			StandardSurfaceOutputNode surface = masterNode as StandardSurfaceOutputNode;
 
-
-
 			if( surface != null )
 			{
 				//for( int i = 0; i < Function.AdditionalIncludes.IncludeList.Count; i++ )
@@ -367,15 +331,17 @@ namespace AmplifyShaderEditor
 				//	ContainerGraph.ParentWindow.OutsideGraph.CurrentStandardSurface.AdditionalDirectives.AddShaderFunctionItem(AdditionalLineType.Pragma, Function.AdditionalPragmas.PragmaList[ i ] );
 				//	m_pragmas.Add( Function.AdditionalPragmas.PragmaList[ i ] );
 				//}
-				surface.AdditionalDirectives.AddShaderFunctionItems( OutputId, Function.AdditionalDirectives.DirectivesList );
+				surface.AdditionalDirectives.AddShaderFunctionItems( Function.AdditionalDirectives.DirectivesList );
 			}
 			else
 			{
 				if( ContainerGraph.ParentWindow.OutsideGraph.MultiPassMasterNodes.Count > 0 )
 				{
-					for( int lod = -1; lod < ContainerGraph.ParentWindow.OutsideGraph.LodMultiPassMasternodes.Count; lod++ )
+					List<TemplateMultiPassMasterNode> nodes = ContainerGraph.ParentWindow.OutsideGraph.MultiPassMasterNodes.NodesList;
+					int count = nodes.Count;
+					for( int i = 0; i < count; i++ )
 					{
-						AddShaderFunctionDirectivesInternal( lod );
+						nodes[ i ].PassModule.AdditionalDirectives.AddShaderFunctionItems( Function.AdditionalDirectives.DirectivesList );
 					}
 				}
 				else
@@ -466,14 +432,8 @@ namespace AmplifyShaderEditor
 				case WirePortDataType.SAMPLER2D:
 				case WirePortDataType.SAMPLER3D:
 				case WirePortDataType.SAMPLERCUBE:
-				case WirePortDataType.SAMPLER2DARRAY:
 				{
-					port.CreatePortRestrictions( WirePortDataType.SAMPLER1D, WirePortDataType.SAMPLER2D, WirePortDataType.SAMPLER3D, WirePortDataType.SAMPLERCUBE, WirePortDataType.SAMPLER2DARRAY, WirePortDataType.OBJECT );
-				}
-				break;
-				case WirePortDataType.SAMPLERSTATE:
-				{
-					port.CreatePortRestrictions( WirePortDataType.SAMPLERSTATE );
+					port.CreatePortRestrictions( WirePortDataType.SAMPLER1D, WirePortDataType.SAMPLER2D, WirePortDataType.SAMPLER3D, WirePortDataType.SAMPLERCUBE, WirePortDataType.OBJECT );
 				}
 				break;
 				default:
@@ -496,21 +456,15 @@ namespace AmplifyShaderEditor
 				case WirePortDataType.FLOAT3x3:
 				case WirePortDataType.FLOAT4x4:
 				{
-					port.AddPortForbiddenTypes( WirePortDataType.SAMPLER1D, WirePortDataType.SAMPLER2D, WirePortDataType.SAMPLER3D, WirePortDataType.SAMPLERCUBE, WirePortDataType.SAMPLER2DARRAY );
+					port.AddPortForbiddenTypes( WirePortDataType.SAMPLER1D, WirePortDataType.SAMPLER2D, WirePortDataType.SAMPLER3D, WirePortDataType.SAMPLERCUBE );
 				}
 				break;
 				case WirePortDataType.SAMPLER1D:
 				case WirePortDataType.SAMPLER2D:
 				case WirePortDataType.SAMPLER3D:
 				case WirePortDataType.SAMPLERCUBE:
-				case WirePortDataType.SAMPLER2DARRAY:
 				{
-					port.CreatePortRestrictions( WirePortDataType.SAMPLER1D, WirePortDataType.SAMPLER2D, WirePortDataType.SAMPLER3D, WirePortDataType.SAMPLERCUBE, WirePortDataType.SAMPLER2DARRAY, WirePortDataType.OBJECT );
-				}
-				break;
-				case WirePortDataType.SAMPLERSTATE:
-				{
-					port.CreatePortRestrictions( WirePortDataType.SAMPLERSTATE );
+					port.CreatePortRestrictions( WirePortDataType.SAMPLER1D, WirePortDataType.SAMPLER2D, WirePortDataType.SAMPLER3D, WirePortDataType.SAMPLERCUBE, WirePortDataType.OBJECT );
 				}
 				break;
 				default:
@@ -552,7 +506,6 @@ namespace AmplifyShaderEditor
 		{
 			base.OnInputPortConnected( portId, otherNodeId, otherPortId, activateNode );
 			FunctionInput functionInput = m_refreshIdsRequired ? m_allFunctionInputs[ portId ] : GetFunctionInputByUniqueId( portId );
-			functionInput.PreviewIsDirty = true;
 			if( functionInput.AutoCast )
 			{
 				InputPort inputPort = m_refreshIdsRequired ? m_inputPorts[ portId ] : GetInputPortByUniqueId( portId );
@@ -570,19 +523,10 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public override void OnInputPortDisconnected( int portId )
-		{
-			base.OnInputPortDisconnected( portId );
-
-			FunctionInput functionInput = m_refreshIdsRequired ? m_allFunctionInputs[ portId ] : GetFunctionInputByUniqueId( portId );
-			functionInput.PreviewIsDirty = true;
-		}
-
 		public override void OnConnectedOutputNodeChanges( int inputPortId, int otherNodeId, int otherPortId, string name, WirePortDataType type )
 		{
 			base.OnConnectedOutputNodeChanges( inputPortId, otherNodeId, otherPortId, name, type );
 			FunctionInput functionInput = m_refreshIdsRequired ? m_allFunctionInputs[ inputPortId ] : GetFunctionInputByUniqueId( inputPortId );
-			functionInput.PreviewIsDirty = true;
 			if( functionInput.AutoCast )
 			{
 				InputPort inputPort = m_refreshIdsRequired ? m_inputPorts[ inputPortId ] : GetInputPortByUniqueId( inputPortId );
@@ -606,7 +550,7 @@ namespace AmplifyShaderEditor
 
 			if( Function == null )
 				return;
-			
+
 			if( Function.Description.Length > 0 || m_allFunctionSwitches.Count > 0 )
 				NodeUtils.DrawPropertyGroup( ref m_parametersFoldout, "Parameters", DrawDescription );
 
@@ -631,12 +575,7 @@ namespace AmplifyShaderEditor
 					{
 						if( m_inputPorts[ i ].ValidInternalData && !m_inputPorts[ i ].IsConnected && m_inputPorts[ i ].Visible && m_inputPorts[ i ].AutoDrawInternalData )
 						{
-							EditorGUI.BeginChangeCheck();
 							m_inputPorts[ i ].ShowInternalData( this );
-							if( EditorGUI.EndChangeCheck() )
-							{
-								m_allFunctionInputs[ i ].PreviewIsDirty = true;
-							}
 						}
 					}
 				} );
@@ -664,23 +603,10 @@ namespace AmplifyShaderEditor
 			ContainerGraph.ParentWindow.CustomGraph = cachedGraph;
 		}
 
-		private void RemoveShaderFunctionDirectivesInternal( int lod )
-		{
-			List<TemplateMultiPassMasterNode> nodes = ContainerGraph.ParentWindow.OutsideGraph.GetMultiPassMasterNodes( lod );
-			int count = nodes.Count;
-			for( int i = 0; i < count; i++ )
-			{
-				nodes[ i ].PassModule.AdditionalDirectives.RemoveShaderFunctionItems( OutputId );
-			}
-		}
-
 		public override void Destroy()
 		{
 			m_mainPreviewNode = null;
 			base.Destroy();
-
-			m_duplicatesBuffer.Clear();
-			m_duplicatesBuffer = null;
 
 			if( m_functionGraph != null && ContainerGraph.ParentWindow.CurrentGraph != m_functionGraph )
 				ContainerGraph.ParentWindow.CurrentGraph.InstancePropertyCount -= m_functionGraph.InstancePropertyCount;
@@ -704,21 +630,20 @@ namespace AmplifyShaderEditor
 				//	//}
 				//	ContainerGraph.ParentWindow.OutsideGraph.CurrentStandardSurface.AdditionalDirectives.RemoveShaderFunctionItem( AdditionalLineType.Pragma, m_pragmas[ i ] );
 				//}
-				ContainerGraph.ParentWindow.OutsideGraph.CurrentStandardSurface.AdditionalDirectives.RemoveShaderFunctionItems( OutputId/*, m_directives */);
+				ContainerGraph.ParentWindow.OutsideGraph.CurrentStandardSurface.AdditionalDirectives.RemoveShaderFunctionItems( m_directives );
 			}
 			else
 			{
 				if( ContainerGraph.ParentWindow.OutsideGraph.MultiPassMasterNodes.Count > 0 )
 				{
-					for( int lod = -1; lod < ContainerGraph.ParentWindow.OutsideGraph.LodMultiPassMasternodes.Count; lod++ )
+					List<TemplateMultiPassMasterNode> nodes = ContainerGraph.ParentWindow.OutsideGraph.MultiPassMasterNodes.NodesList;
+					int count = nodes.Count;
+					for( int i = 0; i < count; i++ )
 					{
-						RemoveShaderFunctionDirectivesInternal( lod );
+						nodes[ i ].PassModule.AdditionalDirectives.RemoveShaderFunctionItems( m_directives );
 					}
 				}
 			}
-
-
-
 
 			// Cannot GameObject.Destroy(m_directives[i]) since we would be removing them from 
 			// the shader function asset itself
@@ -766,7 +691,6 @@ namespace AmplifyShaderEditor
 			m_allFunctionInputsDict.Clear();
 			m_allFunctionInputsDict = null;
 
-			UIUtils.CurrentWindow.OutsideGraph.OnLODMasterNodesAddedEvent -= OnLODMasterNodesAddedEvent;
 		}
 
 		public override void OnNodeLogicUpdate( DrawInfo drawInfo )
@@ -791,7 +715,7 @@ namespace AmplifyShaderEditor
 					m_functionGraph.AllNodes[ i ].OnNodeLogicUpdate( drawInfo );
 				}
 
-				//if( !string.IsNullOrEmpty( FunctionGraph.CurrentFunctionOutput.SubTitle ) )
+				if( !string.IsNullOrEmpty( FunctionGraph.CurrentFunctionOutput.SubTitle ) )
 				{
 					SetAdditonalTitleText( FunctionGraph.CurrentFunctionOutput.SubTitle );
 				}
@@ -1040,7 +964,7 @@ namespace AmplifyShaderEditor
 			IOUtils.AddFieldValueToString( ref nodeInfo, m_reordenator != null ? m_reordenator.RawOrderIndex : -1 );
 			IOUtils.AddFieldValueToString( ref nodeInfo, m_headerTitle );
 			IOUtils.AddFieldValueToString( ref nodeInfo, m_functionGraphId );
-			IOUtils.AddFieldValueToString( ref nodeInfo, AssetDatabase.AssetPathToGUID( AssetDatabase.GetAssetPath( m_function ) ) );
+			IOUtils.AddFieldValueToString( ref nodeInfo, m_functionGUID );
 
 			int functionSwitchCount = m_allFunctionSwitches != null ? m_allFunctionSwitches.Count : 0;
 			string allOptions = functionSwitchCount.ToString();
@@ -1099,13 +1023,13 @@ namespace AmplifyShaderEditor
 					else
 					{
 						SetTitleText( "ERROR" );
-						UIUtils.ShowMessage( UniqueId, string.Format( "Error loading {0} shader function from project folder", m_filename ), MessageSeverity.Error );
+						UIUtils.ShowMessage( string.Format( "Error loading {0} shader function from project folder", m_filename ), MessageSeverity.Error );
 					}
 				}
 				else
 				{
 					SetTitleText( "Missing Function" );
-					UIUtils.ShowMessage( UniqueId, string.Format( "Missing {0} shader function on project folder", m_filename ), MessageSeverity.Error );
+					UIUtils.ShowMessage( string.Format( "Missing {0} shader function on project folder", m_filename ), MessageSeverity.Error );
 				}
 			}
 			if( UIUtils.CurrentShaderVersion() > 14203 )
@@ -1217,27 +1141,25 @@ namespace AmplifyShaderEditor
 				m_functionGraph.AllNodes[ i ].SetContainerGraph( m_functionGraph );
 			}
 		}
-		
 		public override void OnMasterNodeReplaced( MasterNode newMasterNode )
 		{
 			base.OnMasterNodeReplaced( newMasterNode );
-			if( m_functionGraph == null )
-				return;
-
 			m_functionGraph.FireMasterNodeReplacedEvent( newMasterNode );
 
 			StandardSurfaceOutputNode surface = newMasterNode as StandardSurfaceOutputNode;
 			if( surface != null )
 			{
-				surface.AdditionalDirectives.AddShaderFunctionItems( OutputId, Function.AdditionalDirectives.DirectivesList );
+				surface.AdditionalDirectives.AddShaderFunctionItems( Function.AdditionalDirectives.DirectivesList );
 			}
 			else
 			{
 				if( ContainerGraph.ParentWindow.OutsideGraph.MultiPassMasterNodes.Count > 0 )
 				{
-					for( int lod = -1; lod < ContainerGraph.ParentWindow.OutsideGraph.LodMultiPassMasternodes.Count; lod++ )
+					List<TemplateMultiPassMasterNode> nodes = ContainerGraph.ParentWindow.OutsideGraph.MultiPassMasterNodes.NodesList;
+					int count = nodes.Count;
+					for( int i = 0; i < count; i++ )
 					{
-						AddShaderFunctionDirectivesInternal( lod );
+						nodes[ i ].PassModule.AdditionalDirectives.AddShaderFunctionItems( Function.AdditionalDirectives.DirectivesList );
 					}
 				}
 			}

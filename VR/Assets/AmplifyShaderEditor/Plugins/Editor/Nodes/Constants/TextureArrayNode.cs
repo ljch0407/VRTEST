@@ -8,8 +8,7 @@ using System;
 namespace AmplifyShaderEditor
 {
 	[Serializable]
-	//[NodeAttributes( "Texture Array", "Textures", "Texture Array fetches a texture from a texture2DArray asset file given a index value", KeyCode.None, true, 0, int.MaxValue, typeof( Texture2DArray ) )]
-	[NodeAttributes( "[Old]Texture Array", "Textures", "Texture Array fetches a texture from a texture2DArray asset file given a index value", null, KeyCode.None, true, true, "SamplerNode", typeof( SamplerNode ) )]
+	[NodeAttributes( "Texture Array", "Textures", "Texture Array fetches a texture from a texture2DArray asset file given a index value", KeyCode.None, true, 0, int.MaxValue, typeof( Texture2DArray ) )]
 	public class TextureArrayNode : PropertyNode
 	{
 		[SerializeField]
@@ -112,6 +111,7 @@ namespace AmplifyShaderEditor
 			m_drawPicker = true;
 			m_customPrefix = "Texture Array ";
 			m_selectedLocation = PreviewLocation.TopCenter;
+			m_precisionString = UIUtils.FinalPrecisionWirePortToCgType( m_currentPrecisionType, m_outputPorts[ 0 ].DataType );
 			m_previewShaderGUID = "2e6d093df2d289f47b827b36efb31a81";
 			m_showAutoRegisterUI = false;
 		}
@@ -169,18 +169,6 @@ namespace AmplifyShaderEditor
 			{
 				UIUtils.RegisterTextureArrayNode( this );
 				UIUtils.RegisterPropertyNode( this );
-			}
-
-			if( UniqueId > -1 )
-				ContainerGraph.TextureArrayNodes.OnReorderEventComplete += OnReorderEventComplete;
-
-		}
-
-		private void OnReorderEventComplete()
-		{
-			if( m_referenceType == TexReferenceType.Instance && m_referenceSampler != null )
-			{
-				m_referenceArrayId = ContainerGraph.TextureArrayNodes.GetNodeRegisterIdx( m_referenceSampler.UniqueId );
 			}
 		}
 
@@ -493,7 +481,6 @@ namespace AmplifyShaderEditor
 
 				if( EditorGUI.EndChangeCheck() )
 				{
-					PreviewIsDirty = true;
 					CheckTextureImporter( true );
 					SetTitleText( PropertyInspectorName );
 					SetAdditonalTitleText( string.Format( Constants.PropertyValueLabel, GetPropertyValStr() ) );
@@ -610,16 +597,11 @@ namespace AmplifyShaderEditor
 
 			OnPropertyNameChanged();
 
-			if( CheckReference() )
-			{
-				OrderIndex = m_referenceSampler.RawOrderIndex;
-				OrderIndexOffset = m_referenceSampler.OrderIndexOffset;
-			}
+			CheckReference();
 
 			bool isVertex = ( dataCollector.PortCategory == MasterNodePortCategory.Vertex || dataCollector.PortCategory == MasterNodePortCategory.Tessellation );
 
 			bool instanced = false;
-
 			if( m_referenceType == TexReferenceType.Instance && m_referenceSampler != null )
 				instanced = true;
 
@@ -662,7 +644,7 @@ namespace AmplifyShaderEditor
 			{
 				if( dataCollector.IsTemplate )
 				{
-					uvs = dataCollector.TemplateDataCollectorInstance.GetTextureCoord( m_uvSet, propertyName/*( instanced ? m_referenceSampler.PropertyName : PropertyName )*/, UniqueId, CurrentPrecisionType );
+					uvs = dataCollector.TemplateDataCollectorInstance.GetTextureCoord( m_uvSet, ( instanced ? m_referenceSampler.PropertyName : PropertyName ), UniqueId, m_currentPrecisionType );
 				}
 				else
 				{
@@ -674,6 +656,31 @@ namespace AmplifyShaderEditor
 			}
 			string index = m_indexPort.GeneratePortInstructions( ref dataCollector );
 
+			string m_normalMapUnpackMode = "";
+			if( m_autoUnpackNormals )
+			{
+				bool isScaledNormal = false;
+				if( m_normalPort.IsConnected )
+				{
+					isScaledNormal = true;
+				}
+				else
+				{
+					if( m_normalPort.FloatInternalData != 1 )
+					{
+						isScaledNormal = true;
+					}
+				}
+
+				string scaleValue = isScaledNormal?m_normalPort.GeneratePortInstructions( ref dataCollector ):"1.0";
+				m_normalMapUnpackMode = TemplateHelperFunctions.CreateUnpackNormalStr( dataCollector, isScaledNormal, scaleValue );
+				if(  isScaledNormal && (! dataCollector.IsTemplate || !dataCollector.IsSRP ))
+				{
+					dataCollector.AddToIncludes( UniqueId, Constants.UnityStandardUtilsLibFuncs );
+				}
+				
+			}
+
 			string result = string.Empty;
 
 			if( dataCollector.IsTemplate && dataCollector.IsSRP )
@@ -682,7 +689,7 @@ namespace AmplifyShaderEditor
 				//TODO: unity now supports bias as well
 				if( m_mipMode == MipType.MipBias )
 				{
-					GeneratorUtils.AddCustomArraySamplingMacros( ref dataCollector );
+					dataCollector.UsingArrayDerivatives = true;
 					result = propertyName + ".SampleGrad(sampler" + propertyName + ", float3(" + uvs + ", " + index + "), " + m_ddxPort.GeneratePortInstructions( ref dataCollector ) + ", " + m_ddyPort.GeneratePortInstructions( ref dataCollector ) + ");";
 				}
 				else if( m_lodPort.Visible || isVertex )
@@ -699,7 +706,7 @@ namespace AmplifyShaderEditor
 				//CAREFUL mipbias here means derivative (this needs index changes)
 				if( m_mipMode == MipType.MipBias )
 				{
-					GeneratorUtils.AddCustomArraySamplingMacros( ref dataCollector );
+					dataCollector.UsingArrayDerivatives = true;
 					result = "ASE_SAMPLE_TEX2DARRAY_GRAD(" + propertyName + ", float3(" + uvs + ", " + index + "), " + m_ddxPort.GeneratePortInstructions( ref dataCollector ) + ", " + m_ddyPort.GeneratePortInstructions( ref dataCollector ) + " )";
 				}
 				else if( m_lodPort.Visible || isVertex )
@@ -713,27 +720,7 @@ namespace AmplifyShaderEditor
 			}
 
 			if( m_autoUnpackNormals )
-			{
-				bool isScaledNormal = false;
-				if( m_normalPort.IsConnected )
-				{
-					isScaledNormal = true;
-				}
-				else
-				{
-					if( m_normalPort.FloatInternalData != 1 )
-					{
-						isScaledNormal = true;
-					}
-				}
-
-				string scaleValue = isScaledNormal ? m_normalPort.GeneratePortInstructions( ref dataCollector ) : "1.0";
-				result = GeneratorUtils.GenerateUnpackNormalStr( ref dataCollector, CurrentPrecisionType, UniqueId, OutputId, result, isScaledNormal, scaleValue, UnpackInputMode.Tangent );
-				if( isScaledNormal && ( !dataCollector.IsTemplate || !dataCollector.IsSRP ) )
-				{
-					dataCollector.AddToIncludes( UniqueId, Constants.UnityStandardUtilsLibFuncs );
-				}
-			}
+				result = string.Format( m_normalMapUnpackMode, result );
 
 			RegisterLocalVariable( 0, result, ref dataCollector, "texArray" + OutputId );
 			return GetOutputVectorItem( 0, outputId, m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory ) );
@@ -812,11 +799,6 @@ namespace AmplifyShaderEditor
 			{
 				m_materialTextureArray = m_defaultTextureArray;
 			}
-
-			if( !m_isNodeBeingCopied && m_referenceType == TexReferenceType.Object )
-			{
-				ContainerGraph.TextureArrayNodes.UpdateDataOnNode( UniqueId, DataToArray );
-			}
 		}
 
 		public override void RefreshExternalReferences()
@@ -887,8 +869,6 @@ namespace AmplifyShaderEditor
 				m_materialTextureArray = (Texture2DArray)material.GetTexture( PropertyName );
 				if( m_materialTextureArray == null )
 					m_materialTextureArray = m_defaultTextureArray;
-
-				PreviewIsDirty = true;
 			}
 		}
 
@@ -979,9 +959,6 @@ namespace AmplifyShaderEditor
 				UIUtils.UnregisterTextureArrayNode( this );
 				UIUtils.UnregisterPropertyNode( this );
 			}
-
-			if( UniqueId > -1 )
-				ContainerGraph.TextureArrayNodes.OnReorderEventComplete -= OnReorderEventComplete;
 		}
 
 		public ParentNode PreviewTextProp { get { return m_previewTextProp; } }

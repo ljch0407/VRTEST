@@ -28,21 +28,12 @@ namespace AmplifyShaderEditor
 
 		private UpperLeftWidgetHelper m_upperLeftWidget = new UpperLeftWidgetHelper();
 
-		private InputPort m_texPort;
-		private InputPort m_ssPort;
-
 		protected override void CommonInit( int uniqueId )
 		{
 			base.CommonInit( uniqueId );
 			AddInputPort( WirePortDataType.FLOAT, false, Constants.EmptyPortValue );
 			AddInputPort( WirePortDataType.SAMPLER2D, false, "Pattern");
-			m_inputPorts[ 1 ].CreatePortRestrictions( WirePortDataType.SAMPLER2D );
-			m_texPort = m_inputPorts[ 1 ];
 			AddInputPort( WirePortDataType.FLOAT4, false, "Screen Position" );
-
-			AddInputPort( WirePortDataType.SAMPLERSTATE, false, "SS" );
-			m_inputPorts[ 3 ].CreatePortRestrictions( WirePortDataType.SAMPLERSTATE );
-			m_ssPort = m_inputPorts[ 3 ];
 
 			AddOutputPort( WirePortDataType.FLOAT, Constants.EmptyPortValue );
 			m_textLabelWidth = 110;
@@ -50,15 +41,15 @@ namespace AmplifyShaderEditor
 			m_hasLeftDropdown = true;
 			SetAdditonalTitleText( string.Format( Constants.SubTitleTypeFormatStr, PatternsStr[ m_selectedPatternInt ] ) );
 			UpdatePorts();
+			GeneratePattern();
 		}
 
 		public override void Destroy()
 		{
 			base.Destroy();
 			m_upperLeftWidget = null;
-			m_texPort = null;
-			m_ssPort = null;
 		}
+
 
 		public override void AfterCommonInit()
 		{
@@ -71,16 +62,6 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public override void OnConnectedOutputNodeChanges( int outputPortId, int otherNodeId, int otherPortId, string name, WirePortDataType type )
-		{
-			base.OnConnectedOutputNodeChanges( outputPortId, otherNodeId, otherPortId, name, type );
-			if( !m_texPort.CheckValidType( type ) )
-			{
-				m_texPort.FullDeleteConnections();
-				UIUtils.ShowMessage( UniqueId, "Dithering node only accepts SAMPLER2D input type.\nTexture Object connected changed to " + type + ", connection was lost, please review and update accordingly.", MessageSeverity.Warning );
-			}
-		}
-
 		public override void Draw( DrawInfo drawInfo )
 		{
 			base.Draw( drawInfo );
@@ -89,6 +70,7 @@ namespace AmplifyShaderEditor
 			if( EditorGUI.EndChangeCheck() )
 			{
 				UpdatePorts();
+				GeneratePattern();
 			}
 		}
 
@@ -100,6 +82,7 @@ namespace AmplifyShaderEditor
 			if ( EditorGUI.EndChangeCheck() )
 			{
 				UpdatePorts();
+				GeneratePattern();
 			}
 			EditorGUI.BeginChangeCheck();
 			m_customScreenPos = EditorGUILayoutToggle( "Screen Position", m_customScreenPos );
@@ -111,13 +94,12 @@ namespace AmplifyShaderEditor
 
 		private void UpdatePorts()
 		{
-			m_texPort.Visible = ( m_selectedPatternInt == 2 );
-			m_ssPort.Visible = ( m_selectedPatternInt == 2 );
+			m_inputPorts[ 1 ].Visible = ( m_selectedPatternInt == 2 );
 			m_inputPorts[ 2 ].Visible = m_customScreenPos;
 			m_sizeIsDirty = true;
 		}
 
-		private void GeneratePattern( ref MasterNodeDataCollector dataCollector )
+		private void GeneratePattern()
 		{
 			SetAdditonalTitleText( string.Format( Constants.SubTitleTypeFormatStr, PatternsStr[ m_selectedPatternInt ] ) );
 			switch ( m_selectedPatternInt )
@@ -159,15 +141,10 @@ namespace AmplifyShaderEditor
 				break;
 				case 2:
 				{
-					ParentGraph outsideGraph = UIUtils.CurrentWindow.OutsideGraph;
-
 					m_functionBody = string.Empty;
-					m_functionHeader = "Dither" + PatternsFuncStr[ m_selectedPatternInt ] + "({0}, {1}, {2})";
-
-					IOUtils.AddFunctionHeader( ref m_functionBody, "inline float Dither" + PatternsFuncStr[ m_selectedPatternInt ] + "( float4 screenPos, " + GeneratorUtils.GetPropertyDeclaraction( "noiseTexture", TextureType.Texture2D, ", " ) + GeneratorUtils.GetSamplerDeclaraction( "samplernoiseTexture", TextureType.Texture2D, ", " ) + "float4 noiseTexelSize )" );
-
-					string samplingCall = GeneratorUtils.GenerateSamplingCall( ref dataCollector, WirePortDataType.SAMPLER2D, "noiseTexture", "samplernoiseTexture", "screenPos.xy * _ScreenParams.xy * noiseTexelSize.xy", MipType.MipLevel, "0" );
-					IOUtils.AddFunctionLine( ref m_functionBody, "float dither = "+ samplingCall + ".g;" );
+					m_functionHeader = "Dither" + PatternsFuncStr[ m_selectedPatternInt ] + "( {0}, {1}, {2})";
+					IOUtils.AddFunctionHeader( ref m_functionBody, "inline float Dither" + PatternsFuncStr[ m_selectedPatternInt ] + "( float4 screenPos, sampler2D noiseTexture, float4 noiseTexelSize )" );
+					IOUtils.AddFunctionLine( ref m_functionBody, "float dither = tex2Dlod( noiseTexture, float4( screenPos.xy * _ScreenParams.xy * noiseTexelSize.xy, 0, 0 ) ).g;" );
 					IOUtils.AddFunctionLine( ref m_functionBody, "float ditherRate = noiseTexelSize.x * noiseTexelSize.y;" );
 					IOUtils.AddFunctionLine( ref m_functionBody, "dither = ( 1 - ditherRate ) * dither + ditherRate;" );
 					IOUtils.AddFunctionLine( ref m_functionBody, "return dither;" );
@@ -188,7 +165,7 @@ namespace AmplifyShaderEditor
 			if ( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
 				return m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory );
 
-			GeneratePattern( ref dataCollector );
+			GeneratePattern();
 
 			if( !( dataCollector.IsTemplate && dataCollector.IsSRP ) )
 				dataCollector.AddToIncludes( UniqueId, Constants.UnityShaderVariables );
@@ -198,44 +175,43 @@ namespace AmplifyShaderEditor
 			{
 				varName = "ditherCustomScreenPos" + OutputId;
 				string customScreenPosVal = m_inputPorts[ 2 ].GeneratePortInstructions( ref dataCollector );
-				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT4, varName, customScreenPosVal );
+				dataCollector.AddLocalVariable( UniqueId, m_currentPrecisionType, WirePortDataType.FLOAT4, varName, customScreenPosVal );
 			}
 			else
 			{
 				if( dataCollector.TesselationActive && isFragment )
 				{
-					varName = GeneratorUtils.GenerateClipPositionOnFrag( ref dataCollector, UniqueId, CurrentPrecisionType );
+					varName = GeneratorUtils.GenerateClipPositionOnFrag( ref dataCollector, UniqueId, m_currentPrecisionType );
 				}
 				else
 				{
 					if( dataCollector.IsTemplate )
 					{
-						varName = dataCollector.TemplateDataCollectorInstance.GetScreenPosNormalized( CurrentPrecisionType );
+						varName = dataCollector.TemplateDataCollectorInstance.GetScreenPosNormalized();
 					}
 					else
 					{
-						varName = GeneratorUtils.GenerateScreenPositionNormalized( ref dataCollector, UniqueId, CurrentPrecisionType, !dataCollector.UsingCustomScreenPos );
+						varName = GeneratorUtils.GenerateScreenPositionNormalized( ref dataCollector, UniqueId, m_currentPrecisionType, !dataCollector.UsingCustomScreenPos );
 					}
 				}
 			}
 			string surfInstruction = varName + ".xy * _ScreenParams.xy";
 			m_showErrorMessage = false;
 			string functionResult = "";
-			string noiseTex = string.Empty;
 			switch ( m_selectedPatternInt )
 			{
 				default:
 				case 0:
-				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT2, "clipScreen" + OutputId, surfInstruction );
+				dataCollector.AddLocalVariable( UniqueId, m_currentPrecisionType, WirePortDataType.FLOAT2, "clipScreen" + OutputId, surfInstruction );
 				functionResult = dataCollector.AddFunctions( m_functionHeader, m_functionBody, "fmod(" + "clipScreen" + OutputId + ".x, 4)", "fmod(" + "clipScreen" + OutputId + ".y, 4)" );
 				break;
 				case 1:
-				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT2, "clipScreen" + OutputId, surfInstruction );
+				dataCollector.AddLocalVariable( UniqueId, m_currentPrecisionType, WirePortDataType.FLOAT2, "clipScreen" + OutputId, surfInstruction );
 				functionResult = dataCollector.AddFunctions( m_functionHeader, m_functionBody, "fmod(" + "clipScreen" + OutputId + ".x, 8)", "fmod(" + "clipScreen" + OutputId + ".y, 8)" );
 				break;
 				case 2:
 				{
-					if( !m_texPort.IsConnected )
+					if( !m_inputPorts[ 1 ].IsConnected )
 					{
 						m_showErrorMessage = true;
 						m_errorMessageTypeIsError = NodeMessageType.Warning;
@@ -243,40 +219,15 @@ namespace AmplifyShaderEditor
 						return "0";
 					} else
 					{
-						ParentGraph outsideGraph = UIUtils.CurrentWindow.OutsideGraph;
-						noiseTex = m_texPort.GeneratePortInstructions( ref dataCollector );
-						//GeneratePattern( ref dataCollector );
-						dataCollector.AddToUniforms( UniqueId, "float4 " + noiseTex + "_TexelSize;", dataCollector.IsSRP );
-#if UNITY_2018_1_OR_NEWER
-						if( outsideGraph.SamplingMacros )
-#else
-						if( outsideGraph.SamplingMacros && !outsideGraph.IsStandardSurface )
-#endif
-						{
-							string sampler = string.Empty;
-							if( m_ssPort.IsConnected )
-							{
-								sampler = m_ssPort.GeneratePortInstructions( ref dataCollector );
-							}
-							else
-							{
-								sampler = GeneratorUtils.GenerateSamplerState( ref dataCollector, UniqueId, noiseTex, VariableMode.Create );
-							}
-							//if( outsideGraph.IsSRP )
-							//	functionResult = dataCollector.AddFunctions( m_functionHeader, m_functionBody, varName, noiseTex + ", " + sampler, noiseTex + "_TexelSize" );
-							//else
-								functionResult = dataCollector.AddFunctions( m_functionHeader, m_functionBody, varName, noiseTex + ", " + sampler, noiseTex + "_TexelSize" );
-						}
-						else
-						{
-							functionResult = dataCollector.AddFunctions( m_functionHeader, m_functionBody, varName, noiseTex, noiseTex + "_TexelSize" );
-						}
+						string noiseTex = m_inputPorts[ 1 ].GeneratePortInstructions( ref dataCollector );
+						dataCollector.AddToUniforms( UniqueId, "uniform float4 " + noiseTex + "_TexelSize;" );
+						functionResult = dataCollector.AddFunctions( m_functionHeader, m_functionBody, varName, noiseTex, noiseTex+"_TexelSize" );
 					}
 				}
 				break;
 			}
 
-			dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT, "dither" + OutputId, functionResult );
+			dataCollector.AddLocalVariable( UniqueId, "float dither" + OutputId + " = "+ functionResult+";" );
 
 			if( m_inputPorts[ 0 ].IsConnected )
 			{
@@ -299,6 +250,7 @@ namespace AmplifyShaderEditor
 				m_customScreenPos = Convert.ToBoolean( GetCurrentParam( ref nodeParams ) );
 			}
 			UpdatePorts();
+			GeneratePattern();
 		}
 
 		public override void WriteToString( ref string nodeInfo, ref string connectionsInfo )
