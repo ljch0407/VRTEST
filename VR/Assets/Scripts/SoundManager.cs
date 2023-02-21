@@ -51,6 +51,43 @@ public class SoundManager : MonoBehaviour
     {
         for (int i = 0; i < sfx.Length; i++)
         {
+            if (p_sfxName == sfx[i].name && (i == 0 && i == 14))
+            {
+                if (!sfxPlayer[3].isPlaying)
+                {
+                    sfxPlayer[3].clip = sfx[i].clip;
+                    sfxPlayer[3].Play();
+                    return;
+                }
+            }
+            else if (p_sfxName == sfx[i].name && i == 1)
+            {
+                if (!sfxPlayer[5].isPlaying)
+                {
+                    sfxPlayer[5].clip = sfx[i].clip;
+                    sfxPlayer[5].Play();
+                    return;
+                }
+            }
+            else if (p_sfxName == sfx[i].name && i >= 2 && i<=7)
+            {
+                if (!sfxPlayer[2].isPlaying)
+                {
+                    sfxPlayer[2].clip = sfx[i].clip;
+                    sfxPlayer[2].Play();
+                    return;
+                }
+            }
+            else if (p_sfxName == sfx[i].name && i >= 8 && i<=13)
+            {
+                if (!sfxPlayer[4].isPlaying)
+                {
+                    sfxPlayer[4].clip = sfx[i].clip;
+                    sfxPlayer[4].Play();
+                    return;
+                }
+            }
+            /*
             if (p_sfxName == sfx[i].name)
             {
                 for (int j = 0; j < sfxPlayer.Length; j++)
@@ -68,6 +105,7 @@ public class SoundManager : MonoBehaviour
                 Debug.Log("모든 오디오 플레이어가 재생중입니다.");
                 return;
             }
+             */
         }
         Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
         return;

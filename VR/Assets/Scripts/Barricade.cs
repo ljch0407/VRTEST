@@ -35,6 +35,7 @@ public class Barricade : MonoBehaviour
     {
         _soundManager.PlaySFX("SFX_Barricade");
         yield return new WaitForSeconds(2f);
+        Debug.Log("SFX_Barricade Played");
         _soundManager.StopSFX("SFX_Barricade");
         yield return new WaitForSeconds(0.1f);
         gameObject.GetComponent<Barricade>().enabled = false;

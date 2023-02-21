@@ -27,7 +27,7 @@ public class WallOfFlesh : MonoBehaviour
 
     void Start()
     {
-        monsterCounter = 100;
+        monsterCounter = 50;
         StartCoroutine(SpawnMonster());
     }
 
@@ -50,7 +50,7 @@ public class WallOfFlesh : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if (Vector3.Distance(SpawnTransform.position, transform.position) < 5)
+        if (Vector3.Distance(SpawnTransform.position, target.position) < 5)
         {
             monsterCounter--;
             
