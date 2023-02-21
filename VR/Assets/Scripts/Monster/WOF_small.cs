@@ -27,7 +27,6 @@ public class WOF_small : MonoBehaviour
     {
         //Head to Target
         Quaternion currentLocalRotation = eyeBone.localRotation;
-        Quaternion currentLocalRotation2 = eyeBone.localRotation;
         eyeBone.localRotation = Quaternion.identity;
         
         Vector3 targetWorldLookDir = target.position - eyeBone.position;
