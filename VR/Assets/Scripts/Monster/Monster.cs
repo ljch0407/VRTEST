@@ -24,7 +24,7 @@ public class Monster : MonoBehaviour
     public MonsterState CurrentState = MonsterState.Idle;
 
     private float blindedTime;
-    private static int _id;
+    public int _id;
 
     public Transform WanderingSpot;
 
@@ -42,12 +42,13 @@ public class Monster : MonoBehaviour
     public SoundManager _soundManager;
 
     public AudioSource _AudioSource;
-
+    public ManagerAIScript _Ai;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        _id = Random.Range(0, 10000);
+        _Ai = GameObject.FindGameObjectWithTag("AiManager").GetComponent<ManagerAIScript>();
+        _id = _Ai.monster_id_Update();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;

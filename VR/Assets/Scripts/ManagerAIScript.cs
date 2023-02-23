@@ -8,17 +8,21 @@ public class ManagerAIScript : MonoBehaviour
     public List<GameObject> monstersList;
 
     public GameObject[] monsterPrefabs;
-    
+
     private PlayerInfo _playerInfo;
 
+    private int _number_of_id = 0;
     // Start is called before the first frame update
     void Start()
     {
         monstersList = new List<GameObject>();
+        
         foreach (var VARIABLE in monsterPrefabs)
         {
             monstersList.Add(VARIABLE);
         }
+
+
         _playerInfo = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
         
     }
@@ -44,4 +48,11 @@ public class ManagerAIScript : MonoBehaviour
             }
         }
     }
+
+    public int monster_id_Update()
+    {
+        _number_of_id++;
+        return _number_of_id;
+    }
+    
 }

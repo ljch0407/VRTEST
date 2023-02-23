@@ -17,16 +17,18 @@ public class MiniMonster : MonoBehaviour
     private bool isAlive = true;
 
     public AudioSource _AudioSource;
+    public ManagerAIScript _Ai;
     
-    private static int _id;
+    public int _id;
 
-    private void Awake()
+    private void Start()
     {
-        _id = Random.Range(0, 10000);
         _nav = GetComponent<NavMeshAgent>();
         _anim = GetComponentInChildren<Animator>();
         isAlive = true;
     
+        _Ai = GameObject.FindGameObjectWithTag("AiManager").GetComponent<ManagerAIScript>();
+        _id = _Ai.monster_id_Update();
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);

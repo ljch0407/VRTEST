@@ -179,7 +179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728951971}
   m_LocalRotation: {x: -0, y: -0.99930304, z: -0, w: -0.03732989}
-  m_LocalPosition: {x: -118.71338, y: -4.691037, z: 44.624866}
+  m_LocalPosition: {x: -0.015, y: 0.518, z: 0.198}
   m_LocalScale: {x: 1.2908866, y: 1.2908869, z: 1.2908866}
   m_Children: []
   m_Father: {fileID: 8258879189394731502}
@@ -205,7 +205,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.166914
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -1500,7 +1500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2389738601297447514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6968116, y: 0, z: 0}
+  m_LocalPosition: {x: -0.697, y: -0, z: -0.037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2466023941114864758}
@@ -3989,7 +3989,7 @@ Transform:
   m_GameObject: {fileID: 8779413916616584020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -97.319, y: 4.0148845, z: 31.025}
-  m_LocalScale: {x: 0.87827057, y: 0.87827057, z: 0.87827057}
+  m_LocalScale: {x: 0.87827116, y: 0.87827057, z: 0.87827116}
   m_Children:
   - {fileID: 5933954089080560697}
   - {fileID: 9110464003902702808}
@@ -4106,6 +4106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   CurrentState: 0
+  _id: 0
   WanderingSpot: {fileID: 0}
   MeleeArea: {fileID: 4628762155736193205}
   SightArea: {fileID: 3486807289039669609}
@@ -4113,6 +4114,8 @@ MonoBehaviour:
   isBlind: 0
   PlayerInfo: {fileID: 0}
   _soundManager: {fileID: 0}
+  _AudioSource: {fileID: 0}
+  _Ai: {fileID: 0}
 --- !u!54 &5967227784615180795
 Rigidbody:
   m_ObjectHideFlags: 0

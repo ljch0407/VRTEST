@@ -640,6 +640,8 @@ MonoBehaviour:
   headTrackingSpeed: 5
   _soundManager: {fileID: 0}
   _AudioSource: {fileID: 7438909511506882006}
+  _id: 0
+  _Ai: {fileID: 0}
 --- !u!1 &6903318515600777987
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +653,7 @@ GameObject:
   - component: {fileID: 8134150291002945700}
   - component: {fileID: 7438909511506882006}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: MonsterAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,17 +684,17 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 11.641152
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

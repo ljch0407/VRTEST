@@ -161,7 +161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Other_rigidBody: {fileID: 3288323837329424659}
   Door_rigidBody: {fileID: 0}
-  _soundManager: {fileID: 0}
   _audioSource: {fileID: 4049418587734393001}
 --- !u!65 &3691922480850023735
 BoxCollider:
@@ -187,7 +186,7 @@ GameObject:
   - component: {fileID: 7083942723011263437}
   - component: {fileID: 4049418587734393001}
   m_Layer: 8
-  m_Name: Audio Source
+  m_Name: BarricadeAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,7 +430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Other_rigidBody: {fileID: 622545502051225394}
   Door_rigidBody: {fileID: 0}
-  _soundManager: {fileID: 0}
   _audioSource: {fileID: 4049418587734393001}
 --- !u!65 &1978207613454633645
 BoxCollider:

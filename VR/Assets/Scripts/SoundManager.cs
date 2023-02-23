@@ -21,8 +21,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioSource[] sfxPlayer = null;
     [SerializeField] AudioSource bgmPlayer;
-    [SerializeField] Dictionary<int, AudioSource> MonstersfxPlayer;
-    private void Start()
+    public Dictionary<int, AudioSource> MonstersfxPlayer;
+    private void Awake()
     {
         instance = this;
         MonstersfxPlayer = new Dictionary<int, AudioSource>();
@@ -114,6 +114,7 @@ public class SoundManager : MonoBehaviour
             {
                 for (int j = 0; j < sfxPlayer.Length; j++)
                 {
+                    
                     // SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 
                     if (sfxPlayer[j].isPlaying)
                     {
@@ -130,6 +131,8 @@ public class SoundManager : MonoBehaviour
     public void Add_Monster_audio(AudioSource audioSource, int ID)
     {
         MonstersfxPlayer.Add(ID, audioSource);
+        MonstersfxPlayer[ID].Pause();
+        Debug.Log(MonstersfxPlayer[ID].isPlaying);
     }
     public void Monster_PlaySFX(string p_sfxName, int ID)
     {
@@ -137,43 +140,19 @@ public class SoundManager : MonoBehaviour
         {
             for (int i = 0; i < Monster_sfx.Length; i++)
             {
-                for (int j = 0; j < MonstersfxPlayer.Count; j++)
+                if (p_sfxName == Monster_sfx[i].name)
                 {
-                    if ((p_sfxName == Monster_sfx[0].name || p_sfxName == Monster_sfx[1].name ||
-                              p_sfxName == Monster_sfx[2].name))
+                    if (!MonstersfxPlayer[ID].isPlaying)
                     {
-                        if (!MonstersfxPlayer[ID].isPlaying)
-                        {
-                            MonstersfxPlayer[ID].clip = Monster_sfx[ID].clip;
-                            MonstersfxPlayer[ID].Play();
-                            return;
-                        }
-                    }
-                    else if ((p_sfxName == Monster_sfx[3].name || p_sfxName == Monster_sfx[4].name ||
-                              p_sfxName == Monster_sfx[5].name))
-                    {
-                        if (!MonstersfxPlayer[ID].isPlaying)
-                        {
-                            MonstersfxPlayer[ID].clip = Monster_sfx[ID].clip;
-                            MonstersfxPlayer[ID].Play();
-                            return;
-                        }
-                    }
-                    else if (p_sfxName == Monster_sfx[6].name)
-                    {
-                        if (!MonstersfxPlayer[ID].isPlaying)
-                        {
-                            MonstersfxPlayer[ID].clip = Monster_sfx[ID].clip;
-                            MonstersfxPlayer[ID].Play();
-                            return;
-                        }
+                        MonstersfxPlayer[ID].clip = Monster_sfx[i].clip;
+                        MonstersfxPlayer[ID].Play();
+                        return;
                     }
                 }
-
             }
 
-            Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
-            return;
+            //Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
+        return;
         }
     }
 
