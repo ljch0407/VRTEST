@@ -1,12 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
 using UnityEngine;
 using UnityEngine.Playables;
+using Random = UnityEngine.Random;
 
 public class WallOfFlesh : MonoBehaviour
 {
+
     [SerializeField] Transform eyeBone;
     [SerializeField] Transform eyeBone2;
     [SerializeField] Transform target;
@@ -17,12 +16,18 @@ public class WallOfFlesh : MonoBehaviour
     public Transform[] SpawnPoint;
     public Transform SpawnTransform;
     public PlayableDirector TimeDirector;
-    
+    private SoundManager _soundManager;
+    public AudioSource _AudioSource;
+    private static int _id = Random.Range(0, 10000);
+
     
     private float monsterCounter;
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        _soundManager.Add_Monster_audio(_AudioSource, _id);
+        StartCoroutine(IDLESoundPlay());
     }
 
     void Start()
@@ -43,6 +48,7 @@ public class WallOfFlesh : MonoBehaviour
         if (other.tag == "Explosive")
         {
             TimeDirector.Play();
+            StartCoroutine(DeadSoundPlay());
         }
     }
 
@@ -53,11 +59,14 @@ public class WallOfFlesh : MonoBehaviour
         if (Vector3.Distance(SpawnTransform.position, target.position) < 5)
         {
             monsterCounter--;
-            
-            if(monsterCounter>0) 
+
+            if (monsterCounter > 0)
+            {
                 Instantiate(MiniMonsterPrefab, SpawnPoint[0].position, SpawnPoint[0].rotation);
+                _soundManager.Monster_PlaySFX("SFX_WOF_Spawnning", _id);
+            }
         }
-       
+
         yield return new WaitForSeconds(3f);
         
         StartCoroutine(SpawnMonster());
@@ -97,5 +106,16 @@ public class WallOfFlesh : MonoBehaviour
             targetLocalRotation2,
             1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
         );
+    }
+    
+    IEnumerator DeadSoundPlay()
+    {
+        _soundManager.Monster_PlaySFX("SFX_WOF_Howling", _id);
+        yield return new WaitForSeconds(0.4f);
+    }
+    IEnumerator IDLESoundPlay()
+    {
+        _soundManager.Monster_PlaySFX("SFX_WOF_IDLE", _id);
+        yield return new WaitForSeconds(0.4f);
     }
 }

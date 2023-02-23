@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.Rendering.PostProcessing;
+using Random = UnityEngine.Random;
 
 public enum MonsterState
 {
@@ -38,7 +39,11 @@ public class Monster : MonoBehaviour
     public PlayerInfo PlayerInfo;
 
     public SoundManager _soundManager;
-    
+
+    public AudioSource _AudioSource;
+
+    private static int _id = Random.Range(0, 10000);
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -46,7 +51,8 @@ public class Monster : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
-
+        _soundManager.Add_Monster_audio(_AudioSource, _id);
+        
         HearingArea.enabled = false;
         SightArea.enabled = true;
         MeleeArea.enabled = false;
@@ -134,7 +140,7 @@ public class Monster : MonoBehaviour
     
     IEnumerator AttackSound()
     {
-        _soundManager.PlaySFX("SFX_Bite");
+        _soundManager.Monster_PlaySFX("SFX_Bite", 0);
         _soundManager.PlaySFX("SFX_Hurt");
         
         GameObject postProcess = GameObject.Find("Post-process Volume Player");
@@ -142,8 +148,8 @@ public class Monster : MonoBehaviour
         Volume.enabled = true;
         
         yield return new WaitForSeconds(2.0f);
-        _soundManager.StopSFX("SFX_Bite");
-        _soundManager.StopSFX("SFX_Hurt");
+        _soundManager.Monster_PlaySFX("SFX_Bite", 0);
+        _soundManager.PlaySFX("SFX_Hurt");
     }
     
     protected virtual IEnumerator Blind()

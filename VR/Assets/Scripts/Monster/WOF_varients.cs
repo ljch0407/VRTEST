@@ -9,17 +9,29 @@ public class WOF_varients : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] float headMaxTurnAngle;
     [SerializeField] float headTrackingSpeed;
-    
+    public SoundManager _soundManager;
+    public AudioSource _AudioSource;
+    private static int _id = Random.Range(0, 10000);
+
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        _soundManager.Add_Monster_audio(_AudioSource, _id);
+        StartCoroutine(IDLESoundPlay());
     }
     
     void Update()
     {
         HeadTrackingUpdate();
     }
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Explosive")
+        {
+            //TimeDirector.Play();
+            StartCoroutine(DeadSoundPlay());
+        }
+    }
     void HeadTrackingUpdate()
     {
         //Head to Target
@@ -41,5 +53,15 @@ public class WOF_varients : MonoBehaviour
             targetLocalRotation,
             1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
         );        
+    }
+    IEnumerator DeadSoundPlay()
+    {
+        _soundManager.Monster_PlaySFX("SFX_WOF_Howling", _id);
+        yield return new WaitForSeconds(0.4f);
+    }
+    IEnumerator IDLESoundPlay()
+    {
+        _soundManager.Monster_PlaySFX("SFX_WOF_IDLE", _id);
+        yield return new WaitForSeconds(0.4f);
     }
 }

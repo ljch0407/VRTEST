@@ -8,6 +8,7 @@ using UnityEngine.Playables;
 public class Explosive : MonoBehaviour
 {
     public ParticleSystem Effect;
+    public AudioSource _audioSource;
 
     private void Awake()
     {
@@ -27,8 +28,11 @@ public class Explosive : MonoBehaviour
         if (other.tag == "WOF")
         {
             Effect.Play();
+            _audioSource.Play();
             yield return new WaitForSeconds(3);
             Effect.Stop();
+            _audioSource.Stop();
+
             other.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
         }

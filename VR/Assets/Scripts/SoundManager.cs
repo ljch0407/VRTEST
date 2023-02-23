@@ -9,23 +9,26 @@ public class Sound
     public AudioClip clip;
 }
 
+
+
 public class SoundManager : MonoBehaviour
 {
     public SoundManager instance;
 
     [SerializeField] Sound[] sfx = null;
+    [SerializeField] Sound[] Monster_sfx = null;
     [SerializeField] Sound[] bgm = null;
 
     [SerializeField] AudioSource[] sfxPlayer = null;
     [SerializeField] AudioSource bgmPlayer;
-
-
+    [SerializeField] Dictionary<int, AudioSource> MonstersfxPlayer = null;
+    private int _number_id = 0;
     private void Start()
     {
         instance = this;
     }
 
-    
+
     public void PlayBGM(string p_bgmName)
     {
         Debug.Log("Called : " + p_bgmName);
@@ -51,39 +54,30 @@ public class SoundManager : MonoBehaviour
     {
         for (int i = 0; i < sfx.Length; i++)
         {
-            if (p_sfxName == sfx[i].name && (i == 0 && i == 14))
+            if (p_sfxName == sfx[0].name )
             {
                 if (!sfxPlayer[3].isPlaying)
                 {
-                    sfxPlayer[3].clip = sfx[i].clip;
+                    sfxPlayer[3].clip = sfx[0].clip;
                     sfxPlayer[3].Play();
                     return;
                 }
             }
-            else if (p_sfxName == sfx[i].name && i == 1)
+            else if (p_sfxName == sfx[1].name || p_sfxName == sfx[2].name || p_sfxName == sfx[3].name)
             {
-                if (!sfxPlayer[5].isPlaying)
+                if (!sfxPlayer[0].isPlaying)
                 {
-                    sfxPlayer[5].clip = sfx[i].clip;
-                    sfxPlayer[5].Play();
+                    sfxPlayer[0].clip = sfx[i].clip;
+                    sfxPlayer[0].Play();
                     return;
                 }
             }
-            else if (p_sfxName == sfx[i].name && i >= 2 && i<=7)
+            else
             {
-                if (!sfxPlayer[2].isPlaying)
+                if (!sfxPlayer[1].isPlaying)
                 {
-                    sfxPlayer[2].clip = sfx[i].clip;
-                    sfxPlayer[2].Play();
-                    return;
-                }
-            }
-            else if (p_sfxName == sfx[i].name && i >= 8 && i<=13)
-            {
-                if (!sfxPlayer[4].isPlaying)
-                {
-                    sfxPlayer[4].clip = sfx[i].clip;
-                    sfxPlayer[4].Play();
+                    sfxPlayer[1].clip = sfx[i].clip;
+                    sfxPlayer[1].Play();
                     return;
                 }
             }
@@ -107,10 +101,11 @@ public class SoundManager : MonoBehaviour
             }
              */
         }
+
         Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
         return;
     }
-    
+
     public void StopSFX(string p_sfxName)
     {
         for (int i = 0; i < sfx.Length; i++)
@@ -126,7 +121,82 @@ public class SoundManager : MonoBehaviour
                         return;
                     }
                 }
+
                 return;
+            }
+        }
+    }
+
+    public void Add_Monster_audio(AudioSource audioSource, int ID)
+    {
+        MonstersfxPlayer.Add(ID, audioSource);
+    }
+    public void Monster_PlaySFX(string p_sfxName, int ID)
+    {
+        if (MonstersfxPlayer.Count != 0)
+        {
+            for (int i = 0; i < Monster_sfx.Length; i++)
+            {
+                for (int j = 0; j < MonstersfxPlayer.Count; j++)
+                {
+                    if ((p_sfxName == Monster_sfx[0].name || p_sfxName == Monster_sfx[1].name ||
+                              p_sfxName == Monster_sfx[2].name))
+                    {
+                        if (!MonstersfxPlayer[ID].isPlaying)
+                        {
+                            MonstersfxPlayer[ID].clip = Monster_sfx[ID].clip;
+                            MonstersfxPlayer[ID].Play();
+                            return;
+                        }
+                    }
+                    else if ((p_sfxName == Monster_sfx[3].name || p_sfxName == Monster_sfx[4].name ||
+                              p_sfxName == Monster_sfx[5].name))
+                    {
+                        if (!MonstersfxPlayer[ID].isPlaying)
+                        {
+                            MonstersfxPlayer[ID].clip = Monster_sfx[ID].clip;
+                            MonstersfxPlayer[ID].Play();
+                            return;
+                        }
+                    }
+                    else if (p_sfxName == Monster_sfx[6].name)
+                    {
+                        if (!MonstersfxPlayer[ID].isPlaying)
+                        {
+                            MonstersfxPlayer[ID].clip = Monster_sfx[ID].clip;
+                            MonstersfxPlayer[ID].Play();
+                            return;
+                        }
+                    }
+                }
+
+            }
+
+            Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
+            return;
+        }
+    }
+
+    public void Monster_StopSFX(string p_sfxName)
+    {
+        if (MonstersfxPlayer.Count != 0)
+        {
+            for (int i = 0; i < sfx.Length; i++)
+            {
+                if (p_sfxName == sfx[i].name)
+                {
+                    for (int j = 0; j < sfxPlayer.Length; j++)
+                    {
+                        // SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 
+                        if (sfxPlayer[j].isPlaying)
+                        {
+                            sfxPlayer[j].Pause();
+                            return;
+                        }
+                    }
+
+                    return;
+                }
             }
         }
     }

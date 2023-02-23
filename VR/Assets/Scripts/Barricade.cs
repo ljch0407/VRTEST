@@ -8,11 +8,9 @@ public class Barricade : MonoBehaviour
     // Start is called before the first frame update
     public Rigidbody Other_rigidBody;
     public Rigidbody Door_rigidBody;
-    public SoundManager _soundManager;
-
+    public AudioSource _audioSource;
     void Start()
     {
-        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
     }
 
     // Update is called once per frame
@@ -33,10 +31,12 @@ public class Barricade : MonoBehaviour
 
     IEnumerator BreakBarricades()
     {
-        _soundManager.PlaySFX("SFX_Barricade");
+        //_soundManager.PlaySFX("SFX_Barricade");
+        _audioSource.Play();
         yield return new WaitForSeconds(2f);
         Debug.Log("SFX_Barricade Played");
-        _soundManager.StopSFX("SFX_Barricade");
+        //_soundManager.StopSFX("SFX_Barricade");
+        _audioSource.Stop();
         yield return new WaitForSeconds(0.1f);
         gameObject.GetComponent<Barricade>().enabled = false;
     }

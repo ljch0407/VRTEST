@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using UnityEngine.AI;
 using UnityEngine.Experimental.Playables;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -13,8 +14,12 @@ public class MiniMonster : MonoBehaviour
     public Transform Target;
     public SoundManager _soundManager;
     public ParticleSystem Effect;
-    
     private bool isAlive = true;
+
+    public AudioSource _AudioSource;
+    
+    private static int _id = Random.Range(0, 10000);
+
     private void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
@@ -23,6 +28,7 @@ public class MiniMonster : MonoBehaviour
     
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        _soundManager.Add_Monster_audio(_AudioSource, _id);
         Effect.Stop();
         
         _anim.SetTrigger("Spawn");
@@ -73,14 +79,14 @@ public class MiniMonster : MonoBehaviour
     IEnumerator EffectPlay()
     {
         Effect.Play();
-        _soundManager.PlaySFX("SFX_MinMonster_Attack");
+        _soundManager.Monster_PlaySFX("SFX_MinMonster_Attack", _id);
         isAlive = false;
         yield return new WaitForSeconds(0.4f);
         GameObject.Destroy(gameObject);
     }
     IEnumerator DeadSoundPlay()
     {
-        _soundManager.PlaySFX("SFX_MinMonster_Dead");
+        _soundManager.Monster_PlaySFX("SFX_MinMonster_Dead", _id);
         isAlive = false;
         gameObject.layer = 06;
         _anim.SetBool("Idle", true);
@@ -90,7 +96,7 @@ public class MiniMonster : MonoBehaviour
     }
     IEnumerator IDLESoundPlay()
     {
-        _soundManager.PlaySFX("SFX_MinMonster_IDLE");
+        _soundManager.Monster_PlaySFX("SFX_MinMonster_IDLE", _id);
         yield return new WaitForSeconds(0.4f);
     }
 }
