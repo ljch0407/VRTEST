@@ -24,6 +24,7 @@ public class Monster : MonoBehaviour
     public MonsterState CurrentState = MonsterState.Idle;
 
     private float blindedTime;
+    private static int _id;
 
     public Transform WanderingSpot;
 
@@ -42,17 +43,16 @@ public class Monster : MonoBehaviour
 
     public AudioSource _AudioSource;
 
-    private static int _id = Random.Range(0, 10000);
 
     // Start is called before the first frame update
     void Awake()
     {
-
+        _id = Random.Range(0, 10000);
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>().instance;
         _soundManager.Add_Monster_audio(_AudioSource, _id);
-        
+
         HearingArea.enabled = false;
         SightArea.enabled = true;
         MeleeArea.enabled = false;

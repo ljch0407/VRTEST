@@ -21,11 +21,11 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioSource[] sfxPlayer = null;
     [SerializeField] AudioSource bgmPlayer;
-    [SerializeField] Dictionary<int, AudioSource> MonstersfxPlayer = null;
-    private int _number_id = 0;
+    [SerializeField] Dictionary<int, AudioSource> MonstersfxPlayer;
     private void Start()
     {
         instance = this;
+        MonstersfxPlayer = new Dictionary<int, AudioSource>();
     }
 
 

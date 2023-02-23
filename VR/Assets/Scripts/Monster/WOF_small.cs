@@ -10,12 +10,14 @@ public class WOF_small : MonoBehaviour
     [SerializeField] float headMaxTurnAngle;
     [SerializeField] float headTrackingSpeed;
     
-    private static int _id = Random.Range(0, 10000);
+    private static int _id;
     public SoundManager _soundManager;
     public PlayableDirector TimeDirector;
     public AudioSource _AudioSource;
     private void Awake()
     {
+        _id = Random.Range(0, 10000);
+
         target = GameObject.FindGameObjectWithTag("Player").transform;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);

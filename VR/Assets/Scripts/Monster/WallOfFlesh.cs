@@ -18,12 +18,13 @@ public class WallOfFlesh : MonoBehaviour
     public PlayableDirector TimeDirector;
     private SoundManager _soundManager;
     public AudioSource _AudioSource;
-    private static int _id = Random.Range(0, 10000);
+    private static int _id;
 
     
     private float monsterCounter;
     private void Awake()
     {
+        _id = Random.Range(0, 10000);
         target = GameObject.FindGameObjectWithTag("Player").transform;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);
