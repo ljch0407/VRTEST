@@ -9,9 +9,11 @@ public class StatueCheckBox : MonoBehaviour
     public GameObject Statue;
     private bool StatueAssembled;
 
+    private bool Statue_Visible;
     private void Awake()
     {
         StatueAssembled = false;
+        Statue_Visible = false;
     }
 
     private void FixedUpdate()
@@ -21,7 +23,7 @@ public class StatueCheckBox : MonoBehaviour
         
         if (StatueAssembled)
         {
-            transform.position += Vector3.down * Time.deltaTime * 1;
+            StartCoroutine(GoDown());
         }
     }
 
@@ -38,6 +40,18 @@ public class StatueCheckBox : MonoBehaviour
                 StatueAssembled = true;
             }
         }
+    }
 
+    IEnumerator GoDown()
+    {
+        if (!Statue_Visible)
+        {
+            yield return  new WaitForSeconds(2f);
+            Statue_Visible = true;
+        }
+
+        
+        transform.position += Vector3.down * Time.deltaTime * 1;
+        yield return null;
     }
 }
