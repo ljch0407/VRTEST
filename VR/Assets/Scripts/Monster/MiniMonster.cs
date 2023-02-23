@@ -58,6 +58,7 @@ public class MiniMonster : MonoBehaviour
             
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
+            gameObject.layer = 06;
             StartCoroutine(DeadSoundPlay());
             gameObject.GetComponent<MiniMonster>().enabled = false;
 
@@ -82,7 +83,7 @@ public class MiniMonster : MonoBehaviour
     {
         _soundManager.PlaySFX("SFX_MinMonster_Dead");
         isAlive = false;
-        gameObject.layer = 06;
+        
         _anim.SetBool("Idle", true);
         _anim.gameObject.SetActive(false);
         
