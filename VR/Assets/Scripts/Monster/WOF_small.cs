@@ -63,6 +63,7 @@ public class WOF_small : MonoBehaviour
 
     IEnumerator DeadSoundPlay()
     {
+        _soundManager.Monster_StopSFX(_id);
         _soundManager.Monster_PlaySFX("SFX_WOF_Howling", _id);
         yield return new WaitForSeconds(0.4f);
     }

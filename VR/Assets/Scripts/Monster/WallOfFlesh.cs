@@ -54,21 +54,22 @@ public class WallOfFlesh : MonoBehaviour
 
     IEnumerator SpawnMonster()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
-        if (Vector3.Distance(SpawnTransform.position, target.position) < 5)
+        if (Vector3.Distance(SpawnTransform.position, target.position) < 10)
         {
             monsterCounter--;
 
             if (monsterCounter > 0)
             {
                 Instantiate(MiniMonsterPrefab, SpawnPoint[0].position, SpawnPoint[0].rotation);
-                _soundManager.Monster_PlaySFX("SFX_WOF_Spawnning", _id);
             }
         }
+        _soundManager.Monster_PlaySFX("SFX_WOF_Spawnning", _id);
+        yield return new WaitForSeconds(6f);
+        _soundManager.Monster_StopSFX(_id);
+        _soundManager.Monster_PlaySFX("SFX_WOF_IDLE", _id);
 
-        yield return new WaitForSeconds(3f);
-        
         StartCoroutine(SpawnMonster());
        
     }
@@ -111,11 +112,11 @@ public class WallOfFlesh : MonoBehaviour
     IEnumerator DeadSoundPlay()
     {
         _soundManager.Monster_PlaySFX("SFX_WOF_Howling", _id);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(10f);
     }
     IEnumerator IDLESoundPlay()
     {
         _soundManager.Monster_PlaySFX("SFX_WOF_IDLE", _id);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(10f);
     }
 }

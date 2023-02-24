@@ -279,7 +279,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.711
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -287,8 +287,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 1.4839783
+  MinDistance: 0.39085707
+  MaxDistance: 1.0664954
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -338,7 +338,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.030555556
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -649,6 +649,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598385033760399863, guid: 806127e3c9462304b97743332b89a89c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.34706357
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598385033760399863, guid: 806127e3c9462304b97743332b89a89c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.34706357
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598385033760399863, guid: 806127e3c9462304b97743332b89a89c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.34706357
       objectReference: {fileID: 0}
     - target: {fileID: 5598385033760399863, guid: 806127e3c9462304b97743332b89a89c,
         type: 3}
