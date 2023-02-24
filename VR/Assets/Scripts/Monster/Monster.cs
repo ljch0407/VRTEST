@@ -188,6 +188,7 @@ public class Monster : MonoBehaviour
             else if (isBlind)
             {
                 CurrentState = MonsterState.Idle;
+                Debug.Log("DoBlindState");
             }
             
             if (other.tag == "PlayerHide")
