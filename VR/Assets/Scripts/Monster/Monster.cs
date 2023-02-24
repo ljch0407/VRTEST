@@ -79,7 +79,7 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("Idle");
         }
         _soundManager.Monster_StopSFX(_id);
-        _soundManager.Monster_PlaySFX("SFX_MainMonster_Idle", 0);
+        _soundManager.Monster_PlaySFX("SFX_MainMonster_Idle", _id);
 
         anim.SetBool("Move",false);
         anim.SetBool("Chase",false);
@@ -144,7 +144,7 @@ public class Monster : MonoBehaviour
     IEnumerator AttackSound()
     {
         _soundManager.Monster_StopSFX(_id);
-        _soundManager.Monster_PlaySFX("SFX_MainMonster_Bite", 0);
+        _soundManager.Monster_PlaySFX("SFX_MainMonster_Bite", _id);
         _soundManager.PlaySFX("SFX_Hurt");
         
         GameObject postProcess = GameObject.Find("Post-process Volume Player");
@@ -153,7 +153,7 @@ public class Monster : MonoBehaviour
         
         yield return new WaitForSeconds(2.0f);
         _soundManager.Monster_StopSFX(_id);
-        _soundManager.Monster_PlaySFX("SFX_MainMonster_Bite", 0);
+        _soundManager.Monster_PlaySFX("SFX_MainMonster_Bite", _id);
         _soundManager.PlaySFX("SFX_Hurt");
     }
     
