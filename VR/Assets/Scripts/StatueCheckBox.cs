@@ -8,12 +8,15 @@ public class StatueCheckBox : MonoBehaviour
 {
     public GameObject Statue;
     private bool StatueAssembled;
-
     private bool Statue_Visible;
+
+    public ParticleSystem DustEffect;
+    
     private void Awake()
     {
         StatueAssembled = false;
         Statue_Visible = false;
+        DustEffect.Stop();
     }
 
     private void FixedUpdate()
@@ -46,6 +49,7 @@ public class StatueCheckBox : MonoBehaviour
     {
         if (!Statue_Visible)
         {
+            DustEffect.Play();
             yield return  new WaitForSeconds(2f);
             Statue_Visible = true;
         }
