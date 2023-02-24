@@ -5634,6 +5634,11 @@ PrefabInstance:
       propertyPath: PlayerInfo
       value: 
       objectReference: {fileID: 924640141}
+    - target: {fileID: 525423892995302266, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: _AudioSource
+      value: 
+      objectReference: {fileID: 1663666248}
     - target: {fileID: 1458989525703548490, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
       propertyPath: Target
@@ -8259,6 +8264,12 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.31288642, y: -0.015790692, z: 0.009558853}
     m_Extent: {x: 0.1618009, y: 0.05248835, z: 0.06516707}
   m_DirtyAABB: 0
+--- !u!82 &1663666248 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1728951972, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+    type: 3}
+  m_PrefabInstance: {fileID: 1075890173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
