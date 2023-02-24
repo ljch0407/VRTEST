@@ -21,6 +21,10 @@ public class MiniMonster : MonoBehaviour
     
     public int _id;
 
+    private void Awake()
+    {
+        Effect.Stop();
+    }
     private void Start()
     {
         _nav = GetComponent<NavMeshAgent>();
@@ -32,7 +36,7 @@ public class MiniMonster : MonoBehaviour
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);
-        Effect.Stop();
+        
         
         _anim.SetTrigger("Spawn");
         StartCoroutine(IDLESoundPlay());
@@ -82,25 +86,29 @@ public class MiniMonster : MonoBehaviour
 
     IEnumerator EffectPlay()
     {
-        Effect.Play();
+        _soundManager.Monster_StopSFX(_id);
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Attack", _id);
+        Effect.Play();
+
         isAlive = false;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.6f);
         GameObject.Destroy(gameObject);
     }
     IEnumerator DeadSoundPlay()
     {
+        _soundManager.Monster_StopSFX(_id);
+
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Dead", _id);
         isAlive = false;
         
         _anim.SetBool("Idle", true);
         _anim.gameObject.SetActive(false);
         
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
     }
     IEnumerator IDLESoundPlay()
     {
         _soundManager.Monster_PlaySFX("SFX_MinMonster_IDLE", _id);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(6f);
     }
 }
