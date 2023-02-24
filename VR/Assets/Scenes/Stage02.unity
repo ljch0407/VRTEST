@@ -4342,7 +4342,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &845001214
 MonoBehaviour:
@@ -5085,8 +5085,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924640133}
-  m_LocalRotation: {x: -0, y: 0.06630148, z: -0, w: 0.99779963}
-  m_LocalPosition: {x: -2.7, y: -0.192, z: -26.31}
+  m_LocalRotation: {x: -0, y: 0.026171442, z: -0, w: 0.9996575}
+  m_LocalPosition: {x: -2.64, y: -1, z: -24.21}
   m_LocalScale: {x: 1.133748, y: 1.133748, z: 1.133748}
   m_Children:
   - {fileID: 1758025788}
@@ -5098,7 +5098,7 @@ Transform:
   - {fileID: 673650139}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 7.603, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 2.999, z: 0}
 --- !u!114 &924640138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5895,11 +5895,31 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 2064172215}
+    - target: {fileID: 3770010112394467767, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4826422888130855267, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
       propertyPath: Target
       value: 
       objectReference: {fileID: 1739249315}
+    - target: {fileID: 5967227784615180795, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7552468880107996978, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7552468880107996978, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.57
+      objectReference: {fileID: 0}
     - target: {fileID: 7940352283256650612, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
       propertyPath: target
@@ -5923,7 +5943,7 @@ PrefabInstance:
     - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.072
+      value: -97.19
       objectReference: {fileID: 0}
     - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
@@ -5933,7 +5953,7 @@ PrefabInstance:
     - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.861
+      value: 33.88
       objectReference: {fileID: 0}
     - target: {fileID: 8258879189394731502, guid: ae2ae49363b147a4eb0bd68cebc1ae58,
         type: 3}
@@ -5975,7 +5995,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: main_Monster
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4124534098491284102, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+    - {fileID: 4628762155736193205, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
+    - {fileID: 2917836424200105480, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae2ae49363b147a4eb0bd68cebc1ae58, type: 3}
 --- !u!1001 &1084652123
 PrefabInstance:
@@ -6380,7 +6403,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1191117086
 MonoBehaviour:
@@ -6541,7 +6564,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1251448540
 MonoBehaviour:
@@ -14733,6 +14756,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1075890173}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1646295795
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646295794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1648130200
 GameObject:
   m_ObjectHideFlags: 0
@@ -23570,7 +23606,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1889309172
 MonoBehaviour:

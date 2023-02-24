@@ -10,13 +10,13 @@ public class StatueCheckBox : MonoBehaviour
     private bool StatueAssembled;
     private bool Statue_Visible;
 
-    public ParticleSystem DustEffect;
+    //public ParticleSystem DustEffect;
     
     private void Awake()
     {
         StatueAssembled = false;
         Statue_Visible = false;
-        DustEffect.Stop();
+       // DustEffect.Stop();
     }
 
     private void FixedUpdate()
@@ -49,7 +49,7 @@ public class StatueCheckBox : MonoBehaviour
     {
         if (!Statue_Visible)
         {
-            DustEffect.Play();
+           // DustEffect.Play();
             yield return  new WaitForSeconds(2f);
             Statue_Visible = true;
         }
