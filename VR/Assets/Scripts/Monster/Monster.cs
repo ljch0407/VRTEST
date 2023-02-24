@@ -184,6 +184,7 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("Blind");
         }
 
+        Debug.Log("Monster Blind!");
         anim.SetTrigger("Blind");
         CurrentState = MonsterState.Idle;
         yield return new WaitForSeconds(2.0f);
