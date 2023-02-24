@@ -92,20 +92,39 @@ public class Monster : MonoBehaviour
         {
             anim.SetTrigger("wandering");
         }
-        nav.stoppingDistance = 0.0f;
-        anim.SetBool("Move",true);
-        nav.SetDestination(WanderingSpot.position);
+
+        if (isBlind)
+        {
+            CurrentState = MonsterState.Blind;
+            yield return null;
+        }
+        else
+        {
+            nav.stoppingDistance = 0.0f;
+            anim.SetBool("Move",true);
+            nav.SetDestination(WanderingSpot.position);
+            yield return null;
+        }
     }
     
     protected virtual IEnumerator Chase()
     {
         yield return null;
-        
-        anim.SetBool("Move",true);
 
-        nav.speed = 1.5f;
-        nav.stoppingDistance = 0.2f;
-        nav.SetDestination(target.position);
+        if (isBlind)
+        {
+            CurrentState = MonsterState.Blind;
+            yield return null;
+        }
+        else
+        {
+            anim.SetBool("Move",true);
+
+            nav.speed = 1.5f;
+            nav.stoppingDistance = 0.2f;
+            nav.SetDestination(target.position);
+            yield return null;
+        }
     }
 
     // IEnumerator StartHeartBeat()
@@ -123,8 +142,15 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("Attack");
         }
 
-        nav.stoppingDistance = 2.0f;
-        nav.SetDestination(target.position);
+        if (isBlind)
+        {
+            CurrentState = MonsterState.Blind;
+            yield return null;
+        }
+        else
+        {
+            nav.stoppingDistance = 2.0f;
+            nav.SetDestination(target.position);
         
         
             _soundManager.Monster_StopSFX(_id);
@@ -145,6 +171,8 @@ public class Monster : MonoBehaviour
 
             PlayerInfo.healthPoint--;
             CurrentState = MonsterState.Chase;
+            yield return null;
+        }
     }
     
     
@@ -157,9 +185,9 @@ public class Monster : MonoBehaviour
         }
 
         anim.SetTrigger("Blind");
-        isBlind = true;
         CurrentState = MonsterState.Idle;
         yield return new WaitForSeconds(2.0f);
+        
     }
     
     private void OnTriggerEnter(Collider other)
@@ -185,11 +213,7 @@ public class Monster : MonoBehaviour
                     CurrentState = MonsterState.Chase;
                 }
             }
-            else if (isBlind)
-            {
-                CurrentState = MonsterState.Idle;
-                Debug.Log("DoBlindState");
-            }
+           
             
             if (other.tag == "PlayerHide")
             {
@@ -197,8 +221,6 @@ public class Monster : MonoBehaviour
             }
         }
     }
-
-   
 }
 
 
