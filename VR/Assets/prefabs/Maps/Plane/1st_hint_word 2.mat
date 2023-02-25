@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 1st_hint_word 2
-  m_Shader: {fileID: 4800000, guid: 8203e0567834c59418206b8f24961fc2, type: 3}
+  m_Shader: {fileID: 4800000, guid: e93fa43327d726541bbeab46de10a100, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 7d7566304ef0e1d4da17eccffad208ed, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3aa33412915bcf9429dd424296c1440b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -75,6 +75,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LightAngle: 0
     - _Main_Ins: 1
     - _Main_Pow: 5.97647
     - _Metallic: 0
@@ -89,8 +90,11 @@ Material:
     - _Use_Custom: 0
     - _ZWrite: 1
     - __dirty: 1
+    - _strengthScalar: 50
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LightDirection: {r: -0, g: -0, b: 1.0000012, a: 0}
+    - _LightPosition: {r: -92.14213, g: 0.71901923, b: -11.224478, a: 0}
     - _Tint_Color: {r: 0.084905684, g: 0.013216452, b: 0.013216452, a: 1}
   m_BuildTextureStacks: []

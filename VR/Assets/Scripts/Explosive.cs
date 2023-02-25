@@ -9,7 +9,7 @@ public class Explosive : MonoBehaviour
 {
     public ParticleSystem Effect;
     public AudioSource _audioSource;
-
+    private bool _isExploded=false;
     private void Awake()
     {
         Effect.Stop();
@@ -17,7 +17,7 @@ public class Explosive : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WOF" || other.tag == "Safe")
+        if ((other.tag == "WOF" || other.tag == "Safe") && !_isExploded)
         {
             StartCoroutine(Explode(other));
         }
@@ -29,6 +29,7 @@ public class Explosive : MonoBehaviour
         {
             Effect.Play();
             _audioSource.Play();
+            _isExploded = true;
             yield return new WaitForSeconds(3);
             Effect.Stop();
             _audioSource.Stop();

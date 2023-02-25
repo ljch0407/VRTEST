@@ -9,6 +9,7 @@ public class Barricade : MonoBehaviour
     public Rigidbody Other_rigidBody;
     public Rigidbody Door_rigidBody;
     public AudioSource _audioSource;
+    private bool _isBroken = false;
     void Start()
     {
     }
@@ -21,7 +22,7 @@ public class Barricade : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Hammer")
+        if (other.tag == "Hammer" && !_isBroken)
         {
             Other_rigidBody.isKinematic = false;
             Door_rigidBody.constraints = RigidbodyConstraints.None;
@@ -38,6 +39,7 @@ public class Barricade : MonoBehaviour
         //_soundManager.StopSFX("SFX_Barricade");
         _audioSource.Stop();
         yield return new WaitForSeconds(0.1f);
+        _isBroken = true;
         gameObject.GetComponent<Barricade>().enabled = false;
     }
 }
