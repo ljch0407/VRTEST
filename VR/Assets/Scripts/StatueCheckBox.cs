@@ -10,6 +10,7 @@ public class StatueCheckBox : MonoBehaviour
     private bool StatueAssembled;
     private bool Statue_Visible;
 
+    public float Speed = 1;
     //public ParticleSystem DustEffect;
     
     private void Awake()
@@ -55,7 +56,7 @@ public class StatueCheckBox : MonoBehaviour
         }
 
         
-        transform.position += Vector3.down * Time.deltaTime * 1;
+        transform.position += Vector3.down * Time.deltaTime * Speed;
         yield return null;
     }
 }

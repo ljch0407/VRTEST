@@ -12,11 +12,9 @@ public class GetLightOption : MonoBehaviour
     {
         lightSetting = GetComponent<Light>();
     }
-
     
-    void Update()
+    void LateUpdate()
     {
         lightSetting.intensity = option.currentLightIntensity;
-        
     }
 }
