@@ -206,7 +206,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1.166914
-  MaxDistance: 500
+  MaxDistance: 3.4808044
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -3122,7 +3122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6470584256686147724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.065704346, y: -4.44, z: 0.63}
+  m_LocalPosition: {x: -0.1, y: -4.44, z: -1.57}
   m_LocalScale: {x: 2.745973, y: 10.983892, z: 2.745973}
   m_Children: []
   m_Father: {fileID: 8258879189394731502}
@@ -3966,13 +3966,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8258879189394731502}
   - component: {fileID: 3770010112394467767}
-  - component: {fileID: 2917836424200105480}
   - component: {fileID: 283380538674269810}
   - component: {fileID: 7940352283256650612}
   - component: {fileID: 525423892995302266}
   - component: {fileID: 5967227784615180795}
-  - component: {fileID: 4124534098491284102}
-  - component: {fileID: 4628762155736193205}
+  - component: {fileID: 1646295795}
   m_Layer: 10
   m_Name: main_Monster
   m_TagString: Monster
@@ -4025,7 +4023,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 80
-  m_StoppingDistance: 1
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -4033,20 +4031,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &2917836424200105480
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8779413916616584020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.1
-  m_Height: 1.76
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.71, z: 0}
 --- !u!95 &283380538674269810
 Animator:
   serializedVersion: 3
@@ -4108,13 +4092,10 @@ MonoBehaviour:
   CurrentState: 0
   _id: 0
   WanderingSpot: {fileID: 0}
-  MeleeArea: {fileID: 4628762155736193205}
-  SightArea: {fileID: 3486807289039669609}
-  HearingArea: {fileID: 4124534098491284102}
   isBlind: 0
   PlayerInfo: {fileID: 0}
   _soundManager: {fileID: 0}
-  _AudioSource: {fileID: 0}
+  _AudioSource: {fileID: 1728951972}
   _Ai: {fileID: 0}
 --- !u!54 &5967227784615180795
 Rigidbody:
@@ -4132,8 +4113,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!136 &4124534098491284102
-CapsuleCollider:
+--- !u!65 &1646295795
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4141,24 +4122,10 @@ CapsuleCollider:
   m_GameObject: {fileID: 8779413916616584020}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 1.07
-  m_Height: 8.33
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.99, z: 0}
---- !u!135 &4628762155736193205
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8779413916616584020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.78
-  m_Center: {x: 0, y: 0.97, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &8931647620399999441
 GameObject:
   m_ObjectHideFlags: 0

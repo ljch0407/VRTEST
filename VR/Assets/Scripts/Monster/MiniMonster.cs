@@ -21,6 +21,10 @@ public class MiniMonster : MonoBehaviour
     
     public int _id;
 
+    private void Awake()
+    {
+        Effect.Stop();
+    }
     private void Start()
     {
         _nav = GetComponent<NavMeshAgent>();
@@ -32,7 +36,7 @@ public class MiniMonster : MonoBehaviour
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);
-        Effect.Stop();
+        
         
         _anim.SetTrigger("Spawn");
         StartCoroutine(IDLESoundPlay());
@@ -61,46 +65,56 @@ public class MiniMonster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Weapon")
+        if (other.tag == "Weapon" && other.gameObject.layer == 20)
         {
-            gameObject.GetComponent<XRGrabInteractable>().enabled = true;
-            
+            isAlive = false;
+
+            gameObject.GetComponent<NavMeshAgent>().isStopped = true;
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
+            gameObject.GetComponent<XRGrabInteractable>().enabled = true;
             gameObject.layer = 06;
+            
             StartCoroutine(DeadSoundPlay());
-            gameObject.GetComponent<MiniMonster>().enabled = false;
 
 
         }
         else if (other.tag == "Player" && isAlive)
         {
             //Target.GetComponent<PlayerInfo>().healthPoint--;
+            isAlive = false;
+
             StartCoroutine(EffectPlay());
         }
     }
 
     IEnumerator EffectPlay()
     {
-        Effect.Play();
+        _soundManager.Monster_StopSFX(_id);
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Attack", _id);
-        isAlive = false;
-        yield return new WaitForSeconds(0.4f);
+        Effect.Play();
+
+        yield return new WaitForSeconds(0.6f);
         GameObject.Destroy(gameObject);
     }
     IEnumerator DeadSoundPlay()
     {
+        _soundManager.Monster_StopSFX(_id);
+
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Dead", _id);
-        isAlive = false;
+        yield return new WaitForSeconds(0.6f);
+        _soundManager.Monster_StopSFX(_id);
         
         _anim.SetBool("Idle", true);
-        _anim.gameObject.SetActive(false);
+        _anim.enabled = false;
         
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
+        GameObject.Destroy(gameObject);
+
     }
     IEnumerator IDLESoundPlay()
     {
         _soundManager.Monster_PlaySFX("SFX_MinMonster_IDLE", _id);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(6f);
     }
 }

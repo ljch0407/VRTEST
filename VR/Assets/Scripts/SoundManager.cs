@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource[] sfxPlayer = null;
     [SerializeField] AudioSource bgmPlayer;
     public Dictionary<int, AudioSource> MonstersfxPlayer;
+
     private void Awake()
     {
         instance = this;
@@ -54,7 +55,7 @@ public class SoundManager : MonoBehaviour
     {
         for (int i = 0; i < sfx.Length; i++)
         {
-            if (p_sfxName == sfx[0].name )
+            if (p_sfxName == sfx[0].name)
             {
                 if (!sfxPlayer[3].isPlaying)
                 {
@@ -114,7 +115,7 @@ public class SoundManager : MonoBehaviour
             {
                 for (int j = 0; j < sfxPlayer.Length; j++)
                 {
-                    
+
                     // SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 
                     if (sfxPlayer[j].isPlaying)
                     {
@@ -134,6 +135,7 @@ public class SoundManager : MonoBehaviour
         MonstersfxPlayer[ID].Pause();
         Debug.Log(MonstersfxPlayer[ID].isPlaying);
     }
+
     public void Monster_PlaySFX(string p_sfxName, int ID)
     {
         if (MonstersfxPlayer.Count != 0)
@@ -142,41 +144,23 @@ public class SoundManager : MonoBehaviour
             {
                 if (p_sfxName == Monster_sfx[i].name)
                 {
-                    if (!MonstersfxPlayer[ID].isPlaying)
-                    {
-                        MonstersfxPlayer[ID].clip = Monster_sfx[i].clip;
-                        MonstersfxPlayer[ID].Play();
-                        return;
-                    }
+                    MonstersfxPlayer[ID].clip = Monster_sfx[i].clip;
+                    MonstersfxPlayer[ID].Play();
+                    return;
                 }
             }
 
             //Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
-        return;
+            return;
         }
     }
 
-    public void Monster_StopSFX(string p_sfxName)
+    public void Monster_StopSFX(int id)
     {
         if (MonstersfxPlayer.Count != 0)
         {
-            for (int i = 0; i < sfx.Length; i++)
-            {
-                if (p_sfxName == sfx[i].name)
-                {
-                    for (int j = 0; j < sfxPlayer.Length; j++)
-                    {
-                        // SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 
-                        if (sfxPlayer[j].isPlaying)
-                        {
-                            sfxPlayer[j].Pause();
-                            return;
-                        }
-                    }
-
-                    return;
-                }
-            }
+            MonstersfxPlayer[id].Pause();
+            return;
         }
     }
 }
