@@ -11,6 +11,8 @@ public class GetLightOption : MonoBehaviour
     void Start()
     {
         lightSetting = GetComponent<Light>();
+        option = GameObject.FindGameObjectWithTag("LightManager").GetComponent<optionLight>();
+
     }
     
     void LateUpdate()
