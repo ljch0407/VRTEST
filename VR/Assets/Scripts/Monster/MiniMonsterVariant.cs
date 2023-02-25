@@ -62,10 +62,13 @@ public class MiniMonsterVariant : MonoBehaviour
     {
         if (other.tag == "Weapon" && other.gameObject.layer == 20)
         {
+            
+            if (isAlive)
+            {
+                Instantiate(explosive, transform.position, transform.rotation);
+            }
+            
             isAlive = false;
-
-            Instantiate(explosive, transform.position, transform.rotation);
-
             gameObject.GetComponent<NavMeshAgent>().isStopped = true;
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
