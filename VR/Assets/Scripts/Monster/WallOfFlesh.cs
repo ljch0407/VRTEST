@@ -20,6 +20,9 @@ public class WallOfFlesh : MonoBehaviour
     public AudioSource _AudioSource;
     public int _id;
     public ManagerAIScript _Ai;
+
+    public float MobSpawnTime;
+    public float MobSpawnDistance;
     
     private float monsterCounter;
     private void Start()
@@ -33,6 +36,16 @@ public class WallOfFlesh : MonoBehaviour
         StartCoroutine(IDLESoundPlay());
         monsterCounter = 50;
         StartCoroutine(SpawnMonster());
+
+        if (MobSpawnDistance == 0.0f)
+        {
+            MobSpawnDistance = 10.0f;
+        }
+
+        if (MobSpawnTime == 0.0f)
+        {
+            MobSpawnTime = 2.0f;
+        }
     }
 
 
@@ -54,9 +67,9 @@ public class WallOfFlesh : MonoBehaviour
 
     IEnumerator SpawnMonster()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(MobSpawnTime);
 
-        if (Vector3.Distance(SpawnTransform.position, target.position) < 10)
+        if (Vector3.Distance(SpawnTransform.position, target.position) < MobSpawnDistance)
         {
             monsterCounter--;
 
@@ -66,13 +79,14 @@ public class WallOfFlesh : MonoBehaviour
             }
         }
         _soundManager.Monster_PlaySFX("SFX_WOF_Spawnning", _id);
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(1f);
         _soundManager.Monster_StopSFX(_id);
         _soundManager.Monster_PlaySFX("SFX_WOF_IDLE", _id);
 
         StartCoroutine(SpawnMonster());
-       
     }
+    
+    
     void HeadTrackingUpdate()
     {
         //Head to Target
