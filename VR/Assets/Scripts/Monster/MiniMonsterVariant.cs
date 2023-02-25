@@ -60,11 +60,15 @@ public class MiniMonsterVariant : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.tag == "Weapon" && other.gameObject.layer == 20)
         {
+            if (isAlive)
+            {
+                Instantiate(explosive, transform.position, transform.rotation);
+            }
             isAlive = false;
 
-            Instantiate(explosive, transform.position, transform.rotation);
 
             gameObject.GetComponent<NavMeshAgent>().isStopped = true;
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
@@ -73,7 +77,6 @@ public class MiniMonsterVariant : MonoBehaviour
 
             gameObject.layer = 06;
             StartCoroutine(DeadSoundPlay());
-            gameObject.GetComponent<MiniMonsterVariant>().enabled = false;
 
         }
         else if (other.tag == "Player" && isAlive)
@@ -93,6 +96,7 @@ public class MiniMonsterVariant : MonoBehaviour
 
         yield return new WaitForSeconds(0.6f);
         GameObject.Destroy(gameObject);
+
     }
     IEnumerator DeadSoundPlay()
     {

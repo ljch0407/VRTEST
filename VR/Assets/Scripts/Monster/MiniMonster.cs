@@ -76,7 +76,6 @@ public class MiniMonster : MonoBehaviour
             gameObject.layer = 06;
             
             StartCoroutine(DeadSoundPlay());
-            gameObject.GetComponent<MiniMonster>().enabled = false;
 
 
         }
