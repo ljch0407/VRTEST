@@ -67,10 +67,12 @@ public class MiniMonster : MonoBehaviour
     {
         if (other.tag == "Weapon" && other.gameObject.layer == 20)
         {
-            gameObject.GetComponent<XRGrabInteractable>().enabled = true;
-            
+            isAlive = false;
+
+            gameObject.GetComponent<NavMeshAgent>().isStopped = true;
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
+            gameObject.GetComponent<XRGrabInteractable>().enabled = true;
             gameObject.layer = 06;
             
             StartCoroutine(DeadSoundPlay());
@@ -81,6 +83,8 @@ public class MiniMonster : MonoBehaviour
         else if (other.tag == "Player" && isAlive)
         {
             //Target.GetComponent<PlayerInfo>().healthPoint--;
+            isAlive = false;
+
             StartCoroutine(EffectPlay());
         }
     }
@@ -91,7 +95,6 @@ public class MiniMonster : MonoBehaviour
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Attack", _id);
         Effect.Play();
 
-        isAlive = false;
         yield return new WaitForSeconds(0.6f);
         GameObject.Destroy(gameObject);
     }
@@ -102,12 +105,13 @@ public class MiniMonster : MonoBehaviour
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Dead", _id);
         yield return new WaitForSeconds(0.6f);
         _soundManager.Monster_StopSFX(_id);
-        isAlive = false;
         
         _anim.SetBool("Idle", true);
         _anim.enabled = false;
         
         yield return new WaitForSeconds(0.5f);
+        GameObject.Destroy(gameObject);
+
     }
     IEnumerator IDLESoundPlay()
     {
