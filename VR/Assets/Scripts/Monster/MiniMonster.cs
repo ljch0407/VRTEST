@@ -65,13 +65,14 @@ public class MiniMonster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Weapon")
+        if (other.tag == "Weapon" && other.gameObject.layer == 20)
         {
             gameObject.GetComponent<XRGrabInteractable>().enabled = true;
             
             gameObject.GetComponent<NavMeshAgent>().enabled = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.layer = 06;
+            
             StartCoroutine(DeadSoundPlay());
             gameObject.GetComponent<MiniMonster>().enabled = false;
 
@@ -99,10 +100,12 @@ public class MiniMonster : MonoBehaviour
         _soundManager.Monster_StopSFX(_id);
 
         _soundManager.Monster_PlaySFX("SFX_MinMonster_Dead", _id);
+        yield return new WaitForSeconds(0.6f);
+        _soundManager.Monster_StopSFX(_id);
         isAlive = false;
         
         _anim.SetBool("Idle", true);
-        _anim.gameObject.SetActive(false);
+        _anim.enabled = false;
         
         yield return new WaitForSeconds(0.5f);
     }
