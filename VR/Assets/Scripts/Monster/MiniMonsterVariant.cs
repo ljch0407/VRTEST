@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Experimental.Playables;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class MiniMonsterVariant : MiniMonster
+public class MiniMonsterVariant : MonoBehaviour
 {
     private NavMeshAgent _nav;
     private Animator _anim;
