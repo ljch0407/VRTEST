@@ -53,7 +53,7 @@ public class LegStepper : MonoBehaviour
         Vector3 endPoint = homeTransform.position + overshootVector;
         Vector3 centerPoint = (startPoint + endPoint) / 2;
         //centerPoint += homeTransform.up * Vector3.Distance(startPoint, endPoint) / 2f;
-        centerPoint += homeTransform.up * Vector3.Distance(startPoint, endPoint) / 2f;
+        centerPoint += homeTransform.right * Vector3.Distance(startPoint, endPoint) / 1.5f;
 
         float timeElapsed = 0;
         do
