@@ -127,6 +127,7 @@ public class WallOfFlesh : MonoBehaviour
     {
         _soundManager.Monster_PlaySFX("SFX_WOF_Howling", _id);
         yield return new WaitForSeconds(10f);
+        Destroy(this.gameObject);
     }
     IEnumerator IDLESoundPlay()
     {

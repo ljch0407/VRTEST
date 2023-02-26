@@ -354,7 +354,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2224160763667152309}
   - component: {fileID: 3213696381145571060}
-  - component: {fileID: 6328455086658346003}
   m_Layer: 0
   m_Name: Flesh_wall_high3_2
   m_TagString: Untagged
@@ -439,20 +438,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -9.06707, y: -6.455618, z: -0.33875322}
     m_Extent: {x: 13.971556, y: 13.402119, z: 11.552673}
   m_DirtyAABB: 0
---- !u!136 &6328455086658346003
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3773212682835443813}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.35
-  m_Height: 6.72
-  m_Direction: 1
-  m_Center: {x: -0.20522562, y: 0.49852276, z: 0.020625189}
 --- !u!1 &4754011481994972945
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +514,7 @@ GameObject:
   - component: {fileID: 6648645747991901027}
   - component: {fileID: 6648645747991901025}
   - component: {fileID: 2576218374864822872}
+  - component: {fileID: 5712931682761559363}
   m_Layer: 0
   m_Name: Flesh_wall_pillar
   m_TagString: Untagged
@@ -615,6 +601,20 @@ PlayableDirector:
     value: {fileID: 6648645747991901027}
   m_ExposedReferences:
     m_References: []
+--- !u!136 &5712931682761559363
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802278737930911603}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 5.6
+  m_Height: 26.31
+  m_Direction: 1
+  m_Center: {x: 0, y: 16.22, z: 0}
 --- !u!1 &6648645746510045938
 GameObject:
   m_ObjectHideFlags: 0
