@@ -13,12 +13,22 @@ public class WOF_varients : MonoBehaviour
     public AudioSource _AudioSource;
     public int _id;
     public ManagerAIScript _Ai;
+    public PlayableDirector TimeDirector;
+    public GameObject Eyeball;
+    public ParticleSystem explode;
+
+    private bool isDead;
+
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     private void Start()
     {
         _Ai = GameObject.FindGameObjectWithTag("AiManager").GetComponent<ManagerAIScript>();
         _id = _Ai.monster_id_Update();
-        
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        explode.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);        
+        isDead = false;
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);
         StartCoroutine(IDLESoundPlay());
@@ -30,10 +40,13 @@ public class WOF_varients : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Explosive")
+        if (other.tag == "Explosive" && !isDead)
         {
-            //TimeDirector.Play();
+            TimeDirector.Play();
+            
             StartCoroutine(DeadSoundPlay());
+            StartCoroutine(DeadMotionPlay());
+            
         }
     }
     void HeadTrackingUpdate()
@@ -62,7 +75,15 @@ public class WOF_varients : MonoBehaviour
     {
         _soundManager.Monster_StopSFX(_id);
         _soundManager.Monster_PlaySFX("SFX_WOF_Howling", _id);
+       
         yield return new WaitForSeconds(0.4f);
+    }IEnumerator DeadMotionPlay()
+    {
+        explode.Play();
+        Eyeball.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        explode.Stop();
+        isDead = true;
     }
     IEnumerator IDLESoundPlay()
     {

@@ -15,7 +15,6 @@ public class ManagerAIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*
         monstersList = new List<GameObject>();
         
         foreach (var VARIABLE in monsterPrefabs)
@@ -25,14 +24,11 @@ public class ManagerAIScript : MonoBehaviour
 
 
         _playerInfo = GameObject.FindWithTag("Player").GetComponent<PlayerInfo>();
-        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-         * 
         if (_playerInfo.isPaused)
         {
             foreach (var m in monstersList)
@@ -50,7 +46,6 @@ public class ManagerAIScript : MonoBehaviour
                 m.SetActive(true);
             }
         }
-         */
     }
 
     public int monster_id_Update()
