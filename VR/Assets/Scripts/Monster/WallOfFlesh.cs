@@ -46,13 +46,15 @@ public class WallOfFlesh : MonoBehaviour
         {
             MobSpawnTime = 2.0f;
         }
+        
+        StartCoroutine( HeadTrackingUpdate());
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        HeadTrackingUpdate();
+       
     }
 
 
@@ -87,7 +89,7 @@ public class WallOfFlesh : MonoBehaviour
     }
     
     
-    void HeadTrackingUpdate()
+    IEnumerator HeadTrackingUpdate()
     {
         //Head to Target
         Quaternion currentLocalRotation = eyeBone.localRotation;
@@ -121,6 +123,7 @@ public class WallOfFlesh : MonoBehaviour
             targetLocalRotation2,
             1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
         );
+        yield return null;
     }
     
     IEnumerator DeadSoundPlay()

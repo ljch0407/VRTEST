@@ -24,12 +24,13 @@ public class WOF_small : MonoBehaviour
         _soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         _soundManager.Add_Monster_audio(_AudioSource, _id);
         StartCoroutine(IDLESoundPlay());
+        StartCoroutine( HeadTrackingUpdate());
     }
 
-    void Update()
+    void FIxedUpdate()
     {
-        HeadTrackingUpdate();
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Explosive")
@@ -38,7 +39,7 @@ public class WOF_small : MonoBehaviour
             StartCoroutine(DeadSoundPlay());
         }
     }
-    void HeadTrackingUpdate()
+    IEnumerator HeadTrackingUpdate()
     {
         //Head to Target
         Quaternion currentLocalRotation = eyeBone.localRotation;
@@ -58,7 +59,8 @@ public class WOF_small : MonoBehaviour
         eyeBone.localRotation = Quaternion.Slerp(currentLocalRotation,
             targetLocalRotation,
             1-Mathf.Exp(-headTrackingSpeed * Time.deltaTime)
-        );        
+        );
+        yield return null;
     }
 
     IEnumerator DeadSoundPlay()
