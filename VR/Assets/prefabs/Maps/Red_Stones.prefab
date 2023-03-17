@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4047206404982952210
 Transform:
@@ -45,7 +45,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8101349402686347792
 Transform:
@@ -146,7 +146,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -167,12 +167,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3122886778129377183}
   - component: {fileID: 1011925538913263102}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!4 &3122886778129377183
 Transform:
@@ -239,7 +239,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -264,7 +264,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2104659005631244378
 Transform:
@@ -296,7 +296,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!4 &3699960056598136873
 Transform:
@@ -363,7 +363,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -388,7 +388,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5799741201771393422
 Transform:
@@ -421,6 +421,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mana_Stone 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328843515639859753, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6749182389220383891, guid: 26e530c2cad86e641ace6a640062c59c,
         type: 3}
@@ -517,6 +527,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mana_Stone 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328843515639859753, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6749182389220383891, guid: 26e530c2cad86e641ace6a640062c59c,
         type: 3}
       propertyPath: m_RootOrder
@@ -611,6 +631,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mana_Stone 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328843515639859753, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6749182389220383891, guid: 26e530c2cad86e641ace6a640062c59c,
         type: 3}
@@ -707,6 +737,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mana_Stone 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328843515639859753, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6749182389220383891, guid: 26e530c2cad86e641ace6a640062c59c,
         type: 3}
       propertyPath: m_RootOrder
@@ -802,6 +842,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mana_Stone 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328843515639859753, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6749182389220383891, guid: 26e530c2cad86e641ace6a640062c59c,
         type: 3}
       propertyPath: m_RootOrder
@@ -896,6 +946,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mana_Stone 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6260629324471060009, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328843515639859753, guid: 26e530c2cad86e641ace6a640062c59c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6749182389220383891, guid: 26e530c2cad86e641ace6a640062c59c,
         type: 3}
